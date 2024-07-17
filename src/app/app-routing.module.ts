@@ -6,12 +6,13 @@ import { EnterNewPasswordComponent } from './auth/enter-new-password/enter-new-p
 import { RestorePasswordRequestComponent } from './auth/restore-password-request/restore-password-request.component';
 import { OtpCodeComponent } from './auth/otp-code/otp-code.component';
 import { NotFoundComponent } from './auth/not-found/not-found.component';
+import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
-
+  { path: '', component : LoginComponent },
   { path: 'auth/attach-file', component : AttachFileComponent },
   { path: 'auth/create-account', component : CreateAccountComponent },
-  { path: 'auth/login', component : CreateAccountComponent },
+  { path: 'auth/login', component : LoginComponent },
   { path: 'auth/not-found', component : NotFoundComponent },
   { path: 'auth/otp-code', component : OtpCodeComponent },
   { path: 'auth/enter-new-password', component : EnterNewPasswordComponent },

@@ -93,9 +93,13 @@ h1 {
   text-align: center;
   background-color: #fff;
   cursor: pointer;
-  width: 300px;
+  width: 100%;
 }
 
 #file-input {
   display: none;
+}
+
+.drop-text{
+  font-size: 12px;
 }

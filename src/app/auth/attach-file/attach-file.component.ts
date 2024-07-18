@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-attach-file',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AttachFileComponent implements OnInit {
 
-  constructor() { }
+  uploadForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.uploadForm = this.fb.group({
+      license: [null, Validators.required],
+      car: [null, Validators.required],
+      personal: [null, Validators.required]
+    });
+  }
 
   ngOnInit(): void {
   }

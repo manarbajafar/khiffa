@@ -1,34 +1,53 @@
 <div class="container-fluid">
-  <div class="logo-container text-center mt-4 mb-2">
-    <img style="width: 250px;" src="assets/images/logo2.png" alt="khiffa logo">
+  <div class="logo-container text-center mt-2 mb-2">
+    <img src="assets/images/logo2.png" alt="khiffa logo">
   </div>
-  <form class="mx-auto mb-4">
-    <h4 class="text-center mb-3">إنشاء حساب</h4>
+  <form class="mx-auto mb-3" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <h4 class="text-center mb-2">إنشاء حساب</h4>
 
     <div class="mb-3" style="width: 670.48px; text-align: right; color: #808080; font-size: 12px; line-height: 20px; word-wrap: break-word">الرجاء إرفاق جميع المتطلبات مع أحدث نسخة</div>
     <div class="row g-3">
-    <div class="col-md-6 mb-3 ">
-      <label for="inputname" class="form-label">الاسم الثلاثي</label>
-      <input type="text" class="form-control" id="inputname" placeholder="سارة محمد علي" required>
+      <div class="col-md-6 mb-3">
+        <label for="inputname" class="form-label">الاسم الثلاثي</label>
+        <input type="text" formControlName="name" class="form-control" id="inputname" placeholder="سارة محمد علي">
+        <div *ngIf="signupForm.get('name')?.touched && signupForm.get('name')?.invalid" class="validation-error">
+          <div *ngIf="signupForm.get('name')?.errors?.['required']">الاسم الثلاثي مطلوب</div>
+          <div *ngIf="signupForm.get('name')?.errors?.['pattern']">الاسم يجب أن يكون ثلاثي</div>
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="inputID" class="form-label">رقم الهوية</label>
+        <input type="text" formControlName="id" class="form-control" id="inputID" placeholder="1111111111">
+        <div *ngIf="signupForm.get('id')?.touched && signupForm.get('id')?.invalid" class="validation-error">
+          <div *ngIf="signupForm.get('id')?.errors?.['required']">رقم الهوية مطلوب</div>
+          <div *ngIf="signupForm.get('id')?.errors?.['pattern']">رقم الهوية يجب ان يكون عشر ارقام ويبدأ ب1 أو 2</div>
+        </div>
+      </div>
     </div>
-    <div class="col-md-6 mb-3">
-      <label for="inputID" class="form-label">رقم الهوية</label>
-      <input type="text" class="form-control" id="inputID" placeholder="1111111111" required>
-    </div></div>
     <div class="mb-3">
       <label for="inputEmail" class="form-label">البريد الإلكتروني</label>
-      <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="user@gmail.com"required>
+      <input type="email" formControlName="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="user@gmail.com">
+      <div *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid" class="validation-error">
+        <div *ngIf="signupForm.get('email')?.errors?.['required']">البريد الإلكتروني مطلوب</div>
+        <div *ngIf="signupForm.get('email')?.errors?.['email']">أدخل بريد إلكتروني صحيح</div>
+      </div>
     </div>
     <div class="mb-3">
       <label for="inputPhone" class="form-label">رقم الجوال</label>
-      <input type="text" class="form-control" id="inputPhone" placeholder="551113333"required>
+      <input type="text" formControlName="phone" class="form-control" id="inputPhone" placeholder="********05">
+      <div *ngIf="signupForm.get('phone')?.touched && signupForm.get('phone')?.invalid" class="validation-error">
+        <div *ngIf="signupForm.get('phone')?.errors?.['required']">رقم الجوال مطلوب</div>
+        <div *ngIf="signupForm.get('phone')?.errors?.['pattern']">رقم الجوال غير صالح</div>
+      </div>
     </div>
     <div class="mb-3">
       <label for="inputPassword" class="form-label">كلمة المرور</label>
-      <input type="password" class="form-control" id="inputPassword" placeholder="35k#Lj223"required>
+      <input type="password" formControlName="password" class="form-control" id="inputPassword" placeholder="35kLj223">
+      <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid" class="validation-error">
+        <div *ngIf="signupForm.get('password')?.errors?.['required']">كلمة المرور مطلوبة</div>
+        <div *ngIf="signupForm.get('password')?.errors?.['pattern']">كلمة المرور يجب أن تكون على الأقل 6 أرقام وحروف</div>
+      </div>
     </div>
-    <!-- <button type="submit" class="btn btn-primary mt-3">إكمال التسجيل</button> -->
-    <a type="submit" href="auth/attach-file" class="btn btn-primary mt-3">إكمال التسجيل</a>
+    <a type="submit" class="btn btn-primary mt-2" routerLink="/auth/attach-file">إكمال التسجيل</a>
   </form>
 </div>
-

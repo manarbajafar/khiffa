@@ -3,6 +3,33 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
+
+
+
+:root {
+  --primary-color: #A0153E;
+  --secondary-color: #FF204E;
+  --background-color: #FAFAFA;
+  --title-color: #00224D;
+  --black-color: #000000;
+  --white-color: #ffffff;
+  --gray-color: #646464;
+  --icon-background-color: #EAD196;
+
+
+  // Colors of service providers on the map
+  --lazza-color: #FF204E;
+  --ghadaf-color: #00224D;
+  --sahhil-color: #FF8144;
+  --lazza-ghadaf-color:linear-gradient(180deg, rgba(0, 34, 77, 0.70) 10%, rgba(255, 32, 78, 0.70) 100%);
+
+  // Colors of orders statuses in charts
+  --accepted-order-color: #2D9CDB;
+  --pending-order-color: #F2A735;
+  --completed-order-color: #87B6A1;
+  --canceled-order-color: #DB79A9;
+}
+
 *{
   margin: 0;
   padding: 0;
@@ -11,7 +38,7 @@
 
 
 body{
-  background-color: #FAFAFA; //EDEDED
+  background-color: var(--background-color); //EDEDED
   font-family: 'tajawal';
 }
 

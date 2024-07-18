@@ -30,7 +30,7 @@ form {
 }
 
 .form-control:focus {
-  border-color: #FF204E;
+  border-color:var(--secondary-color);;
   box-shadow: none;
 }
 
@@ -48,12 +48,14 @@ form {
 
 .btn-primary {
   width: 100%;
-  background-color: #A0153E;
+  background-color:var(--primary-color);
   border-radius: 8px;
   border-style: none;
 }
 
-
+.btn-primary:active {
+  background-color: var(--secondary-color);;
+}
 
 #file-drop-area {
   border: 2px dashed #ccc;

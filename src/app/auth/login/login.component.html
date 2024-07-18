@@ -12,7 +12,7 @@
       <input type="email" formControlName="email" class="form-control" id="email" placeholder="أدخل البريد الإلكتروني">
       <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="validation-error">
         <div *ngIf="loginForm.get('email')?.errors?.['required']">البريد الإلكتروني مطلوب</div>
-        <!-- <div *ngIf="loginForm.get('email')?.errors?.['email']">أدخل بريد إلكتروني صحيح</div> -->
+        <div *ngIf="loginForm.get('email')?.errors?.['email']">أدخل بريد إلكتروني صحيح</div>
       </div>
     </div>
 

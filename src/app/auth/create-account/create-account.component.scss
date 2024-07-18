@@ -30,7 +30,7 @@ form {
 }
 
 .form-control:focus {
-  border-color: #FF204E;
+  border-color: var(--secondary-color);
   box-shadow: none;
 }
 
@@ -52,9 +52,12 @@ form {
 
 .btn-primary {
   width: 100%;
-  background-color: #A0153E;
+  background-color:var(--primary-color);;
   border-radius: 8px;
   border-style: none;
+}
+.btn-primary:active {
+  background-color: var(--secondary-color);
 }
 
 h4 {
@@ -65,7 +68,7 @@ h4 {
 
 .error-message {
   background-color: pink;
-  color: #A0153E;
+  color: var(--primary-color);;
   padding: 10px;
   border-radius: 8px;
   margin-bottom: 20px;
@@ -73,7 +76,7 @@ h4 {
 }
 
 .validation-error {
-  color: #FF204E;
+  color: var(--secondary-color);
   font-size: calc(10px + 0.1vw);
   margin-top: 5px;
 }

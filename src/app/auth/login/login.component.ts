@@ -21,7 +21,7 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
-      this.errorMessage = 'الإيميل أو كلمة المرور غير صحيحة';
+      this.setValidationErrors();
       return;
     }
 
@@ -36,4 +36,12 @@ export class LoginComponent {
     }
   }
 
+  private setValidationErrors(): void {
+    const controls = this.loginForm.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        controls[name].markAsTouched();
+      }
+    }
+  }
 }

@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MainLayoutComponent } from './main-apps/layout/main-layout/main-layout.component';
+import { SidebarComponent } from './main-apps/layout/sidebar/sidebar.component';
 const routes: Routes = [
 
-    { path:'', redirectTo:'/auth/login', pathMatch:'full'},
+    // { path:'', redirectTo:'/auth/login', pathMatch:'full'},
+    { path:'', redirectTo:'/apps/admin-dashboard/dashboard-view', pathMatch:'full'},
+
 
 // redirect to system
   {
@@ -10,12 +14,12 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
 
-  //   {
-  //   path:'apps', component: MainLayoutComponent,
-  //   loadChildren: () => import('./main-apps/main-apps.module').then(m => m.MainAppsModule),
+    {
+    path:'apps', component: MainLayoutComponent,
+    loadChildren: () => import('./main-apps/main-apps.module').then(m => m.MainAppsModule),
+   // canActivate:[JMBHJGJHG] //to know user type
+  },
 
-  //   // canActivate:[JMBHJGJHG] //to know user type
-  // },
 ];
 
 @NgModule({

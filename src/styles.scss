@@ -3,7 +3,9 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
-
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 
 :root {
@@ -16,6 +18,9 @@
   --gray-color: #646464;
   --error-background-color: rgba(255, 32, 78, 0.20)
   --icon-background-color: #EAD196;
+
+  --sidenav-width: 300px;
+  --sidenav-collapsed-width: 20px;
 
 
   // Colors of service providers on the map
@@ -39,6 +44,7 @@
 
 
 body{
+  margin: 0;
   background-color: var(--background-color); //EDEDED
   font-family: 'tajawal';
 }

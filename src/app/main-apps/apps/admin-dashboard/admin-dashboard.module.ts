@@ -12,6 +12,7 @@ import { DashboardViewComponent } from './dashboard-view/dashboard-view.componen
   imports: [
     CommonModule,
     AdminDashboardRoutingModule
-  ]
+  ],
+  exports:[DashboardViewComponent]
 })
 export class AdminDashboardModule { }

@@ -23,7 +23,7 @@ form {
   width: 80%;
   max-width: 400px;
   max-height: 10%;
-  background-color: white;
+  background-color: var(--white-color);
   padding: 30px;
   border-radius: 29px;
   box-shadow: 0px 3px 18px rgba(0, 0, 0, 0.08);
@@ -41,7 +41,7 @@ form {
 }
 
 .form-control::placeholder {
-  color: #808080;
+  color:var(--gray-color);
   font-size: calc(10.5px + 0.1vw);
   font-weight: 300;
 }
@@ -67,7 +67,7 @@ form {
   background-color: var(--secondary-color);
 }
 h4 {
-  color: #00224D;
+  color: var(--title-color);;
   font-size: calc(20px + 0.5vw);
   word-wrap: break-word;
 }

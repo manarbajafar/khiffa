@@ -5,7 +5,6 @@ import { MainAppsRoutingModule } from './main-apps-routing.module';
 import { MainLayoutComponent } from './layout/main-layout/main-layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
-import { BodyComponent } from './layout/body/body.component';
 
 
 @NgModule({
@@ -13,7 +12,7 @@ import { BodyComponent } from './layout/body/body.component';
     MainLayoutComponent,
     HeaderComponent,
     SidebarComponent,
-    BodyComponent,
+
   ],
   imports: [
     CommonModule,
@@ -23,7 +22,7 @@ import { BodyComponent } from './layout/body/body.component';
     SidebarComponent,
     MainLayoutComponent,
     HeaderComponent,
-    BodyComponent,
+
   ]
 })
 export class MainAppsModule { }

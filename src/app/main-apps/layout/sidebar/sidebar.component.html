@@ -1,26 +1,31 @@
+<div class="sidenav-body-container">
+  <div class="sidebar">
+    <div class="logo-container">
+      <button class="logo">
+        <img [src]="isExpanded ? 'assets/images/logo1.svg' : 'assets/images/logo2.svg'"
+        alt="khiffa logo"
+         />
+      </button>
+    </div>
 
+    <div class="sidebar-divider"></div>
 
-<div class="sidebar" [ngClass]="collapsed ? 'sidebar-collapsed' : ''">
-  <div class="logo-container">
-    <button class="logo" (click)="toggleCollapse()">
-      <img [src]="collapsed ? 'assets/images/logo1.svg' : 'assets/images/logo2.svg'"
-           alt="khiffa logo"
-            />
-    </button>
-    <button class="btn-close" *ngIf="collapsed" (click)="closeSidebar()"></button>
+    <ul class="nav-list">
+      <li class="nav-list-item" *ngFor="let item of sidebar_list">
+        <app-sidebar-link [routerLink]="[item.routerLink]">
+          <span icon><i class="sidebar-link-icon" [class]="item.icon"></i></span>
+          <span class="sidebar-link-text" *ngIf="isExpanded">{{ item.label }}</span>
+        </app-sidebar-link>
+      </li>
+    </ul>
   </div>
 
-  <div class="sidebar-divider"></div>
 
-  <ul class="nav-list">
-    <li class="nav-list-item" *ngFor="let item of sidebar_list">
-      <a class="sidebar-nav-link" [routerLink]="[item.routerLink]"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{exact:true}"
-      >
-        <i class="sidebar-link-icon" [class]="item.icon"></i>
-        <span class="sidebar-link-text" *ngIf="collapsed">{{ item.label }}</span>
-      </a>
-    </li>
-  </ul>
+  <button
+    class="toggle-button"
+    (click)="sidebarService.toggleSidenav()"
+    [class.is-flipped]="sidebarService.isExpanded"
+  >
+    <i class='bx bx-left-arrow-circle'></i>
+  </button>
 </div>

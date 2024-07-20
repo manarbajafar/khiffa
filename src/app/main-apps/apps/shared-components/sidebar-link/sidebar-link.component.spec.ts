@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BodyComponent } from './body.component';
+import { SidebarLinkComponent } from './sidebar-link.component';
 
-describe('BodyComponent', () => {
-  let component: BodyComponent;
-  let fixture: ComponentFixture<BodyComponent>;
+describe('SidebarLinkComponent', () => {
+  let component: SidebarLinkComponent;
+  let fixture: ComponentFixture<SidebarLinkComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BodyComponent ]
+      declarations: [ SidebarLinkComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BodyComponent);
+    fixture = TestBed.createComponent(SidebarLinkComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

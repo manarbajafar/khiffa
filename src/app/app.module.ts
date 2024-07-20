@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthModule } from './auth/auth.module';
 import { MainAppsModule } from './main-apps/main-apps.module';
 import { AdminDashboardModule } from "./main-apps/apps/admin-dashboard/admin-dashboard.module";
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -14,10 +15,11 @@ import { AdminDashboardModule } from "./main-apps/apps/admin-dashboard/admin-das
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule,
     NgbModule,
     AuthModule, //
     MainAppsModule,
-    AdminDashboardModule
+    AdminDashboardModule,
 ],
   providers: [],
   bootstrap: [AppComponent]

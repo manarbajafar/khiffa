@@ -1,89 +1,12 @@
-
 :host {
   min-height: 100vh;
-
   display: flex;
   flex-direction: row;
 }
 
-.sidenav {
-  height: 100vh;
-  width: var(--sidenav-width);
-
-  box-sizing: border-box;
-}
 
 .content {
   flex-grow: 1;
 
   padding: 1rem;
 }
-
-// .container {
-//   display: flex;
-//   height: 100vh;
-
-// }
-
-
-
-// .container {
-//   display: flex;
-//   flex-direction: column;
-//   height: 100vh;
-// }
-
-// .app-header {
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   right: 0;
-
-//   z-index: 1000;
-// }
-
-// .app-sidenav {
-//   flex: 0 0 250px;
-//   background-color: #333;
-//   color: white;
-//   padding: 20px;
-// }
-
-// .content {
-//   position: fixed;
-//   top: 80px;
-//   right: 0;
-//   bottom: 0;
-
-//   overflow-y: auto;
-//   z-index: 999;
-// }
-
-
-
-// .content {
-//   flex: 1;
-//   // padding: 20px;
-//   // overflow-y: auto;
-//   // margin-left: 250px;
-//   // transition: margin-left 0.3s ease; /* Add a transition for smooth animation */
-// }
-
-// .content.content-with-sidebar {
-//   margin-left: 0;
-// }
-
-
-// .with-sidebar {
-//   left: 250px;
-//   padding: 3px;
-//   transition: left 0.3s ease, padding-left 0.3s ease;
-// }
-
-// .without-sidebar {
-//   left: 25px;
-//   padding: 3px;
-//   transition: left 0.3s ease, padding-left 0.3s ease;
-// }
-
-

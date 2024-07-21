@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AdminTechnicalSupportRoutingModule } from './admin-technical-support-routing.module';
 import { TechnicalSupportViewComponent } from './technical-support-view/technical-support-view.component';
+import { SharedComponentsModule } from 'src/app/shared-components/shared-components.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { TechnicalSupportViewComponent } from './technical-support-view/technica
   ],
   imports: [
     CommonModule,
-    AdminTechnicalSupportRoutingModule
+    AdminTechnicalSupportRoutingModule,
+    SharedComponentsModule,
   ]
 })
 export class AdminTechnicalSupportModule { }

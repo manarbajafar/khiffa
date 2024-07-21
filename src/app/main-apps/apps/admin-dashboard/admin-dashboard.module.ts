@@ -6,6 +6,9 @@ import { DashboardViewComponent } from './dashboard-view/dashboard-view.componen
 import { FormsModule } from '@angular/forms';
 import { SharedComponentsModule } from 'src/app/shared-components/shared-components.module';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,18 @@ import { SharedComponentsModule } from 'src/app/shared-components/shared-compone
     CommonModule,
     AdminDashboardRoutingModule,
     FormsModule,
+
+    //to use stat card
     SharedComponentsModule,
+
+    //to use date picker
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+
+    //charts
+
+
 ],
   exports:[DashboardViewComponent]
 })

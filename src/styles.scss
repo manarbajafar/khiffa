@@ -1,13 +1,51 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$khiffa-primary: mat.define-palette(mat.$indigo-palette);
+$khiffa-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$khiffa-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$khiffa-theme: mat.define-light-theme((
+  color: (
+    primary: $khiffa-primary,
+    accent: $khiffa-accent,
+    warn: $khiffa-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($khiffa-theme);
+
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
+//map
+@import "~leaflet/dist/leaflet.css";
+
 
 :root {
   --primary-color: #A0153E;
   --secondary-color: #FF204E;
-  --background-color: #FAFAFA;
+  --background-color: #EDEDED; //EDEDED FAFAFA
   --title-color: #00224D;
   --black-color: #000000;
   --white-color: #ffffff;
@@ -23,7 +61,7 @@
   --lazza-color: #FF204E;
   --ghadaf-color: #00224D;
   --sahhil-color: #FF8144;
-  --lazza-ghadaf-color:linear-gradient(180deg, rgba(0, 34, 77, 0.70) 10%, rgba(255, 32, 78, 0.70) 100%);
+  --lazza-ghadaf-color:linear-gradient(180deg, #00224DB3 10%, #FF204EB3 100%);
 
   // Colors of orders statuses in charts
   --accepted-order-color: #2D9CDB;
@@ -41,8 +79,9 @@
 
 body{
   margin: 0;
-  background-color: var(--background-color); //EDEDED
+  background-color: var(--background-color);
   font-family: 'tajawal';
 }
+
 
 

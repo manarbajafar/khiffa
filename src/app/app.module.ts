@@ -8,6 +8,7 @@ import { MainAppsModule } from './main-apps/main-apps.module';
 import { AdminDashboardModule } from "./main-apps/apps/admin-dashboard/admin-dashboard.module";
 import { RouterModule } from '@angular/router';
 import { SharedComponentsModule } from './shared-components/shared-components.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SharedComponentsModule } from './shared-components/shared-components.mo
     MainAppsModule,
     AdminDashboardModule,
     SharedComponentsModule,
+    BrowserAnimationsModule,
 ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,1 +1,33 @@
-<p>map-view works!</p>
+<div class="container">
+  <div class="">
+    <label for="">مواقع مزودي الخدمة في شركة لذّة، شركة غَدف،  متاجر سهّل.</label>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="legend d-flex justify-content-center mt-4">
+    <div class="legend-item">
+        <span class="legend-color" style="background-color: var(--lazza-color);"></span>مزودي خدمة شركة لذّة
+    </div>
+    <div class="legend-item">
+        <span class="legend-color" style="background-color: var(--ghadaf-color);"></span>مزودي خدمة شركة غَدف
+    </div>
+    <div class="legend-item">
+      <span class="legend-color" style="background-color: var(--accepted-order-color);"></span>مزودي خدمة مشتركين بين شركتي لذّة و غَدف
+  </div>
+    <div class="legend-item">
+        <span class="legend-color" style="background-color: var(--sahhil-color);"></span>مزودي خدمة شركة سهّل
+    </div>
+</div>
+
+
+<!-- map -->
+
+<div class="map-container mt-3"
+  leaflet
+  [leafletOptions]="options"
+  (leafletMapReady)="onMapReady($event)"
+  (leafletClick)="mapClicked($event)">
+</div>
+
+</div>

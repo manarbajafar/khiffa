@@ -1,7 +1,7 @@
 .custom-card {
   border-radius: 0.5rem;
   text-align: center;
-  padding: 1.5rem 1.2rem;
+  padding: 1rem 1.2rem;
   background-color: var(--white-color);
   display: flex;
   align-items: center;
@@ -85,4 +85,76 @@
 
 .btn-rounded {
   border-radius: 0.5rem;
+}
+
+
+
+//filter dropdown
+label{
+  font-weight: 500;
+  color: var(--title-color);
+  margin-left: 0.8rem;
+}
+
+
+.chart-container{
+  background-color: var(--white-color);
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 1.5rem 1.2rem 2.5rem;
+  background-color: var(--white-color);
+  position: relative;
+}
+
+
+//dropdown
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-button {
+  background-color: var(--white-color);
+  color: var(--black-color);
+  border: none;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-weight: 500;
+}
+
+.dropdown-content {
+  display: block;
+  position: absolute;
+  padding: 1rem;
+  background-color: var(--white-color);
+  min-width: 10rem;
+  box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.05);
+  z-index: 1;
+  border-radius: 0.5rem;
+  border: 0.1rem solid #EFF0F6;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-weight: 500;
+}
+
+.dropdown-item:hover {
+  background-color: var(--icon-background-color);
+  border-radius: 0.5rem;
+}
+
+.dropdown-icon {
+  margin-right: 0.5rem;
+  transition: transform 0.3s ease;
+  font-size: 0.8rem;
+  color: var(--primary-color);
+}
+
+.dropdown-button.open .dropdown-icon {
+  transform: rotate(180deg);
 }

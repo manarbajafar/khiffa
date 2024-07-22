@@ -1,0 +1,20 @@
+<nav aria-label="...">
+  <ul class="pagination mt-3">
+    <li class="page-item" style="cursor: pointer;">
+      <a class="page-link"
+      [ngClass]="{disabled: current_page== 1}" href="javascripts:void(0)"
+      (click)="pageClicked(current_page - 1)">السابق</a>
+    </li>
+    <li
+    (click)="pageClicked(page)"
+
+    *ngFor="let page of pages" class="page-item" [ngClass]="{'active':page==current_page}">
+    <a class="page-link" href="javascripts:void(0)">{{page}}</a></li>
+    <li class="page-item" style="cursor: pointer;">
+      <a class="page-link"
+
+      [ngClass]="{disabled: current_page== total_pages}" href="javascripts:void(0)"
+      (click)="pageClicked(current_page + 1)">التالي</a>
+    </li>
+  </ul>
+</nav>

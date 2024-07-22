@@ -40,6 +40,7 @@ var myChart = echarts.init(chartDom);
 var option;
 
 option = {
+  color: ["#DB79A9", "#87B6A1", "#F2A735", "#2D9CDB"],
   legend: {},
   tooltip: {},
   dataset: {
@@ -66,8 +67,17 @@ var myChart2 = echarts.init(chartDom2);
 var option2;
 
 option2 = {
+  color: ["#DB79A9", "#87B6A1", "#F2A735", "#2D9CDB"],
   legend: {},
   tooltip: {},
+  itemStyle:{
+    emphasis: {
+      barBorderRadius: [50, 50]
+  },
+  normal: {
+      barBorderRadius: [50, 50, 0 ,0 ]
+  }
+},
   dataset: {
     dimensions: ['product', 'عدد الطلبات الملغية','عدد الطلبات التامة', 'عدد الطلبات المعلقة', 'عدد الطلبات المقبولة'],
     source: [
@@ -79,7 +89,7 @@ option2 = {
   yAxis: {},
   // Declare several bar series, each will be mapped
   // to a column of dataset.source by default.
-  series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' },{ type: 'bar' },]
+  series: [{ type: 'bar' ,barWidth: '10%'}, { type: 'bar' ,barWidth: '10%'}, { type: 'bar',barWidth: '10%' },{ type: 'bar',barWidth: '10%' },]
 };
 
 option2 && myChart2.setOption(option2);

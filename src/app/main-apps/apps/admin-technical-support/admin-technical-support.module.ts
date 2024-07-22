@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { AdminTechnicalSupportRoutingModule } from './admin-technical-support-routing.module';
 import { TechnicalSupportViewComponent } from './technical-support-view/technical-support-view.component';
 import { SharedComponentsModule } from 'src/app/shared-components/shared-components.module';
+import { TicketInfoComponent } from './ticket-info/ticket-info.component';
 
 
 @NgModule({
   declarations: [
-    TechnicalSupportViewComponent
+    TechnicalSupportViewComponent,
+    TicketInfoComponent
   ],
   imports: [
     CommonModule,

@@ -1,33 +1,16 @@
 <div class="container-fluid">
 
   <form class="mx-auto mb-3">
-    <h4 class="text-center mb-2">إنشاء حساب</h4>
+    <h4 class="text-center mb-2">عرض تذكرة</h4>
 
     <div class="mb-3" style="width: 670.48px; text-align: right; color: var(--gray-color); font-size: 12px; line-height: 20px; word-wrap: break-word">الرجاء إرفاق جميع المتطلبات مع أحدث نسخة</div>
     <div class="row g-3">
       <div class="col-md-6 mb-3">
-        <label for="inputname" class="form-label">الاسم الثلاثي</label>
-        <input type="text" formControlName="name" class="form-control" id="inputname" placeholder="سارة محمد علي">
+        <label for="inputname" class="form-label">العنوان</label>
+        <input type="text" formControlName="name" class="form-control" id="inputname" placeholder="">
       </div>
-      <div class="col-md-6 mb-3">
-        <label for="inputID" class="form-label">رقم الهوية</label>
-        <input type="text" formControlName="id" class="form-control" id="inputID" placeholder="1111111111">
-      </div>
-    </div>
-    <div class="mb-3">
-      <label for="inputEmail" class="form-label">البريد الإلكتروني</label>
-      <input type="email" formControlName="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="user@gmail.com">
 
     </div>
-    <div class="mb-3">
-      <label for="inputPhone" class="form-label">رقم الجوال</label>
-      <input type="text" formControlName="phone" class="form-control" id="inputPhone" placeholder="********05">
-    </div>
-    <div class="mb-3">
-      <label for="inputPassword" class="form-label">كلمة المرور</label>
-      <input type="password" formControlName="password" class="form-control" id="inputPassword" placeholder="35kLj223">
-
-    </div>
-    <a type="submit" class="btn btn-primary mt-2" routerLink="/technical-support-view">تحديث حالة الطلب</a>
+    <a type="submit" class="btn btn-primary mt-2" routerLink="tecket-info">تحديث حالة الطلب</a>
   </form>
 </div>

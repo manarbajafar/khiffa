@@ -11,6 +11,11 @@ export class DashboardViewComponent implements OnInit {
   selectedItem: string | null = null;
   items = ['مكة', 'جدة', 'الكل'];
 
+  dliveryman_number=1000;
+  lazza_providers_number=300;
+  ghadaf_providers_number=300;
+  sahhil_providers_number=300;
+
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }

@@ -1,0 +1,130 @@
+.request-info {
+  color: #170F49;
+  text-align: center;
+}
+
+.request-button {
+  background-color: rgba(160, 21, 62, 0.5);
+  border-radius: 8px;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  display: block;
+  margin: 0 auto;
+}
+
+.balance-card {
+  position: relative;
+  display: inline-block;
+}
+
+.balance-card-image {
+  width: 312px;
+  height: 189px;
+}
+
+.balance-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-80%, -60%);
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.balance-subtext {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 16px;
+}
+
+.table th {
+  color: #646464;
+}
+
+.table td {
+  color: black;
+}
+
+
+//what i added
+.table-container{
+  background-color: var(--white-color);
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 1.5rem 1.2rem 2.5rem;
+  position: relative;
+}
+
+.divider {
+  border-top: 1px solid #ccc;
+  margin: 0.3rem 0;
+}
+
+label{
+  font-weight: 500;
+  color: var(--title-color);
+  margin-left: 0.8rem;
+}
+
+
+.table {
+  width: 100%;
+}
+
+
+
+.btn2 {
+  color: var(--primary-color);
+  text-align: center;
+  text-decoration: none;
+  background-color: transparent;
+  border: solid 0.1rem var(--primary-color);
+  margin-right: 0.5rem;
+  padding: 0.2rem;
+}
+
+.btn1 {
+  color: var(--white-color);
+  text-decoration: none;
+  text-align: center;
+  background-color: var(--primary-color);
+  margin-left: 0.5rem;
+  padding: 0.2rem;
+}
+
+.btn-rounded {
+  border-radius: 0.5rem;
+}
+
+
+.requests-table-container{
+  background-color: var(--white-color);
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 1.2rem 1rem;
+  position: relative;
+}
+
+.requests-table-container table{
+font-size: 0.9rem;
+}
+
+
+.show-more{
+  background-color: transparent;
+  border: none;
+  color: var(--primary-color);
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.show-more:active {
+  background-color: transparent;
+  color: var(--secondary-color);
+}

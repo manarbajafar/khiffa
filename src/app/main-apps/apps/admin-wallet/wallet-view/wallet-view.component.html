@@ -1,1 +1,129 @@
-<p>wallet-view works! wallet-view works! wallet-view works! wallet-view works!</p>
+<div class="container mt-3" >
+
+  <div class="d-flex justify-content-between gap-5">
+
+    <div class=" d-flex align-items-center text-center w-25">
+      <div class="balance-card">
+        <img  class="align-middle" src="assets\images\admin-wallet.svg" alt="رصيد خِفَّة" class="balance-card-image">
+        <div class="balance-text text-center">  100 ر.س. </div>
+      </div>
+    </div>
+
+
+    <div class="requests-table-container row  w-75">
+      <label for="">طلبات تحويل الأموال</label>
+      <div class="divider"></div>
+      <div class="col-12">
+        <table class="table table-hover text-end">
+          <tbody>
+            <tr class="align-items-center align-middle m-0 p-0 " *ngFor="let request of requests">
+              <td >{{ request.date }} {{ request.time }}</td>
+              <td>{{ request.name }}</td>
+              <td>  {{ request.amount }} ر.س.</td>
+              <td class="">
+                <div class="flex-d justify-content-between gap-4">
+                  <a type="button" class="btn1 btn-sm btn-rounded w-25" routerLink="./ticket-info">تحويل</a>
+                 <a type="button" class="btn2  btn-sm btn-rounded w-25" routerLink="./ticket-info">رفض</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+          <button (click)="openModal(template)" type="button" class="show-more btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+            < عرض الكل
+          </button>
+
+<!-- Modal 1 -->
+<ng-template #template let-modal>
+  <div class="modal-header justify-content-between">
+    <h4 class="modal-title">طلبات تحويل الأموال</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body justify-content-center">
+    <table class="table table-hover text-end">
+      <tbody>
+        <tr class="align-items-center align-middle m-0 p-0 " *ngFor="let request of requests2">
+          <td >{{ request.date }} {{ request.time }}</td>
+          <td>{{ request.name }}</td>
+          <td>  {{ request.amount }} ر.س.</td>
+          <td class="">
+            <div class="flex-d justify-content-between gap-4">
+              <a type="button" (click)="openModal2(template2)"  class="btn1 btn-sm btn-rounded w-25" routerLink="./ticket-info">تحويل</a>
+             <a type="button" class="btn2  btn-sm btn-rounded w-25" routerLink="./ticket-info">رفض</a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</ng-template>
+
+<!-- Modal 2 -->
+<ng-template #template2 let-modal>
+  <div class="modal-header justify-content-center">
+    <h4 class="modal-title">تأكيد تحويل الأموال</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body justify-content-center">
+    هل أنت متأكد من تحويل مبلغ 600 ر.س إلى المندوب خالد عمر؟
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary">نعم</button>
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">إلغاء</button>
+  </div>
+</ng-template>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="table-container row mt-3">
+    <label for="">أحدث العمليات</label>
+    <div class="divider"></div>
+    <div class="col-12">
+      <table class="table table-hover text-end">
+        <thead>
+          <tr>
+            <th scope="col">معرّف العملية</th>
+            <th scope="col">التاريخ</th>
+            <th scope="col">النوع</th>
+            <th scope="col">الاسم</th>
+            <th scope="col">المبلغ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let transaction of transactions">
+            <td>{{ transaction.id }}</td>
+            <td>{{ transaction.date }} {{ transaction.time }}</td>
+            <td>{{ transaction.type }}</td>
+            <td>{{ transaction.name }}</td>
+            <td>  {{ transaction.amount }} ر.س.</td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-12 text-center">
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+          <li class="page-item"><a class="page-link" href="#">السابق</a></li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">التالي</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

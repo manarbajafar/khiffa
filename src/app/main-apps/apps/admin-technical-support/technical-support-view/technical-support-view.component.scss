@@ -1,0 +1,88 @@
+.custom-card {
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 1.5rem 1.2rem;
+  background-color: var(--white-color);
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.card-icon {
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.icon-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--icon-background-color);
+  border-radius: 8px;
+}
+
+.icon-bg i {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+
+.card-title {
+  font-size: 1.1rem;
+  color: var(--title-color);
+  font-weight: 500;
+}
+
+.card-number {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+
+//table
+.table {
+  width: 100%;
+}
+
+
+.badge {
+  padding: 0.35em 0.65em;
+  font-size: 75%;
+  line-height: 1.5;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.5rem;
+  color: black;
+}
+
+.badge-under-processing {
+  background-color: var(--under-processing-ticket-color);
+}
+
+.badge-open {
+  background-color:var(--open-ticket-color);
+}
+
+.badge-closed {
+  background-color: var(--closed-ticket-color);
+}
+
+.badge-on-hold{
+  background-color: var(--on-hold-ticket-color);
+}
+
+.btn-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  background-color: transparent;
+  border: solid 0.1rem var(--primary-color);
+}
+
+.btn-rounded {
+  border-radius: 0.5rem;
+}

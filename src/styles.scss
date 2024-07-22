@@ -68,6 +68,12 @@ $khiffa-theme: mat.define-light-theme((
   --pending-order-color: #F2A735;
   --completed-order-color: #87B6A1;
   --canceled-order-color: #DB79A9;
+
+  //colort of tickets
+  --open-ticket-color: #DD9A1970;
+  --closed-ticket-color: #85858570;
+  --on-hold-ticket-color: #FF700870;
+  --under-processing-ticket-color: #FF204E70;
 }
 
 // *{

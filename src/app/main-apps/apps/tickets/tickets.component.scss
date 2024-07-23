@@ -1,0 +1,73 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+@import "~bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+
+body, * {
+  font-family: 'Tajawal', sans-serif !important;
+}
+
+$primary-color: #A0153E;
+
+.text-primary {
+  color: $primary-color !important;
+}
+
+.bg-primary {
+  background-color: $primary-color !important;
+}
+
+.table {
+  width: 100%;
+}
+
+.badge {
+  padding: 0.35em 0.65em;
+  font-size: 75%;
+  line-height: 1.5;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.5rem;
+  color: black;
+}
+
+.badge-under-processing {
+  background-color: #ffcccc;
+  color: #ff0000;
+}
+
+.badge-open {
+  background-color: #ccffcc;
+  color: #00ff00;
+}
+
+.badge-closed {
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.badge-on-hold {
+  background-color: #ffcc99;
+  color: #ff6600;
+}
+
+.btn-link {
+  color: $primary-color;
+  text-decoration: none;
+  background-color: transparent;
+  border: solid 0.1rem $primary-color;
+}
+
+.btn-rounded {
+  border-radius: 0.5rem;
+}
+
+.pagination .page-link {
+  color: $primary-color;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: $primary-color;
+  border-color: $primary-color;
+}

@@ -1,0 +1,101 @@
+.filter-bar {
+  display: flex;
+  justify-content: flex-start; // Align filters to the left
+  margin-bottom: 20px;
+
+  .dropdown {
+    margin: 0 10px;
+
+    .btn-secondary {
+      background-color: #A0153E;
+      border-color: #A0153E;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: darken(#A0153E, 10%);
+        border-color: darken(#A0153E, 10%);
+      }
+    }
+
+    .dropdown-menu {
+      button {
+        &:hover,
+        &:focus,
+        &:active {
+          background-color: lighten(#A0153E, 10%);
+        }
+      }
+    }
+  }
+
+  .search-bar {
+    margin-left: auto; // Move search bar to the right
+    max-width: 300px;
+    border: 1px solid #A0153E;
+  }
+}
+
+.order-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+
+  .card-body {
+    text-align: center;
+    .card-title {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .card-text {
+      margin-bottom: 5px;
+    }
+    .btn {
+      flex-grow: 1;
+      margin: 0 5px;
+      &.btn-primary {
+        background-color: #A0153E; // Custom color for قبول التوصيل
+        border-color: #A0153E;
+      }
+      &.btn-outline-primary {
+        border-color: #A0153E; // Custom border color for عرض الموقع
+        color: #A0153E;
+        background-color: #fff;
+        &:hover {
+          background-color: #A0153E;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.text-center {
+  button.btn-secondary {
+    background-color: #A0153E;
+    border-color: #A0153E;
+    &:hover {
+      background-color: #fff;
+      color: #A0153E;
+    }
+  }
+}
+
+.container {
+  max-width: 100%;
+}
+
+.container-img {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    overflow: hidden;
+  }
+}

@@ -1,0 +1,29 @@
+.table {
+  // border-collapse: separate;
+  border-radius: 0.5rem;
+}
+
+
+.table thead th {
+  // background-color: transparent;
+  // border: none;
+  text-align: center;
+  font-weight: 500;
+}
+
+.table tbody tr {
+  text-align: center;
+}
+
+
+.view {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  background-color: transparent;
+  border: none;
+}
+
+.view:active{
+  color: var(--secondary-color);
+  background-color: transparent;
+}

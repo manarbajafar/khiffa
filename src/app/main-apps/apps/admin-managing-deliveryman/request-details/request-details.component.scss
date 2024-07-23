@@ -1,0 +1,54 @@
+.request-detail-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.request-detail-container .row {
+  margin-bottom: 20px;
+}
+
+.request-detail-container p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.request-detail-container .text-center p {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.request-detail-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.request-detail-container hr {
+  margin: 20px 0;
+}
+
+
+
+//buttons
+.request-detail-container .btn {
+  border-radius: 0.5rem;
+}
+
+.request-detail-container .btn-primary {
+  background-color: var(--primary-color);
+  border-style: none;
+}
+
+.request-detail-container .btn-outline-secondary {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.btn-primary:active {
+  background-color: var(--secondary-color);
+}

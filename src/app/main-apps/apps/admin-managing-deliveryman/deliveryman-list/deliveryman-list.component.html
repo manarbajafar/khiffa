@@ -1,0 +1,21 @@
+<div class="row mb-3 search-container">
+  <div class="col-12">
+    <input
+      type="text"
+      class="form-control search-input"
+      placeholder="بحث"
+      [(ngModel)]="searchTerm"
+      (input)="onSearchTermChange()"
+    />
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 col-md-3 mb-2" *ngFor="let user of displayUsers">
+    <app-deliveryman-card [name]="user.name" [email]="user.email"></app-deliveryman-card>
+  </div>
+</div>
+<div class="text-start " *ngIf="!showAll">
+  <a class="btn btn-secondary" routerLink="../all-deliveryman-list">
+    < عرض الكل
+  </a>
+</div>

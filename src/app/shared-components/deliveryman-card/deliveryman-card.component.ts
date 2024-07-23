@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class DeliverymanCardComponent implements OnInit {
   @Input() name:string='';
+  @Input() email: string='';
 
   constructor() { }
 

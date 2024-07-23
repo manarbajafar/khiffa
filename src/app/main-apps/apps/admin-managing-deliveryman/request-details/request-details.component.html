@@ -1,0 +1,30 @@
+<div class="container request-detail-container">
+  <div class="row mb-4 justify-content-around">
+    <div class="col-auto text-center">
+      <p><strong>رقم الهوية</strong><br>{{ request.idNumber }}</p>
+      <p><strong>رقم الجوال</strong><br>{{ request.phoneNumber }}</p>
+    </div>
+    <div class="col-auto text-center">
+      <p><strong>الاسم</strong><br>{{ request.name }}</p>
+      <p><strong>البريد الإلكتروني</strong><br>{{ request.email }}</p>
+    </div>
+  </div>
+
+  <p class="text-center"><strong>المرفقات</strong></p>
+  <div class="row mb-4 text-center mt-2 justify-content-around">
+    <div class="col-4" *ngFor="let attachment of request.attachments">
+      <img [src]="attachment.url" alt="attachment" class="img-fluid">
+    </div>
+  </div>
+  <div class="row mb-4">
+    <div class="col-12">
+      <hr>
+    </div>
+  </div>
+  <div class="row mb-4 text-center">
+    <div class="col-12 d-flex flex-column align-items-center">
+      <button class="btn btn-primary w-75 mb-2">تفعيل الحساب</button>
+      <button class="btn btn-outline-secondary w-75">رفض</button>
+    </div>
+  </div>
+</div>

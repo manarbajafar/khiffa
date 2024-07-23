@@ -1,0 +1,36 @@
+<div class="requests-table-container row">
+  <div class="col-12">
+    <table class="table table-hover text-end">
+      <thead>
+        <tr>
+          <th>معرّف الطلب</th>
+          <th>الاسم</th>
+          <th>نوع الطلب</th>
+          <th>التاريخ</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="align-items-center align-middle m-0 p-0" *ngFor="let request of paginatedRequests">
+          <td>{{ request.id }}</td>
+          <td>{{ request.name }}</td>
+          <td>{{ request.requestType }}</td>
+          <td>{{ request.requestDate | date }}</td>
+          <td>
+            <div class="flex-d justify-content-between gap-4">
+              <button type="button" class="view btn btn-info btn-sm btn-rounded w-25" routerLink="../request-details">
+                <i class="bx bx-show"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <app-pagination
+      [total_items]="totalItems"
+      [current_page]="currentPage"
+      [items_per_page]="itemsPerPage"
+      (onClick)="onPageChange($event)">
+    </app-pagination>
+  </div>
+</div>

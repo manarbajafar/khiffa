@@ -1,9 +1,14 @@
-label{
-  font-weight: 500;
-  color: var(--title-color);
-  font-size: 1.1rem;
+.card {
+  background-color: transparent;
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }
 
-#search-addon{
-  background-color: transparent;
+.label{
+  font-weight: 500;
+  color: var(--title-color);
+  font-size: 1.2rem;
 }
+
+
+

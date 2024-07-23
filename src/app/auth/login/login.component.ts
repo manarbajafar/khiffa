@@ -1,3 +1,4 @@
+import { Route, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { auth } from 'src/app/constant/routes';
@@ -13,7 +14,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder, private impApiService: ImpApiService) {
+  constructor(private fb: FormBuilder, private impApiService: ImpApiService, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -29,16 +30,24 @@ export class LoginComponent {
 
     const { email, password } = this.loginForm.value;
 
+// coming from backend.
+// if (email !== 'aa@gmail.com' || password !== '12345678') {
+//   this.errorMessage = 'الإيميل أو كلمة المرور غير صحيحة';
+// }
 
-    if (email !== 'hhhh@gmail.colm' || password !== '12345678') {
-      this.errorMessage = 'الإيميل أو كلمة المرور غير صحيحة';
-    } else {
-      this.errorMessage = null;
       // successful login
+      this.errorMessage = null;
+
+      //check user type id
+
+
       this.impApiService.post(auth.login, this.loginForm.value).subscribe(data => {
         console.log(data);
+        this.router.navigate(['apps/admin-dashboard/dashboard-view']);
+
+      }, error => {
+        this.errorMessage =error.message;
       })
-    }
   }
 
   private setValidationErrors(): void {

@@ -17,10 +17,10 @@
       </div>
       <div class="col-md-6 mb-3">
         <label for="inputID" class="form-label">رقم الهوية</label>
-        <input type="text" formControlName="id" class="form-control" id="inputID" placeholder="1111111111">
-        <div *ngIf="signupForm.get('id')?.touched && signupForm.get('id')?.invalid" class="validation-error">
-          <div *ngIf="signupForm.get('id')?.errors?.['required']">رقم الهوية مطلوب</div>
-          <div *ngIf="signupForm.get('id')?.errors?.['pattern']">رقم الهوية يجب ان يكون عشر ارقام ويبدأ ب1 أو 2</div>
+        <input type="text" formControlName="national_id" class="form-control" id="inputID" placeholder="1111111111">
+        <div *ngIf="signupForm.get('national_id')?.touched && signupForm.get('national_id')?.invalid" class="validation-error">
+          <div *ngIf="signupForm.get('national_id')?.errors?.['required']">رقم الهوية مطلوب</div>
+          <div *ngIf="signupForm.get('national_id')?.errors?.['pattern']">رقم الهوية يجب ان يكون عشر ارقام ويبدأ ب1 أو 2</div>
         </div>
       </div>
     </div>
@@ -34,20 +34,30 @@
     </div>
     <div class="mb-3">
       <label for="inputPhone" class="form-label">رقم الجوال</label>
-      <input type="text" formControlName="phone" class="form-control" id="inputPhone" placeholder="********05">
-      <div *ngIf="signupForm.get('phone')?.touched && signupForm.get('phone')?.invalid" class="validation-error">
-        <div *ngIf="signupForm.get('phone')?.errors?.['required']">رقم الجوال مطلوب</div>
-        <div *ngIf="signupForm.get('phone')?.errors?.['pattern']">رقم الجوال غير صالح</div>
+      <input type="text" formControlName="phone_number" class="form-control" id="inputphone_number" placeholder="********05">
+      <div *ngIf="signupForm.get('phone_number')?.touched && signupForm.get('phone_number')?.invalid" class="validation-error">
+        <div *ngIf="signupForm.get('phone_number')?.errors?.['required']">رقم الجوال مطلوب</div>
+        <div *ngIf="signupForm.get('phone_number')?.errors?.['pattern']">رقم الجوال غير صالح</div>
       </div>
     </div>
     <div class="mb-3">
       <label for="inputPassword" class="form-label">كلمة المرور</label>
-      <input type="password" formControlName="password" class="form-control" id="inputPassword" placeholder="35kLj223">
+      <input type="password" formControlName="password" class="form-control" id="inputPassword" placeholder="35kLj223uu">
       <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid" class="validation-error">
         <div *ngIf="signupForm.get('password')?.errors?.['required']">كلمة المرور مطلوبة</div>
-        <div *ngIf="signupForm.get('password')?.errors?.['pattern']">كلمة المرور يجب أن تكون على الأقل 6 أرقام وحروف</div>
+        <div *ngIf="signupForm.get('password')?.errors?.['pattern']">كلمة المرور يجب أن تكون على الأقل 8 أرقام وحروف</div>
       </div>
     </div>
-    <a type="submit" class="btn btn-primary mt-2" routerLink="/auth/attach-file">إكمال التسجيل</a>
+
+    <div class="mb-3">
+      <label for="inputPassword" class="form-label">تأكيد كلمة المرور</label>
+      <input type="password" formControlName="password_confirmation" class="form-control" id="inputpassword_confirmation" placeholder="35kLj223uu">
+      <div *ngIf="signupForm.get('password_confirmation')?.touched && signupForm.get('password_confirmation')?.invalid" class="validation-error">
+        <div *ngIf="signupForm.get('password_confirmation')?.errors?.['required']">تأكيد كلمة المرور مطلوب</div>
+        <div *ngIf="signupForm.get('password')!=signupForm.get('password_confirmation')">لا يتطابق مع كلمة المرور</div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2" >إكمال التسجيل</button>
   </form>
 </div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { auth } from 'src/app/constant/routes';
+import { ImpApiService } from 'src/app/services/imp-api.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private impApiService: ImpApiService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -27,12 +29,15 @@ export class LoginComponent {
 
     const { email, password } = this.loginForm.value;
 
-    // Replace with actual authentication logic
-    if (email !== 'user@gmail.com' || password !== 'password') {
+
+    if (email !== 'hhhh@gmail.colm' || password !== '12345678') {
       this.errorMessage = 'الإيميل أو كلمة المرور غير صحيحة';
     } else {
       this.errorMessage = null;
-      // Navigate to the next page or perform other actions upon successful login
+      // successful login
+      this.impApiService.post(auth.login, this.loginForm.value).subscribe(data => {
+        console.log(data);
+      })
     }
   }
 

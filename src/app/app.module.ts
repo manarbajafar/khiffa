@@ -9,6 +9,8 @@ import { AdminDashboardModule } from "./main-apps/apps/admin-dashboard/admin-das
 import { RouterModule } from '@angular/router';
 import { SharedComponentsModule } from './shared-components/shared-components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AdminDashboardModule,
     SharedComponentsModule,
     BrowserAnimationsModule,
+    HttpClientModule,
 ],
   providers: [],
   bootstrap: [AppComponent]

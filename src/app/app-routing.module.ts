@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './main-apps/layout/main-layout/main-layout.component';
 import { SidebarComponent } from './main-apps/layout/sidebar/sidebar.component';
+import { SplashScreenComponent } from './auth/splash-screen/splash-screen.component';
 const routes: Routes = [
 
-  // { path:'', redirectTo:'/auth/login', pathMatch:'full'},
-  {
-     path: '', redirectTo: 'auth/login',
-      pathMatch: 'full' },
+  //  { path:'', redirectTo:'/auth/splash-screen', pathMatch:'full'},
+  { path: '', component: SplashScreenComponent },
+
+  // { path: '', redirectTo: 'auth/login',pathMatch: 'full' },
 
 
   // redirect to system
@@ -22,6 +23,7 @@ const routes: Routes = [
     // canActivate:[JMBHJGJHG] //to identfy user type
   },
 
+  { path:'**', redirectTo:'auth/not-found'},
 ];
 
 @NgModule({

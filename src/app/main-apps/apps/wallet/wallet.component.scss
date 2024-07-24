@@ -49,3 +49,7 @@
 .table td {
   color: black;
 }
+.direction-ltr {
+  direction: ltr;
+  unicode-bidi: embed; /* This ensures that the direction is strictly applied */
+}

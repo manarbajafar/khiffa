@@ -1,7 +1,7 @@
 <div class="out-container">
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="text-center mb-4">
-      <img src="assets\img\driver profile.png" class="rounded-circle" alt="User Image" width="150" height="150">
+      <img src="assets/images/driver profile.png" class="rounded-circle" alt="User Image" width="150" height="150">
       <h4>محمد سعيد الحربي</h4>
     </div>
     <div class="mb-3 text-end">
@@ -12,7 +12,9 @@
       <label for="email" class="form-label">الإيميل</label>
       <div class="input-group">
         <input type="email" class="form-control text-end" id="email" formControlName="email">
-        <button class="btn btn-outline-secondary" type="button"><i class="fas fa-pen"></i></button>
+        <button class="btn btn-outline-secondary" type="button">
+          <i class="bi bi-pencil"></i>
+        </button>
       </div>
       <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid" class="validation-error">
         <div *ngIf="form.get('email')?.errors?.['required']">البريد الإلكتروني مطلوب</div>
@@ -23,7 +25,9 @@
       <label for="phoneNumber" class="form-label">رقم الجوال</label>
       <div class="input-group">
         <input type="text" class="form-control text-end" id="phoneNumber" formControlName="phoneNumber">
-        <button class="btn btn-outline-secondary" type="button"><i class="fas fa-pen"></i></button>
+        <button class="btn btn-outline-secondary" type="button">
+          <i class="bi bi-pencil"></i>
+        </button>
       </div>
       <div *ngIf="form.get('phoneNumber')?.touched && form.get('phoneNumber')?.invalid" class="validation-error">
         <div *ngIf="form.get('phoneNumber')?.errors?.['required']">رقم الجوال مطلوب</div>
@@ -34,7 +38,9 @@
       <label for="ibanNumber" class="form-label">رقم الإيبان</label>
       <div class="input-group">
         <input type="text" class="form-control text-end" id="ibanNumber" formControlName="ibanNumber">
-        <button class="btn btn-outline-secondary" type="button"><i class="fas fa-plus"></i></button>
+        <button class="btn btn-outline-secondary" type="button">
+          <i class="bi bi-plus"></i>
+        </button>
       </div>
       <div *ngIf="form.get('ibanNumber')?.invalid && form.get('ibanNumber')?.touched" class="text-danger">
         رقم الإيبان يجب أن يبدأ بـ SA ويكون مكوناً من 24 رقماً.

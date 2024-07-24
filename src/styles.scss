@@ -42,6 +42,10 @@ $khiffa-theme: mat.define-light-theme((
 @import "~leaflet/dist/leaflet.css";
 
 
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+
 :root {
   --primary-color: #A0153E;
   --secondary-color: #FF204E;

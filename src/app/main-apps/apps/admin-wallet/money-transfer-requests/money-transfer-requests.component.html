@@ -1,0 +1,49 @@
+<div class="requests-table-container row  w-75">
+  <label for="">طلبات تحويل الأموال</label>
+  <div class="divider"></div>
+  <div class="col-12">
+    <table class="table text-end">
+<tbody>
+  <tr class="align-items-center align-middle m-0 p-0 " *ngFor="let request of requests">
+    <td >{{ request.date }} {{ request.time }}</td>
+    <td>{{ request.name }}</td>
+    <td>  {{ request.amount }} ر.س.</td>
+    <td class="">
+      <div class="flex-d justify-content-between gap-4">
+
+<!-- Button trigger modal -->
+<button type="button" class="btn1 btn-sm btn-rounded w-25" data-bs-toggle="modal" data-bs-target="#transferModal">
+  تحويل
+</button>
+
+<button type="button" class="btn2 btn-sm btn-rounded w-25" data-bs-toggle="modal" data-bs-target="#rejectModal">
+  رفض
+</button>
+
+<!-- transfer Modal-->
+<div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">تأكيد تحويل الأموال</h1>
+
+      </div>
+      <div class="modal-body">
+        هل أنت متأكد من تحويل مبلغ 600 ر.س إلى المندوب خالد عمر؟
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">نعم</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">تراجع</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+</div>

@@ -30,35 +30,10 @@
           </tbody>
         </table>
         <div class="d-flex justify-content-end">
-          <button (click)="openModal(template)" type="button" class="show-more btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+          <button type="button" class="show-more btn btn-primary" routerLink="../money-transfer-requests">
             < عرض الكل
           </button>
 
-<!-- Modal 1 -->
-<ng-template #template let-modal>
-  <div class="modal-header justify-content-between">
-    <h4 class="modal-title">طلبات تحويل الأموال</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
-  </div>
-  <div class="modal-body justify-content-center">
-    <table class="table table-hover text-end">
-      <tbody>
-        <tr class="align-items-center align-middle m-0 p-0 " *ngFor="let request of requests2">
-          <td >{{ request.date }} {{ request.time }}</td>
-          <td>{{ request.name }}</td>
-          <td>  {{ request.amount }} ر.س.</td>
-          <td class="">
-            <div class="flex-d justify-content-between gap-4">
-              <a type="button" (click)="openModal2(template2)"  class="btn1 btn-sm btn-rounded w-25" routerLink="./ticket-info">تحويل</a>
-             <a type="button" class="btn2  btn-sm btn-rounded w-25" routerLink="./ticket-info">رفض</a>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-  </div>
-</ng-template>
 
 <!-- Modal 2 -->
 <ng-template #template2 let-modal>

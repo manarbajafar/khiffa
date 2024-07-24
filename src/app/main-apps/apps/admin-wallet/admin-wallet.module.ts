@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { AdminWalletRoutingModule } from './admin-wallet-routing.module';
 import { WalletViewComponent } from './wallet-view/wallet-view.component';
+import { MoneyTransferRequestsComponent } from './money-transfer-requests/money-transfer-requests.component';
 
 
 @NgModule({
   declarations: [
-    WalletViewComponent
+    WalletViewComponent,
+    MoneyTransferRequestsComponent
   ],
   imports: [
     CommonModule,

@@ -12,10 +12,16 @@
 
     <ul class="nav-list">
       <li class="nav-list-item" *ngFor="let item of sidebar_list">
-        <app-sidebar-link [routerLink]="[item.routerLink]">
+        <div [routerLink]="[item.routerLink]" (click)="test()" >
           <span icon><i class="sidebar-link-icon" [class]="item.icon"></i></span>
           <span class="sidebar-link-text" *ngIf="isExpanded">{{ item.label }}</span>
-        </app-sidebar-link>
+        </div>
+      </li>
+      <li class="nav-list-item" >
+        <div  (click)="test(template)" >
+          <span icon><i class="sidebar-link-icon bi bi-box-arrow-right"></i></span>
+          <span class="sidebar-link-text" *ngIf="isExpanded">تسجيل الخروج</span>
+        </div>
       </li>
     </ul>
   </div>
@@ -32,21 +38,16 @@
 
 
 
-!-- Logout Confirmation Modal (Bootstrap) -->
-<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="logoutModalLabel">تأكيد تسجيل الخروج</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        هل أنت متأكد من أنك تريد تسجيل خروجك؟
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-        <button type="button" class="btn btn-primary" (click)="confirmLogout()">نعم</button>
-      </div>
-    </div>
+<ng-template #template let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">تأكيد تسجيل الخروج</h5>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
   </div>
-</div>
+  <div class="modal-body">
+    هل أنت متأكد من أنك تريد تسجيل خروجك؟
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">إلغاء</button>
+    <button type="button" class="btn btn-primary" (click)="confirmLogout()">نعم</button>
+  </div>
+</ng-template>

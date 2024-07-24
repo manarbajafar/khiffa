@@ -14,6 +14,9 @@ export class LogoutComponent {
   openModal(template: any): void {
     this.modalService.open(template, { size: 'sm' })
   }
+  test(template){
+
+  }
 
   confirmLogout(): void {
     this.showConfirmationForm = true;

@@ -22,6 +22,14 @@ export class LoginComponent {
     });
   }
 
+ngOnInit(): void{
+  let user = JSON.parse(localStorage.getItem('user'))
+
+  console.log(user)
+}
+
+
+
   onSubmit(): void {
     if (this.loginForm.invalid) {
       this.setValidationErrors();
@@ -43,8 +51,10 @@ export class LoginComponent {
 
       this.impApiService.post(auth.login, this.loginForm.value).subscribe(data => {
         console.log(data);
-        this.router.navigate(['apps/admin-dashboard/dashboard-view']);
 
+         localStorage.setItem('user',JSON.stringify(data))
+         localStorage.setItem('user_token',(data.access_token))
+         this.router.navigate(['apps/admin-dashboard/dashboard-view']);
       }, error => {
         this.errorMessage =error.message;
       })

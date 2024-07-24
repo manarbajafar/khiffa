@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';  // Ensure this import
 import { SidebarService } from './sidebar.service';
@@ -9,6 +9,7 @@ import { SidebarService } from './sidebar.service';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+
 
   // if condition - role,
   // sidebar_list = [
@@ -24,7 +25,7 @@ export class SidebarComponent implements OnInit {
     { routerLink: '/apps/wallet', label: 'المحفظة', icon: 'bi bi-wallet' },
     { routerLink: '/apps/driver-orders/orders', label: 'الطلبات', icon: 'bi bi-card-checklist' },
     { routerLink: '/apps/tickets', label: 'تذاكري', icon: 'bi bi-tools' },
-    { routerLink: '', label: 'تسجيل خروج', icon: 'bi bi-box-arrow-right' }
+
   ];
 
   constructor(
@@ -40,20 +41,24 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  openModal(content: any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-      (result) => {
-        if (result === 'logout') {
-          this.confirmLogout();
-        }
-      }, (reason) => {
-        console.log('Dismissed with:', reason); // Implement actual logic as needed
-      }
-    );
-  }
+  // openModal(content: any) {
+  //   this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+  //     (result) => {
+  //       if (result === 'logout') {
+  //         this.confirmLogout();
+  //       }
+  //     }, (reason) => {
+  //       console.log('Dismissed with:', reason); // Implement actual logic as needed
+  //     }
+  //   );
+  //}
 
-  confirmLogout() {
-    this.modalService.dismissAll(); // Close all open modals
-    this.router.navigate(['/auth/login']); // Navigate to login page
+
+
+  openModal(template: any): void {
+    this.modalService.open(template, { size: 'sm' })
+  }
+  test(template){
+this.openModal(template)
   }
 }

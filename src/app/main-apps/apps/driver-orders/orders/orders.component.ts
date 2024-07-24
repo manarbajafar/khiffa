@@ -62,7 +62,7 @@ export class OrdersComponent implements OnInit {
   }
 
   viewOrderDetail(orderId: number): void {
-    this.router.navigate(['/detailed-order', orderId]);
+    this.router.navigate(['apps/driver-orders/detailed-order/',orderId]);
   }
 
   searchCompany(event: Event): void {

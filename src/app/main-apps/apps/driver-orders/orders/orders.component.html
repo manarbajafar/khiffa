@@ -45,7 +45,7 @@
           <p class="card-text"><strong>المسافة بالكيلو:</strong> {{ order.distance }}</p>
           <p class="card-text"><strong>الموقع:</strong> {{ order.location }}</p>
           <div class="d-flex justify-content-between">
-            <a href="#" (click)="viewOrderDetail(order.id)" class="btn btn-primary">قبول التوصيل</a>
+            <a (click)="viewOrderDetail(order.id)" class="btn btn-primary">قبول التوصيل</a>
             <a href="#" (click)="viewLocation(order.location)" class="btn btn-outline-primary">عرض الموقع</a>
           </div>
         </div>

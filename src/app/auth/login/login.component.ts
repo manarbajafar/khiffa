@@ -1,4 +1,4 @@
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { auth } from 'src/app/constant/routes';
@@ -22,6 +22,11 @@ export class LoginComponent {
     });
   }
 
+  ngOnInit():void{
+   let user= JSON.parse(localStorage.getItem('user'))
+    console.log(user.user.email)
+  }
+
   onSubmit(): void {
     if (this.loginForm.invalid) {
       this.setValidationErrors();
@@ -42,8 +47,15 @@ export class LoginComponent {
 
 
       this.impApiService.post(auth.login, this.loginForm.value).subscribe(data => {
-        console.log(data);
+        console.log(data.access_token);
+
+        localStorage.setItem('user', (data));
+        localStorage.setItem('token', data.access_token);
+
         this.router.navigate(['apps/admin-dashboard/dashboard-view']);
+
+        // spinner
+        //https://www.npmjs.com/package/ngx-spinner/v/13.1.1
 
       }, error => {
         this.errorMessage =error.message;

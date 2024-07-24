@@ -6,7 +6,7 @@ const routes: Routes = [
 
   // { path:'', redirectTo:'/auth/login', pathMatch:'full'},
   {
-     path: '', redirectTo: 'apps/admin-dashboard/dashboard-view',
+     path: '', redirectTo: 'auth/login',
       pathMatch: 'full' },
 
 

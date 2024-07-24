@@ -1,0 +1,58 @@
+<!-- Filter Bar -->
+<div class="filter-bar direction-ltr">
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="priceDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+      سعر التوصيل
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="priceDropdown">
+      <li><a class="dropdown-item" (click)="sortOrders('price', 'asc')">اقل سعر توصيل</a></li>
+      <li><a class="dropdown-item" (click)="sortOrders('price', 'desc')">اعلى سعر توصيل</a></li>
+    </ul>
+  </div>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="distanceDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+      المسافة بالكيلو
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="distanceDropdown">
+      <li><a class="dropdown-item" (click)="sortOrders('distance', 'asc')">الاقل مسافة بالكيلو</a></li>
+      <li><a class="dropdown-item" (click)="sortOrders('distance', 'desc')">الاكثر مسافة بالكيلو</a></li>
+    </ul>
+  </div>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="companyDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+      اسم الشركة
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="companyDropdown">
+      <li><a class="dropdown-item" (click)="filterByCompany('لذة')">لذة</a></li>
+      <li><a class="dropdown-item" (click)="filterByCompany('غدف')">غدف</a></li>
+      <li><a class="dropdown-item" (click)="filterByCompany('سهل')">سهل</a></li>
+    </ul>
+  </div>
+  <input type="text" (input)="searchCompany($event)" placeholder="بحث باسم الشركة" class="form-control search-bar" />
+</div>
+
+<!-- Orders Display -->
+<div class="container mt-3 direction-ltr">
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let order of filteredOrders.slice(0, visibleOrders)">
+      <div class="card order-card">
+        <div class="container-img">
+          <img src="assets/images/danublogo.png" class="card-img-top mx-auto d-block" alt="Danube">
+        </div>
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ order.title }}</h5>
+          <p class="card-text"><strong>سعر التوصيل:</strong> {{ order.price }}</p>
+          <p class="card-text"><strong>المسافة بالكيلو:</strong> {{ order.distance }}</p>
+          <p class="card-text"><strong>الموقع:</strong> {{ order.location }}</p>
+          <div class="d-flex justify-content-between">
+            <a href="#" (click)="viewOrderDetail(order.id)" class="btn btn-primary">قبول التوصيل</a>
+            <a href="#" (click)="viewLocation(order.location)" class="btn btn-outline-primary">عرض الموقع</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-4">
+    <button class="btn btn-secondary" (click)="loadMore()">تحميل المزيد</button>
+  </div>
+</div>

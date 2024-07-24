@@ -1,0 +1,55 @@
+.request-info {
+  color: #170F49;
+  text-align: center;
+}
+
+.request-button {
+  background-color: rgba(160, 21, 62, 0.5);
+  border-radius: 8px;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  display: block;
+  margin: 0 auto;
+}
+
+.balance-card {
+  position: relative;
+  display: inline-block;
+}
+
+.balance-card-image {
+  width: 312px;
+  height: 189px;
+}
+
+.balance-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-80%, -60%);
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.balance-subtext {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 16px;
+}
+
+.table th {
+  color: #646464;
+}
+
+.table td {
+  color: black;
+}
+.direction-ltr {
+  direction: ltr;
+  unicode-bidi: embed; /* This ensures that the direction is strictly applied */
+}

@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-logout',
   templateUrl: './logout.component.html',
   styleUrls: ['./logout.component.scss']
 })
-export class LogoutComponent implements OnInit {
+export class LogoutComponent {
+  showConfirmationForm = false;
 
-  constructor() { }
+  constructor(private modalService: NgbModal) { }
 
-  ngOnInit(): void {
+  openModal(template: any): void {
+    this.modalService.open(template, { size: 'sm' })
   }
 
+  confirmLogout(): void {
+    this.showConfirmationForm = true;
+    this.modalService.dismissAll()
+  }
 }

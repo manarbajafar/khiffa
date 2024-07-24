@@ -104,13 +104,12 @@ app-sidebar-link {
     background-color: var(--primary-color);
     color: var(--white-color);
   }
-
-  &.active,
-  &.active:hover {
+}
+  .active {
     background-color: var(--primary-color);
     color: var(--white-color);
   }
-}
+
 
 .sidebar-link-icon {
   font-size: 22px;

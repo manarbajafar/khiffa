@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,13 +8,16 @@ import { Router } from '@angular/router';
 })
 export class NotFoundComponent implements OnInit {
 
-
-  constructor(private router: Router) { }
+  constructor(private router: Router, private renderer: Renderer2, private el: ElementRef) { }
 
   ngOnInit(): void {
     setTimeout(() => {
+      this.renderer.addClass(this.el.nativeElement.querySelector('.not-found-container'), 'fade-out');
+    }, 2000);
+
+    setTimeout(() => {
       this.router.navigate(['/']);
-    }, 300000);
+    }, 3000);
   }
 
 }

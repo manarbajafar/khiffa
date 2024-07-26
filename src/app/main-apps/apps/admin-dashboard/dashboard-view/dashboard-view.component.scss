@@ -2,17 +2,22 @@ label{
   font-weight: 500;
   color: var(--title-color);
   margin-left: 0.8rem;
+  text-align: right;
+  display: block;
 }
 
 
-.chart-container{
-  background-color: var(--white-color);
-  border-radius: 0.5rem;
+.chart-container {
+  border-radius: 0.5rem !important;
+  border: none;
   text-align: center;
   padding: 1.5rem 1.2rem 2.5rem;
-  background-color: var(--white-color);
+  background-color: var(--white-color) !important;
   position: relative;
+  width: 100%;
+  max-width: 100%;
 }
+
 
 
 //dropdown
@@ -92,15 +97,3 @@ label{
 }
 
 
-.chart-container {
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-
-// .divider {
-//   margin: 10px 0;
-//   height: 1px;
-//   background-color: #ccc;
-// }

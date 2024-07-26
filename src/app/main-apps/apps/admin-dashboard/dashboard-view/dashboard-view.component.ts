@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { right } from '@popperjs/core';
 import * as echarts from 'echarts';
 import { auth } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
@@ -39,9 +40,9 @@ export class DashboardViewComponent implements OnInit {
 
   ngOnInit(): void {
 //just for test
-this.impApiService.get(auth.users).subscribe(data => {
-console.log(data)
-})
+// this.impApiService.get(auth.users).subscribe(data => {
+// console.log(data)
+// })
 
     this.initEveryCompanyChart();
     this.initAllCompaniesChart();
@@ -51,35 +52,65 @@ console.log(data)
 
 
   initEveryCompanyChart(): void {
-    //chart for every company
     var chartDom = document.getElementById('every-company');
     var myChart = echarts.init(chartDom);
     var option;
 
     option = {
+      textStyle: {
+        fontFamily: 'tajawal',
+      },
       color: ["#DB79A9", "#87B6A1", "#F2A735", "#2D9CDB"],
-      legend: {},
+      legend: {
+        bottom: 0,
+        itemGap: 50,
+        align: right,
+      },
+
       tooltip: {},
+      grid: {
+        top: '5%',
+        bottom: '20%'
+
+      },
       dataset: {
-        dimensions: ['product', 'عدد الطلبات الملغية','عدد الطلبات التامة', 'عدد الطلبات المعلقة', 'عدد الطلبات المقبولة'],
+        dimensions: ['product', 'عدد الطلبات الملغية', 'عدد الطلبات التامة', 'عدد الطلبات المعلقة', 'عدد الطلبات المقبولة'],
         source: [
-          { product: 'شركة غَدف', 'عدد الطلبات المقبولة': 580, 'عدد الطلبات المعلقة': 288,'عدد الطلبات التامة': 278, 'عدد الطلبات الملغية': 45 },
+          { product: 'شركة غَدف', 'عدد الطلبات المقبولة': 580, 'عدد الطلبات المعلقة': 288, 'عدد الطلبات التامة': 278, 'عدد الطلبات الملغية': 45 },
           { product: 'شركة سهّل', 'عدد الطلبات المقبولة': 700, 'عدد الطلبات المعلقة': 120, 'عدد الطلبات التامة': 57, 'عدد الطلبات الملغية': 268 },
           { product: 'شركة لذّة', 'عدد الطلبات المقبولة': 300, 'عدد الطلبات المعلقة': 70, 'عدد الطلبات التامة': 90, 'عدد الطلبات الملغية': 222 },
         ]
       },
-      xAxis: { type: 'category' },
-      yAxis: {},
+      xAxis: {
+        type: 'category',
+        splitLine: {
+          show: true,
+          lineStyle: {
+            type: 'dashed'
+          }
+        },
 
+      },
+      yAxis: {
+        splitLine: {
+          show: true,
+          lineStyle: {
+            type: 'dashed'
+          }
+        },
+        position: 'right',
+      },
       series: [
-        { type: 'bar' , barWidth: '10%' , itemStyle: { barBorderRadius: [50, 50, 0, 0]}},
-        { type: 'bar' , barWidth: '10%' , itemStyle: { barBorderRadius: [50, 50, 0, 0]}},
-        { type: 'bar', barWidth: '10%' , itemStyle: { barBorderRadius: [50, 50, 0, 0]} },
-        { type: 'bar', barWidth: '10%' , itemStyle: { barBorderRadius: [50, 50, 0, 0]} },]
+        { type: 'bar', barWidth: '10%', itemStyle: { barBorderRadius: [50, 50, 0, 0]} },
+        { type: 'bar', barWidth: '10%', itemStyle: { barBorderRadius: [50, 50, 0, 0]} },
+        { type: 'bar', barWidth: '10%', itemStyle: { barBorderRadius: [50, 50, 0, 0]} },
+        { type: 'bar', barWidth: '10%', itemStyle: { barBorderRadius: [50, 50, 0, 0]} }
+      ]
     };
 
     option && myChart.setOption(option);
   }
+
 
   initAllCompaniesChart(): void {
     //chart for all companies
@@ -88,9 +119,19 @@ console.log(data)
     var option2;
 
     option2 = {
+      textStyle: {
+        fontFamily: 'tajawal'
+      },
       color: ["#DB79A9", "#87B6A1", "#F2A735", "#2D9CDB"],
-      legend: {},
+      legend: {
+        bottom: 0,
+        align: right,
+      },
       tooltip: {},
+      grid: {
+        top: '5%',
+        bottom: '20%'
+      },
       itemStyle:{
         emphasis: {
           barBorderRadius: [50, 50]
@@ -106,8 +147,24 @@ console.log(data)
 
         ]
       },
-      xAxis: { type: 'category' },
-      yAxis: {},
+      xAxis: {
+        type: 'category',
+        splitLine: {
+          show: true,
+          lineStyle: {
+            type: 'dashed'
+          }
+        }
+      },
+      yAxis: {
+        splitLine: {
+          show: true,
+          lineStyle: {
+            type: 'dashed'
+          }
+        },
+        position: 'right',
+      },
 
       series: [
         { type: 'bar' ,barWidth: '10%', itemStyle: { barBorderRadius: [50, 50, 0, 0]}},
@@ -126,19 +183,24 @@ console.log(data)
     var option3;
 
     option3 = {
-      // title: {
-      //   text: 'Stacked Line'
-      // },
+      textStyle: {
+        fontFamily: 'tajawal'
+      },
       tooltip: {
         trigger: 'axis'
       },
       legend: {
-        data: ['شركة سهّل', 'شركة غَدف', 'شركة لذّة']
+        data: ['شركة سهّل', 'شركة غَدف', 'شركة لذّة'],
+        bottom: 0,
+        icon: 'roundRect',
+        itemGap: 50,
+        align: right,
       },
       grid: {
+        top: '5%',
         left: '3%',
         right: '4%',
-        bottom: '3%',
+        bottom: '20%',
         containLabel: true
       },
       toolbox: {
@@ -149,11 +211,25 @@ console.log(data)
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: ['ديسمبر', 'نوفمبر', 'أكتوبر', 'سبتمبر', 'أغسطس', 'يوليو', 'يونيو', 'مايو', 'أبريل', 'مارس', 'فبراير', 'يناير']
+        data: ['ديسمبر', 'نوفمبر', 'أكتوبر', 'سبتمبر', 'أغسطس', 'يوليو', 'يونيو', 'مايو', 'أبريل', 'مارس', 'فبراير', 'يناير'],
+        splitLine: {
+          show: true,
+          lineStyle: {
+            type: 'dashed'
+          }
+        }
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
+        splitLine: {
+          show: true,
+          lineStyle: {
+            type: 'dashed'
+          }
+        },
+        position: 'right',
       },
+
       series: [
         {
           name: 'شركة لذّة',
@@ -178,6 +254,7 @@ console.log(data)
 
     option3 && myChart3.setOption(option3);
   }
+
 
 }
 

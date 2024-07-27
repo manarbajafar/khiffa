@@ -15,11 +15,18 @@ export class RequestDetailsComponent implements OnInit {
       { url: 'assets/images/test1.png' },
       { url: 'assets/images/test2.png' },
       { url: 'assets/images/test3.png' }
-    ]
+    ],
+    amendmentRequest: { url: 'assets/images/test2.png' },
+    type: 1
   };
-  constructor() { }
+
+  _albums: any[] = [];
+
+  constructor() {}
 
   ngOnInit(): void {
+
   }
+
 
 }

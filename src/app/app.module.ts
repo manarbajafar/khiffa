@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 import { SharedComponentsModule } from './shared-components/shared-components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
+
 
 
 @NgModule({
@@ -30,11 +30,6 @@ import { TokenInterceptorInterceptor } from './services/token-interceptor.interc
     HttpClientModule,
 ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorInterceptor,
-      multi: true,
-    },
 
 
 

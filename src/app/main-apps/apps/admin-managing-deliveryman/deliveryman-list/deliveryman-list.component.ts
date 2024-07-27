@@ -23,8 +23,14 @@ export class DeliverymanListComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.users = this.userService.getUsers();
-    this.updateDisplayUsers();
+    this.userService.getUsers().subscribe(data => {
+      this.users = data;
+      this.updateDisplayUsers();
+    }, error => {
+      console.error('Error fetching users:', error);
+    });
+    // this.users = this.userService.getUsers();
+    // this.updateDisplayUsers();
   }
 
   updateDisplayUsers(): void {

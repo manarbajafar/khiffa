@@ -82,6 +82,10 @@ $khiffa-theme: mat.define-light-theme((
 
   //font sizes
   --title-font-size: 1.1rem;
+  --form-placeholder: calc(10.5px + 0.1vw);
+  --form--label: calc(12px + 0.1vw);
+  --form--control: calc(12px + 0.1vw);
+  // --button-text:
 }
 
 

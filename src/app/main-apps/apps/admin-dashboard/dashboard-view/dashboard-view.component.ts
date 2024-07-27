@@ -57,10 +57,6 @@ export class DashboardViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-//just for test
-// this.impApiService.get(auth.users).subscribe(data => {
-// console.log(data)
-// })
 
     this.initEveryCompanyChart();
     this.initAllCompaniesChart();

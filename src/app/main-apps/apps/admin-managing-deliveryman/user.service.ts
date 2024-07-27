@@ -1,6 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { auth } from 'src/app/constant/routes';
+import { ImpApiService } from 'src/app/services/imp-api.service';
 
-interface User {
+export interface User {
   id: number;
   name: string;
   email: string;
@@ -23,7 +27,16 @@ export class UserService {
     { id: 5, name: 'سارة', email: 'sarah@example.com' },
   ];
 
-  getUsers(): User[] {
-    return this.users;
-  }
+ //just for test
+// this.impApiService.get(auth.users).subscribe(data => {
+// console.log(data)
+// })
+
+
+constructor(private http: HttpClient, private impApiService: ImpApiService ) { }
+
+getUsers(): Observable<User[]> {
+  return this.http.get<User[]>(auth.users);
+}
+
 }

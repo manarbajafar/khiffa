@@ -58,7 +58,7 @@
   vertical-align: baseline;
   border-radius: 0.5rem;
   color: black;
-  // width:100px;
+  width: 100px;
 }
 
 .badge-under-processing {
@@ -82,6 +82,7 @@
   text-decoration: none;
   background-color: transparent;
   border: solid 0.1rem var(--primary-color);
+  width: 70px;
 }
 
 .btn-rounded {

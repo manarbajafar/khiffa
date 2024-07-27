@@ -1,4 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { right } from '@popperjs/core';
 import * as echarts from 'echarts';
 import { auth } from 'src/app/constant/routes';
@@ -7,7 +9,8 @@ import { ImpApiService } from 'src/app/services/imp-api.service';
 @Component({
   selector: 'app-dashboard-view',
   templateUrl: './dashboard-view.component.html',
-  styleUrls: ['./dashboard-view.component.scss']
+  styleUrls: ['./dashboard-view.component.scss'],
+  providers:[{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
 })
 export class DashboardViewComponent implements OnInit {
   isDropdownOpen = false;
@@ -18,6 +21,9 @@ export class DashboardViewComponent implements OnInit {
   lazza_providers_number=300;
   ghadaf_providers_number=300;
   sahhil_providers_number=300;
+
+  dateRangeForm: FormGroup;
+
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
@@ -36,7 +42,19 @@ export class DashboardViewComponent implements OnInit {
     }
   }
 
-  constructor(private impApiService: ImpApiService,) { }
+  constructor(private impApiService: ImpApiService,private formBuilder: FormBuilder) {
+
+    const today = new Date();
+    const lastYearToday = new Date();
+    lastYearToday.setFullYear(today.getFullYear() - 1);
+
+    this.dateRangeForm = this.formBuilder.group({
+      start: [lastYearToday],
+      end: [today]
+    });
+
+
+  }
 
   ngOnInit(): void {
 //just for test
@@ -257,5 +275,3 @@ export class DashboardViewComponent implements OnInit {
 
 
 }
-
-

@@ -6,6 +6,12 @@ label{
   display: block;
 }
 
+label span {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--gray-color);
+  text-align: center;
+}
 
 .chart-container {
   border-radius: 0.5rem !important;
@@ -97,3 +103,36 @@ label{
 }
 
 
+//datepicker
+.datepicker-container {
+  background-color: var(--white-color);
+  color: var(--black-color);
+  padding: 0rem 1.2rem;
+  border-radius: 0.5rem;
+
+  mat-date-range-input , mat-date-range-picker{
+    margin-bottom: -17px;
+    position: unset !important;
+  }
+
+  mat-datepicker-toggle{
+    color: var(--primary-color);
+  }
+
+  ::ng-deep .mat-form-field-underline {
+    display: none;
+}
+
+::ng-deep .mat-form-field-wrapper{
+  padding: 0 ;
+}
+::ng-deep .mat-form-field-infix{
+  height: 0;
+  border: none;
+}
+
+::ng-deep .mat-form-field-flex{
+  padding: 0.5rem 1.2rem;
+}
+
+}

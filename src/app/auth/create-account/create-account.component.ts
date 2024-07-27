@@ -35,19 +35,21 @@ export class CreateAccountComponent {
 
 
   onSubmit(): void {
-    if (this.signupForm.invalid) {
-      return;
-    }
-    const { name, national_id, email, phone_number, password, password_confirmation} = this.signupForm.value;
+    // if (this.signupForm.invalid) {
+    //   return;
+    // }
+    // const { name, national_id, email, phone_number, password, password_confirmation} = this.signupForm.value;
 
-    this.impApiService.post(auth.register, this.signupForm.value).subscribe(data => {
-      console.log(data);
-      //toaster to show sucess create account
-      this.router.navigate(['auth/login']);
-    }, error =>{
-      console.log( 'error form backend ',error.message);
-      this.errorMessage =error.message;
-    })
+    // this.impApiService.post(auth.register, this.signupForm.value).subscribe(data => {
+    //   console.log(data);
+    //   //toaster to show sucess create account
+    //   this.router.navigate(['auth/login']);
+    // }, error =>{
+    //   console.log( 'error form backend ',error.message);
+    //   this.errorMessage =error.message;
+    // })
+
+    this.router.navigate(['auth/attach-file']);
   }
 
 }

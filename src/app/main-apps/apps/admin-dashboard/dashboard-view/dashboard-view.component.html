@@ -32,21 +32,18 @@
 
 
 
-<div class="filterbydate d-flex align-items-center">
-  <label for="">الفترة الزمنية</label>
 
-    <mat-form-field appearance="fill">
-      <mat-label>اختر الفترة الزمنية</mat-label>
-      <mat-date-range-input [rangePicker]="picker1">
-        <input matStartDate placeholder="البداية">
-        <input matEndDate placeholder="النهاية">
+  <div class="filterbydate d-flex align-items-center">
+    <label for="">الفترة الزمنية <span>من - إلى</span></label>
+    <mat-form-field class="datepicker-container justify-content-center align-items-center">
+      <mat-date-range-input [rangePicker]="picker1" [formGroup]="dateRangeForm">
+        <input matStartDate formControlName="start">
+        <input matEndDate formControlName="end">
       </mat-date-range-input>
-      <mat-datepicker-toggle matSuffix [for]="picker1">
-      </mat-datepicker-toggle>
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-date-range-picker #picker1></mat-date-range-picker>
     </mat-form-field>
   </div>
-
 
 </div>
 

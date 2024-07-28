@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { auth } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
 
@@ -12,7 +13,7 @@ export class ProfileComponent implements OnInit {
   form!: FormGroup;
   errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder , private impApiService :ImpApiService) {
+  constructor(private fb: FormBuilder , private impApiService :ImpApiService ,   private router: Router) {
     // this.form = this.fb.group({
     //   idNumber: [{ value: '11448993155', disabled: true }, Validators.required],
     //   email: ['Mohammed1989@gmail.com', [Validators.required, Validators.email]],
@@ -50,7 +51,7 @@ export class ProfileComponent implements OnInit {
       this.setValidationErrors();
       return;
     }
-this.impApiService.post(auth.update, this.form.value).subscribe(data=>{
+this.impApiService.put(auth.update, this.form.value).subscribe(data=>{
 
 })
 
@@ -67,4 +68,9 @@ this.impApiService.post(auth.update, this.form.value).subscribe(data=>{
       }
     }
   }
+  navigateToEditProfile(): void {
+    this.router.navigate(['apps/edit-profile/']);
+  }
+
+
 }

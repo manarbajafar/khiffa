@@ -138,3 +138,29 @@ img, button {
   border: 1px solid #e0e0e0;
   box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
 }
+
+
+
+/* sidebar.component.scss */
+
+/* Customize radio buttons */
+.form-check-input {
+  accent-color: #007bff; /* Bootstrap primary blue, change as needed */
+}
+
+/* Customize labels for clarity and visibility */
+.form-check-label {
+  color: #333; /* Dark color for readability */
+  margin-left: 5px; /* Adds spacing between radio button and label */
+}
+
+/* Customize the modal's buttons */
+.btn-primary {
+  background-color: #007bff; /* Bootstrap primary blue, change as needed */
+  border-color: #007bff; /* Consistent border color */
+}
+
+.btn-secondary {
+  background-color: #6c757d; /* Bootstrap secondary color, change as needed */
+  border-color: #6c757d;
+}

@@ -7,6 +7,7 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import { NotFoundComponent } from './not-found/not-found.component';
 import { OtpCodeComponent } from './otp-code/otp-code.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { CheckTokenGuard } from '../gaurd/check-token.guard';
 
 const routes: Routes = [
 

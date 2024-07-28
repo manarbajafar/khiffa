@@ -43,22 +43,10 @@ h4 {
 
 label {
   color: #A0153E;
+  text-align: right;
 }
 
-.input-group {
-  display: flex;
-}
-
-.input-group input {
-  flex: 1;
-}
-
-.input-group .btn {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-input {
+textarea, input {
   margin: 10px 0;
   height: 40px;
   border: none;
@@ -66,21 +54,13 @@ input {
   font-family: 'Tajawal', sans-serif;
   font-size: calc(1.2rem + 0.2vw);
   background: #D9D9D9;
+  text-align: right;
 }
 
-input:focus {
+textarea {
+  height: auto;
+}
+
+input:focus, textarea:focus {
   outline: none;
-}
-.img-fluid {
-align-items: center;
-}
-.btn-custom {
-  background-color: #A0153E;
-  color: white; /* Ensures the text color is white */
-  border: none; /* Removes the default border */
-}
-
-.btn-custom:hover, .btn-custom:focus {
-  background-color: darken(#A0153E, 10%); /* Darkens the button on hover/focus for better user feedback */
-  color: white;
 }

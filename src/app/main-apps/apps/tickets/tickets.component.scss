@@ -1,25 +1,53 @@
-@import "~bootstrap/dist/css/bootstrap.min.css";
-@import "~bootstrap-icons/font/bootstrap-icons.css";
-@import "~bootstrap/scss/bootstrap";
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-
-body, * {
-  font-family: 'Tajawal', sans-serif !important;
+.custom-card {
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 1rem 1.2rem;
+  background-color: var(--white-color);
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
-$primary-color: #A0153E;
-
-.text-primary {
-  color: $primary-color !important;
+.card-icon {
+  position: absolute;
+  left: -20px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.bg-primary {
-  background-color: $primary-color !important;
+.icon-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--icon-background-color);
+  border-radius: 8px;
 }
 
+.icon-bg i {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+
+.card-title {
+  font-size: 1.1rem;
+  color: var(--title-color);
+  font-weight: 500;
+}
+
+.card-number {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+
+//table
 .table {
   width: 100%;
 }
+
 
 .badge {
   padding: 0.35em 0.65em;
@@ -33,41 +61,100 @@ $primary-color: #A0153E;
 }
 
 .badge-under-processing {
-  background-color: #ffcccc;
-  color: #ff0000;
+  background-color: var(--under-processing-ticket-color);
 }
 
 .badge-open {
-  background-color: #ccffcc;
-  color: #00ff00;
+  background-color:var(--open-ticket-color);
 }
 
 .badge-closed {
-  background-color: #cccccc;
-  color: #666666;
+  background-color: var(--closed-ticket-color);
 }
 
-.badge-on-hold {
-  background-color: #ffcc99;
-  color: #ff6600;
+.badge-on-hold{
+  background-color: var(--on-hold-ticket-color);
 }
 
 .btn-link {
-  color: $primary-color;
+  color: var(--primary-color);
   text-decoration: none;
   background-color: transparent;
-  border: solid 0.1rem $primary-color;
+  border: solid 0.1rem var(--primary-color);
 }
 
 .btn-rounded {
   border-radius: 0.5rem;
 }
 
-.pagination .page-link {
-  color: $primary-color;
+
+
+//filter dropdown
+label{
+  font-weight: 500;
+  color: var(--title-color);
+  margin-left: 0.8rem;
 }
 
-.pagination .page-item.active .page-link {
-  background-color: $primary-color;
-  border-color: $primary-color;
+
+.chart-container{
+  background-color: var(--white-color);
+  border-radius: 0.5rem;
+  text-align: center;
+  padding: 1.5rem 1.2rem 2.5rem;
+  background-color: var(--white-color);
+  position: relative;
+}
+
+
+//dropdown
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-button {
+  background-color: var(--white-color);
+  color: var(--black-color);
+  border: none;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-weight: 500;
+}
+
+.dropdown-content {
+  display: block;
+  position: absolute;
+  padding: 1rem;
+  background-color: var(--white-color);
+  min-width: 10rem;
+  box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.05);
+  z-index: 1;
+  border-radius: 0.5rem;
+  border: 0.1rem solid #EFF0F6;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-weight: 500;
+}
+
+.dropdown-item:hover {
+  background-color: var(--icon-background-color);
+  border-radius: 0.5rem;
+}
+
+.dropdown-icon {
+  margin-right: 0.5rem;
+  transition: transform 0.3s ease;
+  font-size: 0.8rem;
+  color: var(--primary-color);
+}
+
+.dropdown-button.open .dropdown-icon {
+  transform: rotate(180deg);
 }

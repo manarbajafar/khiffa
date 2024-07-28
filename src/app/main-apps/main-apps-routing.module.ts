@@ -7,7 +7,10 @@ import { WalletComponent } from './apps/wallet/wallet.component';
 
 import { TicketsComponent } from './apps/tickets/tickets.component';
 import { SupportComponent } from './apps/support/support.component';
-import { LogoutComponent } from './apps/logout/logout.component';
+
+import { EditProfileComponent } from './apps/edit-profile/edit-profile.component';
+import { DriverTicketAnswerComponent } from './apps/driver-ticket-answer/driver-ticket-answer.component';
+import { DriverActivateComponent } from './apps/driver-activate/driver-activate.component';
 
 // Add the path for driver-orders which is lazy-loaded
 const routes: Routes = [
@@ -48,10 +51,18 @@ const routes: Routes = [
     path: 'support',
     component: SupportComponent
   },
-  {
-    path: 'logout',
-    component: LogoutComponent
-  },
+
+  { path: 'edit-profile',
+    component: EditProfileComponent },
+    {
+    path:'driver-ticket-answer',
+    component: DriverTicketAnswerComponent
+    },
+    { path: 'driver-ticket-answer', component: DriverTicketAnswerComponent },
+    {
+      path: 'driver-activate',
+      component: DriverActivateComponent
+    },
   {
     path: 'driver-orders',
     loadChildren: () => import('./apps/driver-orders/driver-orders.module').then(m => m.DriverOrdersModule)

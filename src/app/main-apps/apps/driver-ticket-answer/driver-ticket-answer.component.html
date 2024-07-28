@@ -1,0 +1,24 @@
+<div class="out-container">
+  <form [formGroup]="ticketForm" (ngSubmit)="onSubmit()">
+    <div class="text-center mb-4">
+      <h4>تفاصيل التذكرة</h4>
+    </div>
+    <div class="mb-3 text-end">
+      <label for="ticketNumber" class="form-label">رقم التذكرة</label>
+      <input type="text" class="form-control text-end" id="ticketNumber" formControlName="ticketNumber" readonly>
+    </div>
+    <div class="mb-3 text-end">
+      <label for="issueTitle" class="form-label">عنوان المشكلة</label>
+      <input type="text" class="form-control text-end" id="issueTitle" formControlName="issueTitle" readonly>
+    </div>
+    <div class="mb-3 text-end">
+      <label for="issueDescription" class="form-label">وصف المشكلة</label>
+      <textarea class="form-control text-end" id="issueDescription" formControlName="issueDescription" rows="3" readonly></textarea>
+    </div>
+    <div class="mb-3 text-end">
+      <label for="adminResponse" class="form-label">رد الإدمن</label>
+      <textarea class="form-control text-end" id="adminResponse" formControlName="adminResponse" rows="3" readonly></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary" routerLink='/apps/tickets'>الرجوع إلى تذاكري</button>
+  </form>
+</div>

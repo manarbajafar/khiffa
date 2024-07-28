@@ -1,5 +1,12 @@
+
+<div class="text-end mb-3">
+  <button class="btn btn-primary" routerLink="/apps/support/" style="background-color: #A0153E; border-color: #A0153E; ">طلب رفع تذكرة</button>
+</div>
+
+
+
 <div class="container mt-4">
-  <h3 class="mb-4">تذاكري</h3>
+  <!-- <h3 class="mb-4">تذاكري</h3> -->
   <table class="table align-middle mb-0 bg-white">
     <thead class="bg-light">
       <tr>
@@ -28,7 +35,7 @@
           <span class="badge" [ngClass]="row.statusClass">{{ row.status }}</span>
         </td>
         <td>
-          <button type="button" class="btn btn-link btn-sm btn-rounded" routerLink="../ticket-info">عرض</button>
+          <button type="button" class="btn btn-link btn-sm btn-rounded" routerLink="/apps/driver-ticket-answer/">عرض</button>
         </td>
       </tr>
     </tbody>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 
 declare var bootstrap: any;
 
@@ -9,6 +10,15 @@ declare var bootstrap: any;
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
+  filteredStatus: string | null = null;
+  //pagination
+  items_per_page=5;
+  current_page=1;
+  allRequests: any[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  totalItems: number = 0;
+  paginatedRequests: any[] = [];
   orders = [
     { id: 1, title: 'شركة لذة', price: 20, distance: 15, location: 'العوالي إلى الشرائع'},
     { id: 2, title: 'شركة لذة', price: 30, distance: 10, location: 'العوالي إلى الشرائع'},
@@ -24,21 +34,9 @@ export class OrdersComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.showRegionSelectorModal();
+   // this.showRegionSelectorModal();
   }
 
-  showRegionSelectorModal(): void {
-    const modalElement = document.getElementById('regionSelectorModal');
-    if (modalElement) {
-      const modal = new bootstrap.Modal(modalElement);
-      modal.show();
-
-      document.getElementById('confirmRegionSelection')?.addEventListener('click', () => {
-        this.regionSelected = true;
-        modal.hide();
-      });
-    }
-  }
 
   sortOrders(field: string, order: 'asc' | 'desc'): void {
     this.filteredOrders.sort((a, b) => {
@@ -56,10 +54,7 @@ export class OrdersComponent implements OnInit {
     this.filteredOrders = this.orders.filter(order => order.title.includes(company));
   }
 
-  loadMore(): void {
-    this.visibleOrders += 3;
-    this.filteredOrders = this.orders.slice(0, this.visibleOrders);
-  }
+
 
   viewOrderDetail(orderId: number): void {
     this.router.navigate(['apps/driver-orders/detailed-order/',orderId]);
@@ -74,4 +69,15 @@ export class OrdersComponent implements OnInit {
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${location}`;
     window.open(googleMapsUrl, '_blank');
   }
+
+
+
+
+
+
+  changePage(page:number){
+    this.current_page=page;
+  }
+
 }
+

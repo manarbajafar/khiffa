@@ -5,6 +5,7 @@ import { AdminTechnicalSupportRoutingModule } from './admin-technical-support-ro
 import { TechnicalSupportViewComponent } from './technical-support-view/technical-support-view.component';
 import { SharedComponentsModule } from 'src/app/shared-components/shared-components.module';
 import { TicketInfoComponent } from './ticket-info/ticket-info.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { TicketInfoComponent } from './ticket-info/ticket-info.component';
     CommonModule,
     AdminTechnicalSupportRoutingModule,
     SharedComponentsModule,
+    FormsModule,
   ]
 })
 export class AdminTechnicalSupportModule { }

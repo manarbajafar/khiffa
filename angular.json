@@ -113,5 +113,8 @@
       }
     }
   },
-  "defaultProject": "khiffa"
+  "defaultProject": "khiffa",
+  "cli": {
+    "analytics": false
+  }
 }

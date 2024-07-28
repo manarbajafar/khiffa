@@ -10,6 +10,9 @@ import { RouterModule } from '@angular/router';
 import { SharedComponentsModule } from './shared-components/shared-components.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
+import { DatePipe } from '@angular/common';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -28,12 +31,18 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     SharedComponentsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NgxSpinnerModule,
 ],
-  providers: [
+  providers:
+  [
+    DatePipe,
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorInterceptor,
+    multi: true,
+  },
+],
 
-
-
-  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

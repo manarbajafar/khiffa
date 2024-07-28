@@ -1,9 +1,11 @@
-<div class="container-fluid">
+<div class="out-container container-fluid">
   <div class="logo-container text-center mt-2 mb-2">
     <img src="assets/images/logo1.svg" alt="khiffa logo">
   </div>
   <form class="mx-auto mb-3" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
     <h4 class="text-center mb-2">إنشاء حساب</h4>
+
+    <div *ngIf="errorMessage" id="error-message" class="error-message mt-3">{{ errorMessage }}</div>
 
     <div class="mb-3" style="width: 670.48px; text-align: right; color: var(--gray-color); font-size: 12px; line-height: 20px; word-wrap: break-word">الرجاء إرفاق جميع المتطلبات مع أحدث نسخة</div>
     <div class="row g-3">
@@ -20,7 +22,7 @@
         <input type="text" formControlName="national_id" class="form-control" id="inputID" placeholder="1111111111">
         <div *ngIf="signupForm.get('national_id')?.touched && signupForm.get('national_id')?.invalid" class="validation-error">
           <div *ngIf="signupForm.get('national_id')?.errors?.['required']">رقم الهوية مطلوب</div>
-          <div *ngIf="signupForm.get('national_id')?.errors?.['pattern']">رقم الهوية يجب ان يكون عشر ارقام ويبدأ ب1 أو 2</div>
+          <div *ngIf="signupForm.get('national_id')?.errors?.['pattern']">رقم الهوية يجب أن يكون 10 أرقام ويبدأ بـ 1 أو 2</div>
         </div>
       </div>
     </div>
@@ -42,22 +44,22 @@
     </div>
     <div class="mb-3">
       <label for="inputPassword" class="form-label">كلمة المرور</label>
-      <input type="password" formControlName="password" class="form-control" id="inputPassword" placeholder="35kLj223uu">
+      <input type="password" formControlName="password" class="form-control" id="inputPassword" placeholder="35k#Lj223u">
       <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid" class="validation-error">
         <div *ngIf="signupForm.get('password')?.errors?.['required']">كلمة المرور مطلوبة</div>
-        <div *ngIf="signupForm.get('password')?.errors?.['pattern']">كلمة المرور يجب أن تكون على الأقل 8 أرقام وحروف</div>
+        <div *ngIf="signupForm.get('password')?.errors?.['pattern']">كلمة المرور يجب أن تكون على الأقل 8 خانات مكونة من أرقام وحروف صغيرة وكبيرة وحروف خاصة</div>
       </div>
     </div>
 
     <div class="mb-3">
       <label for="inputPassword" class="form-label">تأكيد كلمة المرور</label>
-      <input type="password" formControlName="password_confirmation" class="form-control" id="inputpassword_confirmation" placeholder="35kLj223uu">
+      <input type="password" formControlName="password_confirmation" class="form-control" id="inputpassword_confirmation" placeholder="35k#Lj223u">
       <div *ngIf="signupForm.get('password_confirmation')?.touched && signupForm.get('password_confirmation')?.invalid" class="validation-error">
         <div *ngIf="signupForm.get('password_confirmation')?.errors?.['required']">تأكيد كلمة المرور مطلوب</div>
-        <div *ngIf="signupForm.get('password')!=signupForm.get('password_confirmation')">لا يتطابق مع كلمة المرور</div>
+        <div *ngIf="signupForm.get('password').valid && signupForm.get('password_confirmation').dirty && signupForm.get('password_confirmation')?.errors?.['confirmPasswordValidator']">كلمة المرور غير متطابقة</div>
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary mt-2" >إكمال التسجيل</button>
+    <button type="submit" class="btn btn-primary mt-2">إكمال التسجيل</button>
   </form>
 </div>

@@ -1,4 +1,4 @@
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { auth } from 'src/app/constant/routes';
@@ -22,10 +22,10 @@ export class LoginComponent {
     });
   }
 
-ngOnInit(): void{
 
-}
+  ngOnInit():void{
 
+  }
 
 
   onSubmit(): void {
@@ -49,7 +49,21 @@ ngOnInit(): void{
 
       this.impApiService.post(auth.login, this.loginForm.value).subscribe(data => {
 
-        console.log(data);
+        console.log(data.access_token);
+
+        localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('token', data.access_token);
+
+        if(data.user.user_type_id == 1){
+          this.router.navigate(["apps/admin-dashboard/dashboard-view"]);
+        }
+        if(data.user.user_type_id == 2){
+          this.router.navigate(["apps/driver-orders/orders"]);
+        }
+
+        // spinner
+        //https://www.npmjs.com/package/ngx-spinner/v/13.1.1
+
 
          localStorage.setItem('user',JSON.stringify(data))
          localStorage.setItem('user_token',(data.access_token))

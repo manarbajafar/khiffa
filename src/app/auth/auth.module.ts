@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { OtpCodeComponent } from './otp-code/otp-code.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SplashScreenComponent } from './splash-screen/splash-screen.component';
+import { NgOtpInputModule } from 'ng-otp-input';
 
 
 @NgModule({
@@ -21,12 +23,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     NotFoundComponent,
     OtpCodeComponent,
-
+    SplashScreenComponent,
   ],
   imports: [
     CommonModule,
     AuthRoutingModule,
-    ReactiveFormsModule // Import ReactiveFormsModule here
+    ReactiveFormsModule, // Import ReactiveFormsModule here
+    NgOtpInputModule,
   ]
 })
 export class AuthModule { }

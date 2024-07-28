@@ -45,6 +45,7 @@ $khiffa-theme: mat.define-light-theme((
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
+@import "~ngx-spinner/animations/ball-spin-clockwise.css";
 
 :root {
   --primary-color: #A0153E;

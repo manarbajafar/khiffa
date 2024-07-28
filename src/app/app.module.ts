@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
 import { DatePipe } from '@angular/common';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { DatePipe } from '@angular/common';
     SharedComponentsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    NgxSpinnerModule,
 ],
   providers:
   [

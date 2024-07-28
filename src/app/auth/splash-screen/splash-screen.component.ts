@@ -12,7 +12,22 @@ export class SplashScreenComponent implements OnInit {
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.router.navigate(['auth/login']);
+
+      const user =JSON.parse(localStorage.getItem('user'));
+
+      if(user){
+        if(user.user.user_type_id == 1){
+          this.router.navigate(["apps/admin-dashboard/dashboard-view"]);
+        }
+        if(user.user.user_type_id == 2){
+          this.router.navigate(["apps/driver-orders/orders"]);
+        }
+      }
+      else{
+        this.router.navigate(["auth/login"]);
+      }
+
+
     }, 3000);
   }
 

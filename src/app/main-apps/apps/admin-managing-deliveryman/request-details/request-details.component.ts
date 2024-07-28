@@ -16,11 +16,10 @@ export class RequestDetailsComponent implements OnInit {
       { url: 'assets/images/test2.png' },
       { url: 'assets/images/test3.png' }
     ],
-    amendmentRequest: { url: 'assets/images/test2.png' },
+    modificationRequest: { url: 'assets/images/test2.png' },
     type: 1
   };
 
-  _albums: any[] = [];
 
   constructor() {}
 

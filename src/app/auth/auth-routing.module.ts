@@ -7,16 +7,17 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import { NotFoundComponent } from './not-found/not-found.component';
 import { OtpCodeComponent } from './otp-code/otp-code.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
+import { CheckTokenGuard } from '../guard/check-token.guard';
 
 const routes: Routes = [
 
-  { path: 'attach-file', component : AttachFileComponent },
-  { path: 'create-account', component : CreateAccountComponent },
-  { path: 'login', component : LoginComponent },
+  { path: 'attach-file', component : AttachFileComponent , canActivate:[CheckTokenGuard]},
+  { path: 'create-account', component : CreateAccountComponent , canActivate:[CheckTokenGuard]},
+  { path: 'login', component : LoginComponent , canActivate:[CheckTokenGuard] },
   { path: 'not-found', component : NotFoundComponent },
-  { path: 'otp-code', component : OtpCodeComponent },
-  { path: 'reset-password', component : ResetPasswordComponent },
-  { path: 'forget-password', component : ForgetPasswordComponent },
+  { path: 'otp-code', component : OtpCodeComponent , canActivate:[CheckTokenGuard] },
+  { path: 'reset-password', component : ResetPasswordComponent, canActivate:[CheckTokenGuard] },
+  { path: 'forget-password', component : ForgetPasswordComponent , canActivate:[CheckTokenGuard] },
 
 ];
 

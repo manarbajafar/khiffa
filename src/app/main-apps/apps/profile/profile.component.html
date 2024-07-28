@@ -3,6 +3,10 @@
     <div class="text-center mb-4">
       <img src="assets/images/driver profile.png" class="rounded-circle" alt="User Image" width="150" height="150">
       <h4>محمد سعيد الحربي</h4>
+
+      <div class="text-center mt-4">
+        <button class="btn btn-custom" (click)="navigateToEditProfile()">تحديث المرفقات</button>
+      </div>
     </div>
     <div class="mb-3 text-end">
       <label for="idNumber" class="form-label">رقم الهوية</label>
@@ -46,18 +50,28 @@
         رقم الإيبان يجب أن يبدأ بـ SA ويكون مكوناً من 24 رقماً.
       </div>
     </div>
-    <div class="mb-3 text-end">
-      <label for="personalImage" class="form-label">صورة الشخصية</label>
-      <input type="text" class="form-control text-end" id="personalImage" formControlName="personalImage">
-    </div>
-    <div class="mb-3 text-end">
-      <label for="carImage" class="form-label">صورة السيارة</label>
-      <input type="text" class="form-control text-end" id="carImage" formControlName="carImage">
-    </div>
-    <div class="mb-3 text-end">
-      <label for="licenseImage" class="form-label">صورة رخصة القيادة</label>
-      <input type="text" class="form-control text-end" id="licenseImage" formControlName="licenseImage">
-    </div>
-    <button type="submit" class="btn btn-primary">حفظ</button>
-  </form>
+
+   <!-- Display car image -->
+   <div class="mb-3 text-end">
+    <label for="carImage" class="form-label">صورة السيارة</label>
+    <br>
+    <img src="assets/images/test1.png" alt="Car Image" class="img-fluid" style="max-height: 200px; max-width: 100%;">
+  </div>
+
+  <!-- Display license image -->
+  <div class="mb-3 text-end">
+    <label for="licenseImage" class="form-label">صورة رخصة القيادة</label>
+<br>
+
+    <img src="assets/images/test2.png" alt="License Image" class="img-fluid" style="max-height: 200px; max-width: 100%;">
+  </div>
+
+  <button type="submit" class="btn btn-primary">حفظ</button>
+
+
+</form>
 </div>
+
+
+
+

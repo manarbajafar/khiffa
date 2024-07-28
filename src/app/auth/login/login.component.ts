@@ -22,9 +22,11 @@ export class LoginComponent {
     });
   }
 
+
   ngOnInit():void{
 
   }
+
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
@@ -46,6 +48,7 @@ export class LoginComponent {
 
 
       this.impApiService.post(auth.login, this.loginForm.value).subscribe(data => {
+
         console.log(data.access_token);
 
         localStorage.setItem('user', JSON.stringify(data));
@@ -61,6 +64,15 @@ export class LoginComponent {
         // spinner
         //https://www.npmjs.com/package/ngx-spinner/v/13.1.1
 
+
+         localStorage.setItem('user',JSON.stringify(data))
+         localStorage.setItem('user_token',(data.access_token))
+         if (data.user.user_type_id == 2){
+          this.router.navigate(["apps/wallet"])
+        }
+        if (data.user.user_type_id == 1){
+          this.router.navigate(["apps/admin-dashboard/dashboard-view"])
+        }
       }, error => {
         this.errorMessage =error.message;
       })

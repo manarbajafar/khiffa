@@ -2,31 +2,39 @@
   <div class="sidebar">
     <div class="logo-container">
       <button class="logo">
-        <img [src]="isExpanded ? 'assets/images/logo1.svg' : 'assets/images/logo2.svg'"
-        alt="khiffa logo"
-         />
+        <img [src]="isExpanded ? 'assets/images/logo1.svg' : 'assets/images/logo2.svg'" alt="khiffa logo"/>
       </button>
     </div>
-
     <div class="sidebar-divider"></div>
-
     <ul class="nav-list">
       <li class="nav-list-item" *ngFor="let item of sidebar_list">
+
         <app-sidebar-link [routerLink]="[item.routerLink]" routerLinkActive="active">
           <span icon><i class="sidebar-link-icon" [class]="item.icon"></i></span>
+
           <span class="sidebar-link-text" *ngIf="isExpanded">{{ item.label }}</span>
-        </app-sidebar-link>
+        </div>
       </li>
     </ul>
   </div>
-
-  <button
-    class="toggle-button"
-    (click)="sidebarService.toggleSidenav()"
-    [class.is-flipped]="sidebarService.isExpanded"
-  >
-  <i class='bx bx-chevrons-left'></i>
+  <button class="toggle-button" (click)="sidebarService.toggleSidenav()">
+    <i class='bx bx-chevron-left'></i>
   </button>
 </div>
+
+<ng-template #logoutTemplate let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">تأكيد تسجيل الخروج</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    هل أنت متأكد من أنك تريد تسجيل خروجك؟
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">إلغاء</button>
+    <button type="button" class="btn btn-primary" (click)="confirmLogout()">نعم</button>
+  </div>
+</ng-template>
+
 
 

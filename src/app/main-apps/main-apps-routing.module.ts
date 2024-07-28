@@ -7,9 +7,11 @@ import { WalletComponent } from './apps/wallet/wallet.component';
 
 import { TicketsComponent } from './apps/tickets/tickets.component';
 import { SupportComponent } from './apps/support/support.component';
+
 import { LogoutComponent } from './apps/logout/logout.component';
 import { AdminGuard } from '../guard/admin.guard';
 import { DeliverymanGuard } from '../guard/deliveryman.guard';
+
 
 // Add the path for driver-orders which is lazy-loaded
 const routes: Routes = [
@@ -50,10 +52,18 @@ const routes: Routes = [
     path: 'support', canActivate:[DeliverymanGuard],
     component: SupportComponent
   },
-  {
-    path: 'logout',
-    component: LogoutComponent
-  },
+
+  { path: 'edit-profile',
+    component: EditProfileComponent },
+    {
+    path:'driver-ticket-answer',
+    component: DriverTicketAnswerComponent
+    },
+    { path: 'driver-ticket-answer', component: DriverTicketAnswerComponent },
+    {
+      path: 'driver-activate',
+      component: DriverActivateComponent
+    },
   {
     path: 'driver-orders', canActivate:[DeliverymanGuard],
     loadChildren: () => import('./apps/driver-orders/driver-orders.module').then(m => m.DriverOrdersModule)

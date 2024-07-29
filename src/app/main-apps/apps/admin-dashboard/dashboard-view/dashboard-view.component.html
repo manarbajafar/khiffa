@@ -2,12 +2,13 @@
 <div class="d-flex justify-content-between mb-5 gap-3">
   <app-stats-card title="إجمالي عدد المناديب" number="{{dliveryman_number}} مندوب" icon="bx bxs-user"></app-stats-card>
 
-  <app-stats-card title="عدد مزودي خدمة شركة لذّة" number="{{lazza_providers_number}} مطعم" icon="bx bx-restaurant"></app-stats-card>
-
-  <app-stats-card title="عدد مزودي خدمة شركة غَدَف" number="{{ghadaf_providers_number}} مطعم" icon="bx bx-leaf"></app-stats-card>
-
-  <app-stats-card title="عدد مزودي خدمة شركة سهّل" number="{{sahhil_providers_number}} متجر" icon="bx bx-store"></app-stats-card>
+  <app-stats-card *ngFor="let company of companiesCards"
+                  [title]="'عدد مزودي خدمة شركة ' + company.name"
+                  [number]="company.providers_number + ' مزود خدمة'"
+                  [icon]="company.icon">
+  </app-stats-card>
 </div>
+
 
 
 <div class="d-flex justify-content-between mb-3">
@@ -68,6 +69,11 @@
 
 <div class="d-flex mb-3">
   <div class="chart-container w-100">
+
+    <div *ngIf="showLoader" class="mt-5 text-center">
+      <app-loader></app-loader>
+   </div>
+
     <label for="">الخط الزمني لعدد الطلبات خلال سنة 2024</label>
     <div class="divider"></div>
     <div class=" d-flex justify-content-center" >

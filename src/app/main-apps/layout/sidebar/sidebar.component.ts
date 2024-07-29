@@ -1,6 +1,6 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';  // Ensure this import
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SidebarService } from './sidebar.service';
 
 @Component({
@@ -11,6 +11,7 @@ import { SidebarService } from './sidebar.service';
 export class SidebarComponent implements OnInit {
 
   sidebar_list=[];
+  @ViewChild('logoutTemplate') logoutTemplate;
 
   constructor(
     public sidebarService: SidebarService,
@@ -28,6 +29,7 @@ export class SidebarComponent implements OnInit {
     { routerLink: '/apps/admin-map/map-view', label: 'الخريطة', icon: 'bx bx-map-alt bx-flip-horizontal' },
     { routerLink: '/apps/admin-managing-deliveryman/managing-deliveryman-view', label: 'إدارة المناديب', icon: 'bx bxs-group' },
     { routerLink: '/apps/admin-technical-support/technical-support-view', label: 'تذاكر الدعم الفني', icon: 'bx bx-message-alt-error' },
+    { routerLink: '', label: 'تسجيل الخروج', icon: 'bi bi-box-arrow-right', action: 'logout' }
   ];
     }
     if(user.user.user_type_id == 2){
@@ -36,11 +38,20 @@ export class SidebarComponent implements OnInit {
         { routerLink: '/apps/wallet', label: 'المحفظة', icon: 'bi bi-wallet' },
         { routerLink: '/apps/driver-orders/orders', label: 'الطلبات', icon: 'bi bi-card-checklist' },
         { routerLink: '/apps/tickets', label: 'تذاكري', icon: 'bi bi-tools' },
-        { routerLink: '', label: 'تسجيل خروج', icon: 'bi bi-box-arrow-right' }
+        { routerLink: '', label: 'تسجيل الخروج', icon: 'bi bi-box-arrow-right', action: 'logout'  }
       ];
     }
   }
 
+
+  test(item: any): void {
+    console.log('hi from test');
+    if (item.action === 'logout') {
+      this.openModal(this.logoutTemplate);
+    } else if (item.routerLink) {
+      this.router.navigate([item.routerLink]);
+    }
+  }
 
 
 
@@ -61,29 +72,21 @@ export class SidebarComponent implements OnInit {
 
 
 
-
-
-
   @HostBinding('class.is-expanded')
   get isExpanded() {
     return this.sidebarService.isExpanded;
   }
 
 
-  openModal(content: any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-      (result) => {
-        if (result === 'logout') {
-          this.confirmLogout();
-        }
-      }, (reason) => {
-        console.log('Dismissed with:', reason); // Implement actual logic as needed
-      }
-    );
+  openModal(templateRef): void {
+    this.modalService.open(templateRef, { size: 'sm' });
   }
 
-  confirmLogout() {
-    this.modalService.dismissAll(); // Close all open modals
-    this.router.navigate(['/auth/login']); // Navigate to login page
-  }
+  confirmLogout(): void {
+    console.log('Logged out successfully.');
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    this.modalService.dismissAll();
+    this.router.navigate(['/auth/login']);
+}
 }

@@ -1,4 +1,4 @@
-<div class="sidenav-body-container">
+ <div class="sidenav-body-container">
   <div class="sidebar">
     <div class="logo-container">
       <button class="logo">
@@ -12,10 +12,12 @@
 
     <ul class="nav-list">
       <li class="nav-list-item" *ngFor="let item of sidebar_list">
-        <app-sidebar-link [routerLink]="[item.routerLink]" routerLinkActive="active">
-          <span icon><i class="sidebar-link-icon" [class]="item.icon"></i></span>
-          <span class="sidebar-link-text" *ngIf="isExpanded">{{ item.label }}</span>
-        </app-sidebar-link>
+        <a [routerLink]="[item.routerLink]" routerLinkActive="active">
+          <div (click)="test(item)">
+            <span class="sidebar-link-icon"><i [class]="item.icon"></i></span>
+            <span class="sidebar-link-text" *ngIf="isExpanded">{{ item.label }}</span>
+          </div>
+        </a>
       </li>
     </ul>
   </div>
@@ -25,8 +27,20 @@
     (click)="sidebarService.toggleSidenav()"
     [class.is-flipped]="sidebarService.isExpanded"
   >
-  <i class='bx bx-chevrons-left'></i>
+    <i class='bx bx-chevrons-left'></i>
   </button>
 </div>
 
-
+<ng-template #logoutTemplate let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">تأكيد تسجيل الخروج</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    هل أنت متأكد من أنك تريد تسجيل خروجك؟
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">إلغاء</button>
+    <button type="button" class="btn btn-primary" (click)="confirmLogout()">نعم</button>
+  </div>
+</ng-template>

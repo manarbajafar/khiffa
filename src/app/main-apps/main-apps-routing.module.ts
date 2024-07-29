@@ -51,7 +51,7 @@ const routes: Routes = [
     component: SupportComponent
   },
   {
-    path: 'logout',
+    path: 'logout', //????
     component: LogoutComponent
   },
   {

@@ -11,5 +11,9 @@ export const auth = {
 }
 
 export const admin_dashboard = {
-  // http://192.168.8.197:8000/api/login
+  countServiceProvidersByCompany: BASEURL + 'countServiceProvidersByCompany',
+  countOrderByCompany: BASEURL + 'countOrderByCompany?',
+  countAllOrder: BASEURL + 'countAllOrder',
+  index: BASEURL + 'index', //?
+  timeline: BASEURL + 'Timeline',
 }

@@ -1,55 +1,61 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Order } from 'src/app/constant/routes';
+import { ImpApiService } from 'src/app/services/imp-api.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-detailed-order',
   templateUrl: './detailed-order.component.html',
   styleUrls: ['./detailed-order.component.scss']
 })
 export class DetailedOrderComponent implements OnInit {
+  @ViewChild('regionTemplate') regionTemplate;
+  selectedRegion: string;
   orderId: number | null = null;
   orderState: number = 0;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private impApiService: ImpApiService , private router: Router, private modalService: NgbModal) { }
+  idParam = this.route.snapshot.paramMap.get('id');
 
   ngOnInit(): void {
-    const idParam = this.route.snapshot.paramMap.get('id');
-    if (idParam !== null) {
-      const parsedId = Number(idParam);
-      if (!isNaN(parsedId)) {
-        this.orderId = parsedId;
-        // Fetch order details using this.orderId
-        this.fetchOrderDetails(this.orderId);
-      } else {
-        console.error('Order ID is not a valid number');
-      }
-    } else {
-      console.error('Order ID not found in the route');
-    }
+    this.fetchOrderDetails(this.idParam);
+
+
   }
 
-  get progressWidth(): number {
-    return (this.orderState / 3) * 100;
+  fetchOrderDetails(orderId): void {
+    //console.log(orderId)
+    this.impApiService.get(Order.details + orderId).subscribe(d => {
+    //هنا اي بي اي ثاني لحالات الطلب
+    this.impApiService.put((Order.updateStatus + orderId),'').subscribe
+    console.log(orderId)
+    })
+
   }
+
+
 
   updateOrderState(): void {
     if (this.orderState < 3) {
       this.orderState++;
     }
   }
-
-  fetchOrderDetails(orderId: number): void {
-    // Implement your logic to fetch order details using the orderId
-    // This could be an HTTP request to your backend or another data-fetching mechanism
-    console.log(`Fetching details for order ID: ${orderId}`);
-    // Example:
-    // this.orderService.getOrderById(orderId).subscribe(
-    //   order => {
-    //     this.orderDetails = order;
-    //   },
-    //   error => {
-    //     console.error('Error fetching order details:', error);
-    //   }
-    // );
+  openModal(templateRef): void {
+    this.modalService.open(templateRef, { size: 'sm' });
   }
+
+  confirmRegionSelection(): void {
+    if (this.selectedRegion) {
+      this.modalService.dismissAll();  // Close the modal
+      console.log('Region selected:', this.selectedRegion);
+      // Navigate to the orders page with the selected region as a query parameter
+      this.router.navigate(['/apps/driver-orders/orders'], { queryParams: { region: this.selectedRegion } });
+    } else {
+      // Optionally handle the case where no region has been selected
+      console.log('No region selected');
+    }
+
+  }
+
+
 }

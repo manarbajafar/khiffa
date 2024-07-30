@@ -1,44 +1,82 @@
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SidebarService } from './sidebar.service';
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+
+  sidebar_list=[];
   @ViewChild('logoutTemplate') logoutTemplate;
-  @ViewChild('regionTemplate') regionTemplate;
 
-  selectedRegion: string;  // Declare selectedRegion to store the chosen region
+  constructor(
+    public sidebarService: SidebarService,
+    private router: Router,
+    private modalService: NgbModal
+  ) {}
 
-  sidebar_list = [
-    { label: 'صفحتي', icon: 'bi bi-person', routerLink: '/apps/profile' },
-    { label: 'المحفظة', icon: 'bi bi-wallet', routerLink: '/apps/wallet' },
-    { label: 'الطلبات', icon: 'bi bi-card-checklist', action: 'region' },
-    { label: 'تذاكري', icon: 'bi bi-tools', routerLink: '/apps/tickets' },
-    { label: 'تسجيل الخروج', icon: 'bi bi-box-arrow-right', action: 'logout' }
+  ngOnInit(): void {
+    const user =JSON.parse(localStorage.getItem('user'));
+
+    if(user.user.user_type_id == 1){
+    this.sidebar_list = [
+    { routerLink: '/apps/admin-dashboard/dashboard-view', label: 'لوحة التحكم', icon: 'bx bxs-dashboard' },
+    { routerLink: '/apps/admin-wallet/wallet-view', label: 'المحفظة', icon: 'bx bx-wallet' },
+    { routerLink: '/apps/admin-map/map-view', label: 'الخريطة', icon: 'bx bx-map-alt bx-flip-horizontal' },
+    { routerLink: '/apps/admin-managing-deliveryman/managing-deliveryman-view', label: 'إدارة المناديب', icon: 'bx bxs-group' },
+    { routerLink: '/apps/admin-technical-support/technical-support-view', label: 'تذاكر الدعم الفني', icon: 'bx bx-message-alt-error' },
+    { routerLink: '', label: 'تسجيل الخروج', icon: 'bi bi-box-arrow-right', action: 'logout' }
   ];
+    }
+    if(user.user.user_type_id == 2){
+      this.sidebar_list = [
+        { routerLink: '/apps/profile', label: 'صفحتي', icon: 'bi bi-person' },
+        { routerLink: '/apps/wallet', label: 'المحفظة', icon: 'bi bi-wallet' },
+        { routerLink: '/apps/driver-orders/orders', label: 'الطلبات', icon: 'bi bi-card-checklist' },
+        { routerLink: '/apps/tickets', label: 'تذاكري', icon: 'bi bi-tools' },
+        { routerLink: '', label: 'تسجيل الخروج', icon: 'bi bi-box-arrow-right', action: 'logout'  }
+      ];
+    }
+  }
 
-  constructor(public sidebarService: SidebarService, private router: Router, private modalService: NgbModal) {}
+
+  test(item: any): void {
+    console.log('hi from test');
+    if (item.action === 'logout') {
+      this.openModal(this.logoutTemplate);
+    } else if (item.routerLink) {
+      this.router.navigate([item.routerLink]);
+    }
+  }
+
+
+
+  // sidebar_list = [
+  //   { routerLink: '/apps/admin-dashboard/dashboard-view', label: 'لوحة التحكم', icon: 'bx bxs-dashboard', user_type: [1] },
+  //   { routerLink: '/apps/admin-wallet/wallet-view', label: 'المحفظة', icon: 'bx bx-wallet' , user_type: [1]},
+  //   { routerLink: '/apps/admin-map/map-view', label: 'الخريطة', icon: 'bx bx-map-alt bx-flip-horizontal' , user_type: [1]},
+  //   { routerLink: '/apps/admin-managing-deliveryman/managing-deliveryman-view', label: 'إدارة المناديب', icon: 'bx bxs-group', user_type: [1] },
+  //   { routerLink: '/apps/admin-technical-support/technical-support-view', label: 'تذاكر الدعم الفني', icon: 'bx bx-message-alt-error' , user_type: [1]},
+
+  //   { routerLink: '/apps/profile', label: 'صفحتي', icon: 'bi bi-person' , user_type: [2] },
+  //   { routerLink: '/apps/wallet', label: 'المحفظة', icon: 'bi bi-wallet' , user_type: [2] },
+  //   { routerLink: '/apps/driver-orders/orders', label: 'الطلبات', icon: 'bi bi-card-checklist', user_type: [2]  },
+  //   { routerLink: '/apps/tickets', label: 'تذاكري', icon: 'bi bi-tools', user_type: [2]  },
+  //   { routerLink: '', label: 'تسجيل خروج', icon: 'bi bi-box-arrow-right', user_type: [1,2]  }
+  // ];
+
+
+
 
   @HostBinding('class.is-expanded')
   get isExpanded() {
     return this.sidebarService.isExpanded;
   }
 
-  ngOnInit(): void {}
-
-  test(item: any): void {
-    if (item.action === 'logout') {
-      this.openModal(this.logoutTemplate);
-    } else if (item.action === 'region') {
-      this.openModal(this.regionTemplate);
-    } else if (item.routerLink) {
-      this.router.navigate([item.routerLink]);
-    }
-  }
 
   openModal(templateRef): void {
     this.modalService.open(templateRef, { size: 'sm' });
@@ -46,20 +84,9 @@ export class SidebarComponent implements OnInit {
 
   confirmLogout(): void {
     console.log('Logged out successfully.');
-    localStorage.removeItem
-    this.router.navigate(['/auth/login']);
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
     this.modalService.dismissAll();
+    this.router.navigate(['/auth/login']);
 }
-
-
-  confirmRegionSelection(): void {
-    if (this.selectedRegion) {
-      this.modalService.dismissAll();  // Close the modal
-      console.log('Region selected:', this.selectedRegion);
-      // Navigate to the orders page with the selected region as a query parameter
-      this.router.navigate(['/apps/driver-orders/orders'], { queryParams: { region: this.selectedRegion } });
-    } else {
-      // Optionally handle the case where no region has been selected
-      console.log('No region selected');
-    }
-  }}
+}

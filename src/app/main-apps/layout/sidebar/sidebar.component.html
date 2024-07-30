@@ -2,21 +2,32 @@
   <div class="sidebar">
     <div class="logo-container">
       <button class="logo">
-        <img [src]="isExpanded ? 'assets/images/logo1.svg' : 'assets/images/logo2.svg'" alt="khiffa logo"/>
+        <img [src]="isExpanded ? 'assets/images/logo1.svg' : 'assets/images/logo2.svg'"
+        alt="khiffa logo"
+         />
       </button>
     </div>
+
     <div class="sidebar-divider"></div>
+
     <ul class="nav-list">
       <li class="nav-list-item" *ngFor="let item of sidebar_list">
-        <div (click)="test(item)">
-          <span icon><i [class]="item.icon"></i></span>
-          <span class="sidebar-link-text" *ngIf="isExpanded">{{ item.label }}</span>
-        </div>
+        <a [routerLink]="[item.routerLink]" routerLinkActive="active">
+          <div (click)="test(item)">
+            <span class="sidebar-link-icon"><i [class]="item.icon"></i></span>
+            <span class="sidebar-link-text" *ngIf="isExpanded">{{ item.label }}</span>
+          </div>
+        </a>
       </li>
     </ul>
   </div>
-  <button class="toggle-button" (click)="sidebarService.toggleSidenav()">
-    <i class='bx bx-chevron-left'></i>
+
+  <button
+    class="toggle-button"
+    (click)="sidebarService.toggleSidenav()"
+    [class.is-flipped]="sidebarService.isExpanded"
+  >
+    <i class='bx bx-chevrons-left'></i>
   </button>
 </div>
 
@@ -34,26 +45,4 @@
   </div>
 </ng-template>
 
-<ng-template #regionTemplate let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title">إختيار المنطقة</h5>
-    <button type="button" class="btn-close" (click)="modal.dismiss() "></button>
-  </div>
-  <div class="modal-body">
-    الرجاء إختيار منطقتك
-    <form>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="region" id="makkah" [(ngModel)]="selectedRegion" value="Makkah">
-        <label class="form-check-label" for="makkah">مكة</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="region" id="jeddah" [(ngModel)]="selectedRegion" value="Jeddah">
-        <label class="form-check-label" for="jeddah">جدة</label>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary " (click)="modal.dismiss()">إلغاء</button>
-    <button type="button" class="btn btn-primary" (click)="confirmRegionSelection()">موافق</button>
-  </div>
-</ng-template>
+

@@ -89,7 +89,7 @@
   margin-bottom: 0.5rem;
 }
 
-app-sidebar-link {
+a {
   display: flex;
   align-items: center;
   height: 2.5rem;
@@ -98,18 +98,18 @@ app-sidebar-link {
   text-decoration: none;
   border-radius: 0.5rem;
   transition: background-color .3s ease, color .3s ease;
+  color: var(--primary-color);
 
   &.hover,
   &:hover {
     background-color: var(--primary-color);
     color: var(--white-color);
   }
+}
 
-  &.active,
-  &.active:hover {
-    background-color: var(--primary-color);
-    color: var(--white-color);
-  }
+.active {
+  background-color: var(--primary-color);
+  color: var(--white-color);
 }
 
 .sidebar-link-icon {
@@ -132,14 +132,6 @@ img, button {
   background: none;
   outline: none;
 }
-.card {
-  max-width: 400px;
-  width: 100%;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
-}
-
-
 
 /* sidebar.component.scss */
 

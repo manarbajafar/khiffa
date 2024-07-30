@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Order } from 'src/app/constant/routes';
+import { ImpApiService } from 'src/app/services/imp-api.service';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
-
 declare var bootstrap: any;
+
+
 
 @Component({
   selector: 'app-orders',
@@ -11,14 +14,15 @@ declare var bootstrap: any;
 })
 export class OrdersComponent implements OnInit {
   filteredStatus: string | null = null;
-  //pagination
-  items_per_page=5;
-  current_page=1;
-  allRequests: any[] = [];
-  currentPage: number = 1;
-  itemsPerPage: number = 10;
-  totalItems: number = 0;
-  paginatedRequests: any[] = [];
+  address;
+  beneficiary;
+ company = {
+  id:0,
+  company_name: ""
+ };
+service_provider;
+
+
   orders = [
     { id: 1, title: 'شركة لذة', price: 20, distance: 15, location: 'العوالي إلى الشرائع'},
     { id: 2, title: 'شركة لذة', price: 30, distance: 10, location: 'العوالي إلى الشرائع'},
@@ -27,14 +31,19 @@ export class OrdersComponent implements OnInit {
     { id: 5, title: 'شركة لذة', price: 35, distance: 30, location: 'العوالي إلى الشرائع'},
     { id: 6, title: 'شركة لذة', price: 25, distance: 25, location: 'العوالي إلى الشرائع'}
   ];
+
+  allorders  ={
+
+  }
   visibleOrders: number = 6;
   regionSelected: boolean = false;
   filteredOrders = [...this.orders];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router ,private impApiService :ImpApiService ) {}
+
 
   ngOnInit(): void {
-   // this.showRegionSelectorModal();
+    this.loadOrders();
   }
 
 
@@ -57,6 +66,7 @@ export class OrdersComponent implements OnInit {
 
 
   viewOrderDetail(orderId: number): void {
+    console.log(orderId)
     this.router.navigate(['apps/driver-orders/detailed-order/',orderId]);
   }
 
@@ -70,14 +80,17 @@ export class OrdersComponent implements OnInit {
     window.open(googleMapsUrl, '_blank');
   }
 
+  AllOrder = null
+  loadOrders(): void {
+    this.impApiService.get(Order.getorder).subscribe(
+      data => {
 
+        this.AllOrder = data.data
 
-
-
-
-  changePage(page:number){
-    this.current_page=page;
+      },
+      error => {
+        console.error('Error fetching orders:', error);
+      }
+    );
   }
-
 }
-

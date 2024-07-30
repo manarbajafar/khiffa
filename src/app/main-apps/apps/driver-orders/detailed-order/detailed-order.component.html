@@ -9,8 +9,8 @@
         <img src="assets/images/danublogo.png" class="rounded-circle mb-3" alt="Service Provider Image" style="width: 100px; height: 100px;">
         <h4 class="card-title">مقدم الخدمة</h4>
         <p class="card-text"><i class="bi bi-shop"></i>  {{ orderDetails.service_provider.name }}</p>
-        <p class="card-text"><i class="bi bi-geo-alt"></i> العوالي</p>
-        <p class="card-text"><i class="bi bi-building"></i> شركة لذة</p>
+        <p class="card-text"><i class="bi bi-geo-alt"></i> {{ orderDetails.address.district }}</p>
+        <p class="card-text"><i class="bi bi-building"></i> {{ orderDetails.beneficiary.name }}</p>
       </div>
     </div>
   </div>

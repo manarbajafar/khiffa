@@ -7,13 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  name= 'منار باجعفر';
-  email='admin@gmail.com';
+  name= '';
+  email='';
 
   constructor() { }
 
   ngOnInit(): void {
+    this.setHeader();
   }
 
-
+setHeader (){
+var user= JSON.parse(localStorage.getItem('user'));
+this.name=user.info.name;
+console.log(this.name)
+this.email=user.user.email;
+}
 }

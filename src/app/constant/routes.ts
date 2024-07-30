@@ -15,19 +15,10 @@ export const AUTH = {
 
 
 export const Order = {
-
-
-
-
   getorder: BASEURL + 'orders',
-
   assign: BASEURL + 'orders/assign',
   //filter: BASEURL + 'orders/filter',
-
-
   updateStatus: BASEURL + "orders/status?order_id=",
-
-
   details:  BASEURL + "orders/order?order_id="
 };
 
@@ -36,14 +27,13 @@ export const TRANSACTION ={
   requestTransaaction: BASEURL + "transactions",
   sendTransactions: BASEURL + "sendTransactions",
   showTransactions : BASEURL + "showTransactions"
-
 }
 
 export const DRIVERPROFILE ={
   profile: BASEURL + "profile",
   wallet : BASEURL + "wallet",
   tickets : BASEURL + "tickets"
-  
+
 }
 
 
@@ -57,11 +47,10 @@ export const ADMIN_DASHBOARD = {
   getAllOrders: BASEURL + 'orders',
 }
 
-export const admin = {
+export const ADMIN_MANAGING_DELIVERYMANS = {
   changeAccountStatus: BASEURL + 'changeAccountStatus',
-  showInfoAccountReq: BASEURL + 'showInfoAccountReq?user_id=3',
+  showInfoAccountReq: BASEURL + 'showInfoAccountReq?user_id=',
   accountRequests: BASEURL + 'accountRequests',
-
-
+  getDeliverymanList: BASEURL + 'users?page=',
 }
 

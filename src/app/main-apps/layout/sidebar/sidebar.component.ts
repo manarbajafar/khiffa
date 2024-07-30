@@ -10,14 +10,18 @@ import { SidebarService } from './sidebar.service';
 })
 export class SidebarComponent implements OnInit {
 
-  sidebar_list=[];
   @ViewChild('logoutTemplate') logoutTemplate;
+  @ViewChild('regionTemplate') regionTemplate;
+
+
+  sidebar_list=[];
 
   constructor(
     public sidebarService: SidebarService,
     private router: Router,
     private modalService: NgbModal
   ) {}
+
 
   ngOnInit(): void {
     const user =JSON.parse(localStorage.getItem('user'));
@@ -29,7 +33,7 @@ export class SidebarComponent implements OnInit {
     { routerLink: '/apps/admin-map/map-view', label: 'الخريطة', icon: 'bx bx-map-alt bx-flip-horizontal' },
     { routerLink: '/apps/admin-managing-deliveryman/managing-deliveryman-view', label: 'إدارة المناديب', icon: 'bx bxs-group' },
     { routerLink: '/apps/admin-technical-support/technical-support-view', label: 'تذاكر الدعم الفني', icon: 'bx bx-message-alt-error' },
-    { routerLink: '', label: 'تسجيل الخروج', icon: 'bi bi-box-arrow-right', action: 'logout' }
+    {  label: 'تسجيل الخروج', icon: 'bi bi-box-arrow-right', action: 'logout' }
   ];
     }
     if(user.user.user_type_id == 2){
@@ -38,14 +42,14 @@ export class SidebarComponent implements OnInit {
         { routerLink: '/apps/wallet', label: 'المحفظة', icon: 'bi bi-wallet' },
         { routerLink: '/apps/driver-orders/orders', label: 'الطلبات', icon: 'bi bi-card-checklist' },
         { routerLink: '/apps/tickets', label: 'تذاكري', icon: 'bi bi-tools' },
-        { routerLink: '', label: 'تسجيل الخروج', icon: 'bi bi-box-arrow-right', action: 'logout'  }
+        {  label: 'تسجيل الخروج', icon: 'bi bi-box-arrow-right', action: 'logout'  }
       ];
     }
   }
 
 
+  //need to modify
   test(item: any): void {
-    console.log('hi from test');
     if (item.action === 'logout') {
       this.openModal(this.logoutTemplate);
     } else if (item.routerLink) {
@@ -53,21 +57,6 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-
-
-  // sidebar_list = [
-  //   { routerLink: '/apps/admin-dashboard/dashboard-view', label: 'لوحة التحكم', icon: 'bx bxs-dashboard', user_type: [1] },
-  //   { routerLink: '/apps/admin-wallet/wallet-view', label: 'المحفظة', icon: 'bx bx-wallet' , user_type: [1]},
-  //   { routerLink: '/apps/admin-map/map-view', label: 'الخريطة', icon: 'bx bx-map-alt bx-flip-horizontal' , user_type: [1]},
-  //   { routerLink: '/apps/admin-managing-deliveryman/managing-deliveryman-view', label: 'إدارة المناديب', icon: 'bx bxs-group', user_type: [1] },
-  //   { routerLink: '/apps/admin-technical-support/technical-support-view', label: 'تذاكر الدعم الفني', icon: 'bx bx-message-alt-error' , user_type: [1]},
-
-  //   { routerLink: '/apps/profile', label: 'صفحتي', icon: 'bi bi-person' , user_type: [2] },
-  //   { routerLink: '/apps/wallet', label: 'المحفظة', icon: 'bi bi-wallet' , user_type: [2] },
-  //   { routerLink: '/apps/driver-orders/orders', label: 'الطلبات', icon: 'bi bi-card-checklist', user_type: [2]  },
-  //   { routerLink: '/apps/tickets', label: 'تذاكري', icon: 'bi bi-tools', user_type: [2]  },
-  //   { routerLink: '', label: 'تسجيل خروج', icon: 'bi bi-box-arrow-right', user_type: [1,2]  }
-  // ];
 
 
 
@@ -78,8 +67,16 @@ export class SidebarComponent implements OnInit {
   }
 
 
-  openModal(templateRef): void {
-    this.modalService.open(templateRef, { size: 'sm' });
+  openModal(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      (result) => {
+        if (result === 'logout') {
+          this.confirmLogout();
+        }
+      }, (reason) => {
+        console.log('Dismissed with:', reason); // Implement actual logic as needed
+      }
+    );
   }
 
   confirmLogout() {
@@ -87,9 +84,6 @@ export class SidebarComponent implements OnInit {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     this.modalService.dismissAll();
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    this.modalService.dismissAll();
     this.router.navigate(['/auth/login']);
-}
+  }
 }

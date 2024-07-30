@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { AUTH } from 'src/app/constant/routes';
 
 @Component({
@@ -11,16 +12,19 @@ import { AUTH } from 'src/app/constant/routes';
 export class ForgetPasswordComponent implements OnInit {
   email: string = '';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void { }
 
   sendEmail() {
+    this.spinner.show();
     const body = { email: this.email };
     this.http.post(AUTH.sendOtp, body).subscribe(response => {
-      this.router.navigate(['/AUTH/otp-code'], { queryParams: { email: this.email } });
+      this.spinner.hide();
+      this.router.navigate(['/auth/otp-code'], { queryParams: { email: this.email } });
     }, error => {
-      alert('حدث خطأ أثناء إرسال البريد الإلكتروني.');
+      this.spinner.hide();
+      alert('حدث خطأ أثناء إرسال البريد الإلكتروني.'+ error.message);
     });
   }
 }

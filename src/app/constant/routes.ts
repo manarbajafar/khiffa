@@ -8,7 +8,46 @@ export const auth = {
   logout: BASEURL + 'logout',
   update: BASEURL + 'update',
   users: BASEURL + 'users',
+  resetPassword: BASEURL + 'login/reset',
+  sendOtp: BASEURL + 'send',
+  checkOtp: BASEURL + 'CheckOtp',
+  regeion : BASEURL + 'orders/city'
 }
+
+
+export const Order = {
+
+
+
+
+  getorder: BASEURL + 'orders',
+
+  assign: BASEURL + 'orders/assign',
+  //filter: BASEURL + 'orders/filter',
+
+
+  updateStatus: BASEURL + "orders/status?order_id=",
+
+
+  details:  BASEURL + "orders/order?order_id="
+};
+
+export const transaction ={
+
+  requestTransaaction: BASEURL + "transactions",
+  sendTransactions: BASEURL + "sendTransactions",
+  showTransactions : BASEURL + "showTransactions"
+
+}
+
+export const driverProfile ={
+  profile: BASEURL + "profile",
+  wallet : BASEURL + "wallet",
+
+
+
+}
+
 
 export const admin_dashboard = {
   countServiceProvidersByCompany: BASEURL + 'countServiceProvidersByCompany',

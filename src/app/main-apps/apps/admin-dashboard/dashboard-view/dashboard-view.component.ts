@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { right } from '@popperjs/core';
 import * as echarts from 'echarts';
-import { admin_dashboard } from 'src/app/constant/routes';
+import { ADMIN_DASHBOARD } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
 import { data_order } from './data';
 import moment from 'moment';
@@ -68,7 +68,7 @@ export class DashboardViewComponent implements OnInit {
 
   //for cards
   getCountServiceProvidersByCompany(): void {
-    this.impApiService.get(admin_dashboard.countServiceProvidersByCompany).subscribe(data => {
+    this.impApiService.get(ADMIN_DASHBOARD.countServiceProvidersByCompany).subscribe(data => {
 
       data.forEach(item => {
         const company = this.companiesCards.find(c => c.key === item["company Name"]); //key names need to be modified by backend
@@ -81,7 +81,7 @@ export class DashboardViewComponent implements OnInit {
   }
 
   getdliverymanNumbers() {
-    this.impApiService.get(admin_dashboard.countDelivery).subscribe(data => {
+    this.impApiService.get(ADMIN_DASHBOARD.countDelivery).subscribe(data => {
       this.dliveryman_number = data;
     }, error => {
     });
@@ -89,7 +89,7 @@ export class DashboardViewComponent implements OnInit {
 
   //charts
   getEveryCompanyChartData(): void {
-    this.impApiService.get(admin_dashboard.countOrderByCompany).subscribe(data => {
+    this.impApiService.get(ADMIN_DASHBOARD.countOrderByCompany).subscribe(data => {
       // console.log(data);
       this.EveryCompanyChart(data);
     }, error => {
@@ -160,7 +160,7 @@ export class DashboardViewComponent implements OnInit {
 
 
   getAllCompaniesChartData(): void {
-    this.impApiService.get(admin_dashboard.countAllOrder).subscribe(data => {
+    this.impApiService.get(ADMIN_DASHBOARD.countAllOrder).subscribe(data => {
       // console.log(data);
       this.AllCompaniesChart(data);
     }, error => {
@@ -237,7 +237,7 @@ export class DashboardViewComponent implements OnInit {
   getTimelineChartData(): void {
     this.showLoader = true;
     // console.log('showLoader', this.showLoader);
-    this.impApiService.get(admin_dashboard.timeline).subscribe(data => {
+    this.impApiService.get(ADMIN_DASHBOARD.timeline).subscribe(data => {
       // console.log(data);
       this.TimelineChart(data);
       this.showLoader = false;
@@ -365,7 +365,7 @@ export class DashboardViewComponent implements OnInit {
     console.log(city)
     console.log(arrayListDate)
 
-    this.impApiService.get(admin_dashboard.getAllOrders).subscribe(d => {
+    this.impApiService.get(ADMIN_DASHBOARD.getAllOrders).subscribe(d => {
 
 
     })
@@ -391,7 +391,7 @@ export class DashboardViewComponent implements OnInit {
   }
 
   postCityforFilter(item) {
-    this.impApiService.post(admin_dashboard.index + "?Address=" + this.selectItem, {})
+    this.impApiService.post(ADMIN_DASHBOARD.index + "?Address=" + this.selectItem, {})
   }
 
 

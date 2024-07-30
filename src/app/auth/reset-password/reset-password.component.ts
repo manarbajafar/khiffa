@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { auth } from 'src/app/constant/routes';
+import { AUTH } from 'src/app/constant/routes';
 
 @Component({
   selector: 'app-reset-password',
@@ -30,7 +30,7 @@ export class ResetPasswordComponent  {
     }
 
     const body = { email: this.email, password: this.password, otp: this.otp };
-    this.http.post(auth.resetPassword, body).subscribe(response => {
+    this.http.post(AUTH.resetPassword, body).subscribe(response => {
       this.submitted = true;
     }, error => {
       alert('حدث خطأ أثناء إعادة تعيين كلمة المرور.'+ error.message);

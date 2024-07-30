@@ -1,8 +1,7 @@
 import { environment } from '../../../src/environments/environment';
 const BASEURL = environment.api;
 
-//for every module
-export const auth = {
+export const AUTH = {
   login: BASEURL + 'login',
   register: BASEURL + 'register',
   logout: BASEURL + 'logout',
@@ -49,7 +48,7 @@ export const driverProfile ={
 }
 
 
-export const admin_dashboard = {
+export const ADMIN_DASHBOARD = {
   countServiceProvidersByCompany: BASEURL + 'countServiceProvidersByCompany',
   countOrderByCompany: BASEURL + 'countOrderByCompany?',
   countAllOrder: BASEURL + 'countAllOrder',
@@ -58,3 +57,12 @@ export const admin_dashboard = {
   countDelivery: BASEURL + 'countDelivery',
   getAllOrders: BASEURL + 'orders',
 }
+
+export const admin = {
+  changeAccountStatus: BASEURL + 'changeAccountStatus',
+  showInfoAccountReq: BASEURL + 'showInfoAccountReq?user_id=3',
+  accountRequests: BASEURL + 'accountRequests',
+
+
+}
+

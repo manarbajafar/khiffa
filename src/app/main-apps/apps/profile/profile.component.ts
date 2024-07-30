@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { auth } from 'src/app/constant/routes';
+import { AUTH } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
 
 @Component({
@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit {
       this.setValidationErrors();
       return;
     }
-this.impApiService.put(auth.update, this.form.value).subscribe(data=>{
+this.impApiService.put(AUTH.update, this.form.value).subscribe(data=>{
 
 })
 

@@ -2,7 +2,7 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { auth } from 'src/app/constant/routes';
+import { AUTH } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
 
 @Component({
@@ -44,7 +44,7 @@ export class LoginComponent {
       this.errorMessage = null;
 
       this.spinner.show();
-      this.impApiService.post(auth.login, this.loginForm.value).subscribe(data => {
+      this.impApiService.post(AUTH.login, this.loginForm.value).subscribe(data => {
 
         console.log(data.access_token);
 

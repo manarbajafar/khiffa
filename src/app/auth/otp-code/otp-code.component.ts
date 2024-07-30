@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { auth } from 'src/app/constant/routes';
+import { AUTH } from 'src/app/constant/routes';
 
 @Component({
   selector: 'app-otp-code',
@@ -33,7 +33,7 @@ export class OtpCodeComponent implements OnInit {
     else{
       this.spinner.show();
       const form = {email: this.email , otp:this.ngOtpInput.currentVal}
-      this.http.post(auth.checkOtp, form).subscribe(response => {
+      this.http.post(AUTH.checkOtp, form).subscribe(response => {
         this.spinner.hide();
       this.router.navigate(['/auth/reset-password'], { queryParams: { email: this.email, otp: this.otp } });
     }, error => {
@@ -48,7 +48,7 @@ export class OtpCodeComponent implements OnInit {
 
   resendOtp() {
     const body = { email: this.email };
-    this.http.post(auth.sendOtp, body).subscribe(response => {
+    this.http.post(AUTH.sendOtp, body).subscribe(response => {
       alert('تم إرسال رمز OTP جديد.');
     }, error => {
       alert('حدث خطأ أثناء إعادة إرسال رمز OTP.');

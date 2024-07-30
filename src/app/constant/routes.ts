@@ -31,7 +31,7 @@ export const Order = {
   details:  BASEURL + "orders/order?order_id="
 };
 
-export const transaction ={
+export const TRANSACTION ={
 
   requestTransaaction: BASEURL + "transactions",
   sendTransactions: BASEURL + "sendTransactions",
@@ -39,12 +39,11 @@ export const transaction ={
 
 }
 
-export const driverProfile ={
+export const DRIVERPROFILE ={
   profile: BASEURL + "profile",
   wallet : BASEURL + "wallet",
-
-
-
+  tickets : BASEURL + "tickets"
+  
 }
 
 

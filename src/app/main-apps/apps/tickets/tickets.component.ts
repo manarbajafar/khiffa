@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { DRIVERPROFILE } from 'src/app/constant/routes';
+import { ImpApiService } from 'src/app/services/imp-api.service';
 @Component({
   selector: 'app-tickets',
   templateUrl: './tickets.component.html',
@@ -18,11 +19,13 @@ export class TicketsComponent implements OnInit {
   ];
   paginatedData: any[];
 
-  constructor() {
-    this.paginatedData = this.getPaginatedData();
+  constructor( private impApiService :ImpApiService ) {
+  //  this.paginatedData = this.getPaginatedData();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+   // this.loadDriverticket();
+  }
 
   changePage(page: number): void {
     this.current_page = page;
@@ -39,4 +42,22 @@ export class TicketsComponent implements OnInit {
     const totalPages = Math.ceil(this.filteredData.length / this.items_per_page);
     return Array.from({ length: totalPages }, (_, i) => i + 1);
   }
+
+  //tickets  = null;
+
+  // loadDriverticket(): void {
+  //   this.impApiService.get(DRIVERPROFILE.tickets).subscribe(
+  //     (response) => {
+
+  //       this.tickets = response.data;
+  //       console.log(response.user)
+  //     },
+  //     (error) => {
+
+  //       console.error('Error fetching driver tickets :', error);
+  //     }
+  //   );
+  // }
+
+
 }

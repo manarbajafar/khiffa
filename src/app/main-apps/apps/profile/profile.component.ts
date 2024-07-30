@@ -1,7 +1,9 @@
+import { User } from './../admin-managing-deliveryman/user.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AUTH } from 'src/app/constant/routes';
+import { log } from 'console';
+import { AUTH, DRIVERPROFILE } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
 
 @Component({
@@ -26,14 +28,12 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadProfile(),
     this.form = this.fb.group({
       idNumber: [{ value: '11448993155', disabled: true }, Validators.required],
       email: ['Mohammed1989@gmail.com', [Validators.required, Validators.email]],
       phoneNumber: ['+966565658441', [Validators.required]],
       ibanNumber: ['', [Validators.required]],
-      personalImage: ['83_20240712191938_صورة.png', Validators.required],
-      carImage: ['83_20240712191938_صورة.png', Validators.required],
-      licenseImage: ['83_20240712191938_صورة.png', Validators.required]
     });
   }
 
@@ -56,7 +56,7 @@ this.impApiService.put(AUTH.update, this.form.value).subscribe(data=>{
 })
 
 
-    // Handle form submission
+
     console.log(this.form.value);
   }
 
@@ -71,6 +71,20 @@ this.impApiService.put(AUTH.update, this.form.value).subscribe(data=>{
   navigateToEditProfile(): void {
     this.router.navigate(['apps/edit-profile/']);
   }
+  profile = null;
 
+  loadProfile(): void {
+    this.impApiService.get(DRIVERPROFILE.profile).subscribe(
+      (response) => {
+
+        this.profile = response.data;
+        console.log(response.user)
+      },
+      (error) => {
+
+        console.error('Error fetching profile:', error);
+      }
+    );
+  }
 
 }

@@ -3,174 +3,7 @@
 @import "~bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
 
-body,* {
-  font-family: 'Tajawal', sans-serif !important;
-}
 
-$primary-color: #A0153E;
-
-.text-primary {
-  color: $primary-color !important;
-}
-
-.bg-primary {
-  background-color: $primary-color !important;
-}
-
-.container {
-  max-width: 1020px;
-}
-
-.step {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.step.active span {
-  color: black;
-}
-
-.step span {
-  margin-top: 5px;
-}
-
-.btn-primary {
-  background-color: $primary-color;
-  border-color: $primary-color;
-}
-
-.btn-primary:hover {
-  background-color: darken($primary-color, 10%);
-  border-color: darken($primary-color, 10%);
-}
-
-.btn-primary:active {
-  background-color: darken($primary-color, 10%);
-  border-color: darken($primary-color, 10%);
-}
-
-.service-provider {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-}
-
-.service-provider h2 {
-  align-self: flex-end;
-}
-
-.service-provider .details {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.service-provider .details .detail-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.service-provider .details .detail-item i {
-  color: $primary-color;
-  margin-left: 10px; /* Adjust this to control spacing between icon and text */
-}
-
-.service-provider-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-
-.service-provider-info {
-  text-align: center;
-}
-
-.service-provider-info img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-}
-
-.timeline-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-
-.timeline {
-  list-style-type: none;
-  padding: 0;
-}
-
-.timeline-item {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.timeline-item.active {
-  font-weight: bold;
-}
-
-.timeline-item:last-child {
-  border-bottom: none;
-}
-
-.map-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  height: 100%;
-}
-
-#map {
-  height: 400px;
-}
-
-.delivery-info h5 {
-  margin-bottom: 10px;
-}
-
-.timeline {
-  list-style-type: none;
-  padding: 0;
-  position: relative;
-
-  li {
-    padding: 10px 0;
-    border-left: 2px solid #d9d9d9;
-    position: relative;
-    padding-left: 20px;
-    margin-left: 10px;
-
-    &.completed {
-      border-left-color: $primary-color;
-
-      &::before {
-        background: $primary-color;
-      }
-    }
-
-    &::before {
-      content: "";
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #d9d9d9;
-      position: absolute;
-      left: -7px;
-      top: 12px;
-    }
-  }
-
-  @import "~bootstrap/dist/css/bootstrap.min.css";
-@import "~bootstrap-icons/font/bootstrap-icons.css";
-@import "~bootstrap/scss/bootstrap";
-@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-
-body,* {
-  font-family: 'Tajawal', sans-serif !important;
-}
 
 $primary-color: #A0153E;
 
@@ -216,7 +49,7 @@ $primary-color: #A0153E;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  text-align: right;
+  text-align: left;
 }
 
 .service-provider-card,
@@ -230,7 +63,7 @@ $primary-color: #A0153E;
 }
 
 .service-provider-info {
-  text-align: center;
+  text-align: left;
 
   img {
     width: 100px;
@@ -274,6 +107,13 @@ $primary-color: #A0153E;
 
 .card-text i {
   color: $primary-color;
+
+}
+.container {
+  max-width: 1020px; /* Adjust this if necessary to fit your design */
 }
 
+/* Ensure that columns inside rows are centered */
+.row {
+  justify-content: center;
 }

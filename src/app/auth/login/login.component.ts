@@ -27,9 +27,11 @@ export class LoginComponent {
     });
   }
 
+
   ngOnInit():void{
 
   }
+
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
@@ -60,6 +62,15 @@ export class LoginComponent {
 
 
 
+
+         localStorage.setItem('user',JSON.stringify(data))
+         localStorage.setItem('user_token',(data.access_token))
+         if (data.user.user_type_id == 2){
+          this.router.navigate(["apps/wallet"])
+        }
+        if (data.user.user_type_id == 1){
+          this.router.navigate(["apps/admin-dashboard/dashboard-view"])
+        }
       }, error => {
         this.errorMessage =error.message;
       })

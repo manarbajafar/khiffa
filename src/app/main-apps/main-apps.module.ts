@@ -8,10 +8,12 @@ import { HeaderComponent } from './layout/header/header.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { ProfileComponent } from './apps/profile/profile.component';
 
-import { LogoutComponent } from './apps/logout/logout.component';
 import { SupportComponent } from './apps/support/support.component';
 import { TicketsComponent } from './apps/tickets/tickets.component';
 import { WalletComponent } from './apps/wallet/wallet.component';
+import { EditProfileComponent } from './apps/edit-profile/edit-profile.component';
+import { DriverTicketAnswerComponent } from './apps/driver-ticket-answer/driver-ticket-answer.component';
+import { DriverActivateComponent } from './apps/driver-activate/driver-activate.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +22,14 @@ import { WalletComponent } from './apps/wallet/wallet.component';
     SidebarComponent,
     ProfileComponent,
 
-    LogoutComponent,
+
 
     SupportComponent,
     TicketsComponent,
     WalletComponent,
+    EditProfileComponent,
+    DriverTicketAnswerComponent,
+    DriverActivateComponent,
   ],
   imports: [
     CommonModule,

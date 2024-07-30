@@ -11,12 +11,12 @@ const routes: Routes = [
   { path: '', component: SplashScreenComponent },
 
   {
-    path: 'auth',
+    path: 'auth',canActivate:[CheckTokenGuard],
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
 
   {
-    path: 'apps', component: MainLayoutComponent,
+    path: 'apps',canActivate:[AuthCheckGuard], component: MainLayoutComponent,
     loadChildren: () => import('./main-apps/main-apps.module').then(m => m.MainAppsModule),
     canActivate:[AuthCheckGuard]
   },

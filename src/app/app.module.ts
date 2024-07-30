@@ -17,6 +17,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +46,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     multi: true,
   },
 ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

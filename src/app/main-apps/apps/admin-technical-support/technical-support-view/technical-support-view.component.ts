@@ -61,8 +61,8 @@ export class TechnicalSupportViewComponent implements OnInit {
       date: "5 يناير 2024",
       time:"3:00 م",
       id: "1234",
-      status: "مفتوحة",
-      statusClass: "badge-open",
+      status: "قيد الانتظار",
+      statusClass: "badge-on-hold",
     },
     {
       title: "مشكلة بتحويل المستحقات",
@@ -70,8 +70,8 @@ export class TechnicalSupportViewComponent implements OnInit {
       date: "5 يناير 2024",
       time:"3:00 م",
       id: "1234",
-      status: "تحت المعالجة",
-      statusClass: "badge-under-processing",
+      status: "قيد الانتظار",
+      statusClass: "badge-on-hold",
     },
     {
       title: "مشكلة بتحويل المستحقات",

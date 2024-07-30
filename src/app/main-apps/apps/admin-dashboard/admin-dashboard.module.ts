@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AdminDashboardRoutingModule } from './admin-dashboard-routing.module';
 import { DashboardViewComponent } from './dashboard-view/dashboard-view.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedComponentsModule } from 'src/app/shared-components/shared-components.module';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     CommonModule,
     AdminDashboardRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
 
     //to use stat card
     SharedComponentsModule,

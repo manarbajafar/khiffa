@@ -1,0 +1,71 @@
+<div class="container mt-3">
+  <div class="row">
+    <!-- Latest Transactions Section -->
+    <div class="col-12 mb-3">
+      <div class="table-container">
+        <label for="">أحدث العمليات للمندوب</label>
+        <div class="divider"></div>
+        <table class="table text-end">
+          <thead>
+            <tr>
+              <th scope="col">معرّف العملية</th>
+              <th scope="col">التاريخ</th>
+              <th scope="col">النوع</th>
+              <th scope="col">الاسم</th>
+              <th scope="col">المبلغ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of latestTransactions">
+              <td>{{ transaction.id }}</td>
+              <td>{{ transaction.date }} {{ transaction.time }}</td>
+              <td>{{ transaction.type }}</td>
+              <td>{{ transaction.name }}</td>
+              <td>{{ transaction.amount }} ر.س.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Manager Transfers Section -->
+    <div class="col-12 mt-3">
+      <div class="requests-table-container">
+        <label for="">التحويلات السابقة للمندوب</label>
+        <div class="divider"></div>
+        <table class="table text-end">
+          <thead>
+            <tr>
+              <th scope="col">معرّف العملية</th>
+              <th scope="col">التاريخ</th>
+              <th scope="col">النوع</th>
+              <th scope="col">الاسم</th>
+              <th scope="col">المبلغ</th>
+              <th scope="col">إجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transfer of previousTransfers">
+              <td>{{ transfer.id }}</td>
+              <td>{{ transfer.date }} {{ transfer.time }}</td>
+              <td>{{ transfer.type }}</td>
+              <td>{{ transfer.name }}</td>
+              <td>{{ transfer.amount }} ر.س.</td>
+              <td>
+                <i class="bx bx-show-alt" title="عرض التفاصيل" (click)="viewTransferDetails(transfer.id)"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+          <app-pagination
+            [total_items]="previousTransfers.length"
+            [current_page]="currentPage"
+            [items_per_page]="itemsPerPage"
+            (onClick)="handlePageClick($event)">
+          </app-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

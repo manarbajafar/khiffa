@@ -1,0 +1,43 @@
+.not-found-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  color: #333;
+  opacity: 1;
+  transition: opacity 2s ease-in-out;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.robot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.robot img {
+  max-width: 20%;
+  height: 20%;
+}
+
+.message {
+  margin-top: 20px;
+}
+
+.message h1 {
+  font-size: 2em;
+}
+
+.message h2 {
+  font-size: 1.5em;
+  margin-top: 10px;
+}
+
+.message p {
+  font-size: 1em;
+  margin-top: 10px;
+}

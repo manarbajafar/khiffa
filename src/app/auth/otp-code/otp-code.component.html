@@ -1,17 +1,26 @@
+
 <div class="logo-container text-center mt-4 mb-2">
   <img style="width: 250px;" src="assets/images/logo1.svg" alt="khiffa logo">
 </div>
 <form class="mx-auto mb-4">
   <h4 class="text-center">أدخل رمز OTP</h4>
 
-  <div class="userInput mt-3">
-    <input type="text" id='ist' maxlength="1" onkeyup="clickEvent(this,'sec')">
-    <input type="text" id="sec" maxlength="1" onkeyup="clickEvent(this,'third')">
-    <input type="text" id="third" maxlength="1" onkeyup="clickEvent(this,'fourth')">
-    <input type="text" id="fourth" maxlength="1" onkeyup="clickEvent(this,'fifth')">
-    <input type="text" id="sexth" maxlength="1" onkeyup="clickEvent(this,'sexth')">
-    <input type="text" id="sexth" maxlength="1">
+  <div class="userInput mt-3 mb-3">
+    <ng-otp-input class="each-input"
+    [config]="{
+      length : 6,
+      allowNumbersOnly: true,
+    inputStyles: {
+      'border-radius': '0.5rem',
+      'border': 'none',
+      'background': '#D9D9D9',
+      'margin':'0 3px'
+ }}"
+    #ngOtpInput>
+    </ng-otp-input>
 </div>
 
-  <a type="submit" routerLink= "/auth/reset-password" class="btn btn-primary mt-4 ">تحقق</a>
-  <button type="submit" class="btn btn-primary mt-2 ">أعد إرسال رمز OTP</button>
+
+  <button (click)="submitOtp()" type="submit" class="btn btn-primary mt-4 ">تحقق</button>
+  <button (click)="resendOtp()" type="submit" class="btn btn-primary mt-2 ">أعد إرسال رمز OTP</button>
+</form>

@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { UserService } from './user.service';
 import { AllDeliverymanRequestsComponent } from './all-deliveryman-requests/all-deliveryman-requests.component';
 import { RequestDetailsComponent } from './request-details/request-details.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -27,7 +28,7 @@ import { RequestDetailsComponent } from './request-details/request-details.compo
     FormsModule,
     AdminManagingDeliverymanRoutingModule,
     SharedComponentsModule,
-
+    HttpClientModule,
   ]
   , providers: [UserService],
 })

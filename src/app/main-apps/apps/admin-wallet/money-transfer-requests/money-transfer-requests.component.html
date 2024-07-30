@@ -1,49 +1,66 @@
-<div class="requests-table-container row  w-75">
-  <label for="">طلبات تحويل الأموال</label>
+<div class="requests-table-container">
+  <label  for="">طلبات تحويل الأموال</label>
   <div class="divider"></div>
-  <div class="col-12">
-    <table class="table text-end">
-<tbody>
-  <tr class="align-items-center align-middle m-0 p-0 " *ngFor="let request of requests">
-    <td >{{ request.date }} {{ request.time }}</td>
-    <td>{{ request.name }}</td>
-    <td>  {{ request.amount }} ر.س.</td>
-    <td class="">
-      <div class="flex-d justify-content-between gap-4">
+  <table class="table table-hover text-end">
+    <tbody>
+      <tr *ngFor="let request of paginatedRequests" class="align-items-center align-middle">
+        <td>{{ request.date }} {{ request.time }}</td>
+        <td>{{ request.name }}</td>
+        <td>{{ request.amount }} ر.س.</td>
+        <td>
+          <div class="btn-icon-container">
+            <i class='bx bx-show-alt btn-icon' title="عرض الفواتير السابقة" routerLink="../deliveryman-transactions"></i>
+            <i class='bx bx-check-circle btn-icon' title="تحويل" (click)="openTransferModal(request.id)"></i>
+            <i class='bx bx-x-circle btn-icon' title="رفض" (click)="openRejectModal(request.id)"></i>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn1 btn-sm btn-rounded w-25" data-bs-toggle="modal" data-bs-target="#transferModal">
-  تحويل
-</button>
 
-<button type="button" class="btn2 btn-sm btn-rounded w-25" data-bs-toggle="modal" data-bs-target="#rejectModal">
-  رفض
-</button>
-
-<!-- transfer Modal-->
-<div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        <h1 class="modal-title fs-5" id="exampleModalLabel">تأكيد تحويل الأموال</h1>
-
+  <!-- Transfer Confirmation Modal -->
+  <div class="modal fade" id="transferModal" tabindex="-1" aria-labelledby="transferModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h1 class="modal-title fs-5" id="transferModalLabel">تأكيد تحويل الأموال</h1>
+        </div>
+        <div class="modal-body">
+          هل أنت متأكد من تحويل المبلغ إلى المندوب؟
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="confirmTransfer()">نعم</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">تراجع</button>
+        </div>
       </div>
-      <div class="modal-body">
-        هل أنت متأكد من تحويل مبلغ 600 ر.س إلى المندوب خالد عمر؟
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">نعم</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">تراجع</button>
+    </div>
+  </div>
+
+  <!-- Reject Confirmation Modal -->
+  <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h1 class="modal-title fs-5" id="rejectModalLabel">تأكيد رفض الطلب</h1>
+        </div>
+        <div class="modal-body">
+          هل أنت متأكد من رفض الطلب؟
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="confirmReject()">نعم</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">تراجع</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-      </div>
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
-</div>
+<app-pagination
+[total_items]="requests.length"
+[current_page]="currentPage"
+[items_per_page]="itemsPerPage"
+(onClick)="changePage($event)">
+</app-pagination>

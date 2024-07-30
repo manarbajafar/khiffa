@@ -82,8 +82,11 @@ export class SidebarComponent implements OnInit {
     this.modalService.open(templateRef, { size: 'sm' });
   }
 
-  confirmLogout(): void {
+  confirmLogout() {
     console.log('Logged out successfully.');
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    this.modalService.dismissAll();
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     this.modalService.dismissAll();

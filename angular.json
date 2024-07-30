@@ -37,7 +37,9 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/boxicons/css/boxicons.min.css"
+              "node_modules/boxicons/css/boxicons.min.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/primeng.min.css"
             ],
             "scripts": []
           },
@@ -113,5 +115,8 @@
       }
     }
   },
-  "defaultProject": "khiffa"
+  "defaultProject": "khiffa",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -22,7 +22,7 @@ img {
 form {
   width: 80%;
   max-width: 500px;
-  background-color: var(--white-color);;
+  background-color: var(--white-color);
   padding: 25px;
   border-radius: 29px;
   box-shadow: 0px 3px 18px rgba(0, 0, 0, 0.08);
@@ -30,7 +30,7 @@ form {
 }
 
 .form-control:focus {
-  border-color: var(--secondary-color);
+  border-color: var(--title-color);
   box-shadow: none;
 }
 
@@ -52,27 +52,29 @@ form {
 
 .btn-primary {
   width: 100%;
-  background-color:var(--primary-color);;
+  background-color: var(--primary-color);
   border-radius: 8px;
   border-style: none;
 }
+
 .btn-primary:active {
   background-color: var(--secondary-color);
 }
 
 h4 {
-  color: var(--title-color);;
+  color: var(--title-color);
   font-size: calc(19px + 0.5vw);
   word-wrap: break-word;
 }
 
 .error-message {
-  background-color:var(--error-background-color);
+  background-color: pink;
   color: var(--primary-color);;
-  padding: 10px;
+  padding: 8px;
   border-radius: 8px;
-  margin-bottom: 20px;
   text-align: center;
+  font-size: calc(12px + 0.1vw);;
+  font-weight: 600;
 }
 
 .validation-error {

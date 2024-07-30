@@ -1,4 +1,5 @@
-import { Route, Router } from '@angular/router';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { auth } from 'src/app/constant/routes';
@@ -14,7 +15,11 @@ export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder, private impApiService: ImpApiService, private router: Router) {
+  constructor(private fb: FormBuilder,
+    private impApiService: ImpApiService,
+    private router: Router,
+    private spinner: NgxSpinnerService)
+    {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -22,10 +27,10 @@ export class LoginComponent {
     });
   }
 
-ngOnInit(): void{
 
-}
+  ngOnInit():void{
 
+  }
 
 
   onSubmit(): void {
@@ -35,21 +40,28 @@ ngOnInit(): void{
     }
 
     const { email, password } = this.loginForm.value;
-
-// coming from backend.
-// if (email !== 'aa@gmail.com' || password !== '12345678') {
-//   this.errorMessage = 'الإيميل أو كلمة المرور غير صحيحة';
-// }
-
       // successful login
       this.errorMessage = null;
 
-      //check user type id
-
-
+      this.spinner.show();
       this.impApiService.post(auth.login, this.loginForm.value).subscribe(data => {
 
-        console.log(data);
+        console.log(data.access_token);
+
+        localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('token', data.access_token);
+
+        this.spinner.hide();
+
+        if(data.user.user_type_id == 1){
+          this.router.navigate(["apps/admin-dashboard/dashboard-view"]);
+        }
+        if(data.user.user_type_id == 2){
+          this.router.navigate(["apps/driver-orders/orders"]);
+        }
+
+
+
 
          localStorage.setItem('user',JSON.stringify(data))
          localStorage.setItem('user_token',(data.access_token))

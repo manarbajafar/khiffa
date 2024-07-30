@@ -11,6 +11,10 @@ import { SharedComponentsModule } from './shared-components/shared-components.mo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
+import { DatePipe } from '@angular/common';
+import { NgxSpinnerModule } from 'ngx-spinner';
+// import {ToastModule} from 'primeng/toast';
+
 
 
 
@@ -29,16 +33,20 @@ import { TokenInterceptorInterceptor } from './services/token-interceptor.interc
     SharedComponentsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-  ],
-  providers: [
+    NgxSpinnerModule,
+    // ToastModule,
+
+],
+  providers:
+  [
+    DatePipe,
     {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorInterceptor,
-      multi: true,
-    },
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorInterceptor,
+    multi: true,
+  },
+],
 
-
-  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

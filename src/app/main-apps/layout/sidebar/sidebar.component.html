@@ -1,3 +1,4 @@
+
 <div class="sidenav-body-container">
   <div class="sidebar">
     <div class="logo-container">
@@ -5,10 +6,15 @@
         <img [src]="isExpanded ? 'assets/images/logo1.svg' : 'assets/images/logo2.svg'"
         alt="khiffa logo"
          />
+        <img [src]="isExpanded ? 'assets/images/logo1.svg' : 'assets/images/logo2.svg'"
+        alt="khiffa logo"
+         />
       </button>
     </div>
 
+
     <div class="sidebar-divider"></div>
+
 
     <ul class="nav-list">
       <li class="nav-list-item" *ngFor="let item of sidebar_list">
@@ -18,9 +24,22 @@
             <span class="sidebar-link-text" *ngIf="isExpanded">{{ item.label }}</span>
           </div>
         </a>
+        <a [routerLink]="[item.routerLink]" routerLinkActive="active">
+          <div (click)="test(item)">
+            <span class="sidebar-link-icon"><i [class]="item.icon"></i></span>
+            <span class="sidebar-link-text" *ngIf="isExpanded">{{ item.label }}</span>
+          </div>
+        </a>
       </li>
     </ul>
   </div>
+
+  <button
+    class="toggle-button"
+    (click)="sidebarService.toggleSidenav()"
+    [class.is-flipped]="sidebarService.isExpanded"
+  >
+    <i class='bx bx-chevrons-left'></i>
 
   <button
     class="toggle-button"

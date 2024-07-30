@@ -1,16 +1,45 @@
-<div class="container-fluid">
-
-  <form class="mx-auto mb-3">
-    <h4 class="text-center mb-2">عرض تذكرة</h4>
-
-    <div class="mb-3" style="width: 670.48px; text-align: right; color: var(--gray-color); font-size: 12px; line-height: 20px; word-wrap: break-word">الرجاء إرفاق جميع المتطلبات مع أحدث نسخة</div>
-    <div class="row g-3">
-      <div class="col-md-6 mb-3">
-        <label for="inputname" class="form-label">العنوان</label>
-        <input type="text" formControlName="name" class="form-control" id="inputname" placeholder="">
+<div class="container-fluid mt-4">
+  <form class="mx-auto mb-3" #ticketForm="ngForm" (ngSubmit)="onSubmit(ticketForm)">
+    <div class="header d-flex justify-content-between align-items-center">
+      <div class="title-container text-center">
+        <h4 class="title">{{ title }}</h4>
+        <p class="subtitle">{{ subtitle }}</p>
+      </div>
+      <p class="date-time">{{ date | date: 'yyyy MMMM d' }}<br> {{ time | date: 'shortTime' }}</p>
+    </div>
+    <div class="description">
+      <label for="description">الوصف</label>
+      <p id="description">{{ description }}</p>
+    </div>
+    <div class="info-row d-flex">
+      <div class="info-item">
+        <label for="ticketNumber">رقم التذكرة</label>
+        <p id="ticketNumber" class="value">{{ ticketNumber }}</p>
+      </div>
+      <div class="info-item">
+        <label for="name">الاسم</label>
+        <p id="name" class="value">{{ name }}</p>
+      </div>
+      <div class="info-item">
+        <label for="status">حالة الطلب</label>
+        <p id="status" [ngClass]="{
+          'badge-open': status === 'مفتوحة',
+          'badge-under-processing': status === 'تحت الإجراء',
+          'badge-closed': status === 'مغلقة'
+        }" class="badge">{{ status }}</p>
       </div>
 
+
     </div>
-    <a type="submit" class="btn btn-primary mt-2" routerLink="tecket-info">تحديث حالة الطلب</a>
+    <hr>
+    <div class="update-status">
+      <label for="statusSelect">تحديث حالة الطلب</label>
+      <select id="statusSelect" class="form-select" [(ngModel)]="selectedStatus" name="statusSelect" required>
+        <option *ngFor="let option of statusOptions" [value]="option">{{ option }}</option>
+      </select>
+      <label for="commentTextarea" class="mt-2">تعليق</label>
+      <textarea id="commentTextarea" class="form-control mt-2" placeholder="كتابة تعليق..." [(ngModel)]="comment" name="comment" required></textarea>
+      <button type="submit" class="btn btn-primary mt-4">تحديث حالة الطلب</button>
+    </div>
   </form>
 </div>

@@ -1,25 +1,32 @@
+.table-container,
 .requests-table-container {
   background-color: var(--white-color);
   border-radius: 0.5rem;
   padding: 1.5rem 1.2rem 2.5rem;
   text-align: center;
-  width: 100%;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.table-container {
+  margin-bottom: 2rem; /* مسافة إضافية أسفل القسم */
+}
+
+.divider {
+  border-top: 1px solid #ccc;
+  margin: 0.5rem 0;
+}
+
+label {
+  font-weight: 500;
+  color: var(--title-color);
+  font-size: 1.2rem;
+  text-align: right; /* محاذاة النص لليمين */
+  display: block;
 }
 
 .table {
   width: 100%;
-  margin: 0;
-  font-size: 0.9rem;
-  table-layout: fixed;
-}
-
-label{
-  font-weight: 500;
-  color: var(--title-color);
-  font-size: 1.2rem;
-  text-align: right;
-  display: block;
-  margin-bottom: 1rem;
 }
 
 .table td, .table th {
@@ -29,36 +36,18 @@ label{
 
 .table td {
   border-bottom: 1px solid #ddd;
-  padding: 0.5rem 1rem;
 }
 
 .table-hover tbody tr:hover {
   background-color: #f5f5f5;
 }
 
-.btn-icon-container {
-  display: flex;
-  justify-content: center;
-}
-
-.btn-icon {
+i.bx {
   font-size: 1.2rem;
   cursor: pointer;
   color: var(--primary-color);
-  margin: 0 2rem;
 }
 
-.btn-icon:hover {
+i.bx:hover {
   color: var(--secondary-color);
-}
-
-
-
-.divider {
-  border-top: 1px solid #ccc;
-  margin: 0.3rem 0;
-}
-
-.modal-content {
-  border-radius: 0.5rem;
 }

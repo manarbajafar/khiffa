@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { auth } from 'src/app/constant/routes';
+import { AUTH } from 'src/app/constant/routes';
 
 @Component({
   selector: 'app-forget-password',
@@ -17,8 +17,8 @@ export class ForgetPasswordComponent implements OnInit {
 
   sendEmail() {
     const body = { email: this.email };
-    this.http.post(auth.sendOtp, body).subscribe(response => {
-      this.router.navigate(['/auth/otp-code'], { queryParams: { email: this.email } });
+    this.http.post(AUTH.sendOtp, body).subscribe(response => {
+      this.router.navigate(['/AUTH/otp-code'], { queryParams: { email: this.email } });
     }, error => {
       alert('حدث خطأ أثناء إرسال البريد الإلكتروني.');
     });

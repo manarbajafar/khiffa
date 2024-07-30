@@ -8,9 +8,11 @@ import { WalletComponent } from './apps/wallet/wallet.component';
 import { TicketsComponent } from './apps/tickets/tickets.component';
 import { SupportComponent } from './apps/support/support.component';
 
-import { LogoutComponent } from './apps/logout/logout.component';
 import { AdminGuard } from '../guard/admin.guard';
 import { DeliverymanGuard } from '../guard/deliveryman.guard';
+import { DriverActivateComponent } from './apps/driver-activate/driver-activate.component';
+import { DriverTicketAnswerComponent } from './apps/driver-ticket-answer/driver-ticket-answer.component';
+import { EditProfileComponent } from './apps/edit-profile/edit-profile.component';
 
 
 // Add the path for driver-orders which is lazy-loaded

@@ -13,7 +13,6 @@ export class SidebarComponent implements OnInit {
 
 
   sidebar_list=[];
-  @ViewChild('logoutTemplate') logoutTemplate;
 
   constructor(
     public sidebarService: SidebarService,
@@ -66,36 +65,23 @@ export class SidebarComponent implements OnInit {
   }
 
 
-  test(item: any): void {
-    if (item.action === 'logout') {
-      this.openModal(this.logoutTemplate);
-    } else if (item.action === 'region') {
-      this.openModal(this.regionTemplate);
-    } else if (item.routerLink) {
-      this.router.navigate([item.routerLink]);
-    }
+  openModal(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      (result) => {
+        if (result === 'logout') {
+          this.confirmLogout();
+        }
+      }, (reason) => {
+        console.log('Dismissed with:', reason); // Implement actual logic as needed
+      }
+    );
   }
 
-  openModal(templateRef): void {
-    this.modalService.open(templateRef, { size: 'sm' });
-  }
-
-  confirmLogout(): void {
+  confirmLogout() {
     console.log('Logged out successfully.');
-    localStorage.removeItem
-    this.router.navigate(['/auth/login']);
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
     this.modalService.dismissAll();
+    this.router.navigate(['/auth/login']);
+  }
 }
-
-
-  confirmRegionSelection(): void {
-    if (this.selectedRegion) {
-      this.modalService.dismissAll();  // Close the modal
-      console.log('Region selected:', this.selectedRegion);
-      // Navigate to the orders page with the selected region as a query parameter
-      this.router.navigate(['/apps/driver-orders/orders'], { queryParams: { region: this.selectedRegion } });
-    } else {
-      // Optionally handle the case where no region has been selected
-      console.log('No region selected');
-    }
-  }}

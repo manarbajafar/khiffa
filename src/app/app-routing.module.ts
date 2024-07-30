@@ -18,7 +18,7 @@ const routes: Routes = [
   {
     path: 'apps',canActivate:[AuthCheckGuard], component: MainLayoutComponent,
     loadChildren: () => import('./main-apps/main-apps.module').then(m => m.MainAppsModule),
-    canActivate:[AuthCheckGuard]
+
   },
 
   { path:'**', redirectTo:'auth/not-found'},

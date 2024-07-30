@@ -1,3 +1,4 @@
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -14,7 +15,11 @@ export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder, private impApiService: ImpApiService, private router: Router) {
+  constructor(private fb: FormBuilder,
+    private impApiService: ImpApiService,
+    private router: Router,
+    private spinner: NgxSpinnerService)
+    {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
@@ -33,23 +38,18 @@ export class LoginComponent {
     }
 
     const { email, password } = this.loginForm.value;
-
-// coming from backend.
-// if (email !== 'aa@gmail.com' || password !== '12345678') {
-//   this.errorMessage = 'الإيميل أو كلمة المرور غير صحيحة';
-// }
-
       // successful login
       this.errorMessage = null;
 
-      //check user type id
-
-
+      this.spinner.show();
       this.impApiService.post(auth.login, this.loginForm.value).subscribe(data => {
+
         console.log(data.access_token);
 
         localStorage.setItem('user', JSON.stringify(data));
         localStorage.setItem('token', data.access_token);
+
+        this.spinner.hide();
 
         if(data.user.user_type_id == 1){
           this.router.navigate(["apps/admin-dashboard/dashboard-view"]);
@@ -58,8 +58,7 @@ export class LoginComponent {
           this.router.navigate(["apps/driver-orders/orders"]);
         }
 
-        // spinner
-        //https://www.npmjs.com/package/ngx-spinner/v/13.1.1
+
 
       }, error => {
         this.errorMessage =error.message;

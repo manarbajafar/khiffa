@@ -18,7 +18,9 @@ export class ErrorInterceptorService {
 
       }
       if (err.status === 403) {
-//احذف اللي في اللوكال ستورج واطرده من السستم
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        //navigate to login?
       }
       if (err.status === 422) {
 

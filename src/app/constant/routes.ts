@@ -8,6 +8,9 @@ export const auth = {
   logout: BASEURL + 'logout',
   update: BASEURL + 'update',
   users: BASEURL + 'users',
+  resetPassword: BASEURL + 'login/reset',
+  sendOtp: BASEURL + 'send',
+  checkOtp: BASEURL + 'CheckOtp',
 }
 
 export const admin_dashboard = {
@@ -16,4 +19,6 @@ export const admin_dashboard = {
   countAllOrder: BASEURL + 'countAllOrder',
   index: BASEURL + 'index', //?
   timeline: BASEURL + 'Timeline',
+  countDelivery: BASEURL + 'countDelivery',
+  getAllOrders: BASEURL + 'orders',
 }

@@ -5,19 +5,21 @@ import { right } from '@popperjs/core';
 import * as echarts from 'echarts';
 import { admin_dashboard } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
+import { data_order } from './data';
+import moment from 'moment';
 
 @Component({
   selector: 'app-dashboard-view',
   templateUrl: './dashboard-view.component.html',
   styleUrls: ['./dashboard-view.component.scss'],
-  providers:[{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
 })
 export class DashboardViewComponent implements OnInit {
   isDropdownOpen = false;
   selectedItem: string | null = null;
   items = ['مكة', 'جدة', 'الكل'];
 
-  showLoader=false;
+  showLoader = false;
 
   companiesCards = [
     { name: 'لذّة', providers_number: 0, icon: 'bx bx-restaurant', key: 'Lazza' },
@@ -26,7 +28,7 @@ export class DashboardViewComponent implements OnInit {
 
   ];
 
-  dliveryman_number=0;
+  dliveryman_number = 0;
 
   companyNames = {
     Lazza: 'شركة لذّة',
@@ -38,7 +40,7 @@ export class DashboardViewComponent implements OnInit {
   dateRangeForm: FormGroup;
 
 
-  constructor(private impApiService: ImpApiService,private formBuilder: FormBuilder) {
+  constructor(private impApiService: ImpApiService, private formBuilder: FormBuilder) {
 
     const today = new Date();
     const lastYearToday = new Date();
@@ -53,8 +55,10 @@ export class DashboardViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.getdliverymanNumbers();
     this.getCountServiceProvidersByCompany();
+
+    this.getAllOrders();
 
     this.getEveryCompanyChartData();
     this.getAllCompaniesChartData();
@@ -65,7 +69,6 @@ export class DashboardViewComponent implements OnInit {
   //for cards
   getCountServiceProvidersByCompany(): void {
     this.impApiService.get(admin_dashboard.countServiceProvidersByCompany).subscribe(data => {
-      // console.log(data);
 
       data.forEach(item => {
         const company = this.companiesCards.find(c => c.key === item["company Name"]); //key names need to be modified by backend
@@ -74,11 +77,17 @@ export class DashboardViewComponent implements OnInit {
         }
       });
     }, error => {
-      console.log(error.message);
     });
   }
 
- //charts
+  getdliverymanNumbers() {
+    this.impApiService.get(admin_dashboard.countDelivery).subscribe(data => {
+      this.dliveryman_number = data;
+    }, error => {
+    });
+  }
+
+  //charts
   getEveryCompanyChartData(): void {
     this.impApiService.get(admin_dashboard.countOrderByCompany).subscribe(data => {
       // console.log(data);
@@ -179,17 +188,18 @@ export class DashboardViewComponent implements OnInit {
         top: '5%',
         bottom: '20%'
       },
-      itemStyle:{
+      itemStyle: {
         emphasis: {
           barBorderRadius: [50, 50]
+        },
+        normal: {
+          barBorderRadius: [50, 50, 0, 0]
+        }
       },
-      normal: {
-          barBorderRadius: [50, 50, 0 ,0 ]
-      }
-    },
       dataset: {
-        dimensions: ['product', 'عدد الطلبات الملغية','عدد الطلبات التامة', 'عدد الطلبات المعلقة', 'عدد الطلبات المقبولة'],
+        dimensions: ['product', 'عدد الطلبات الملغية', 'عدد الطلبات التامة', 'عدد الطلبات المعلقة', 'عدد الطلبات المقبولة'],
         source: [
+          //data.Accepted = data['In Progress'] , wait backend to change
           { product: 'عدد الطلبات', 'عدد الطلبات المقبولة': data.Accepted, 'عدد الطلبات المعلقة': data.Pending, 'عدد الطلبات التامة': data.Completed, 'عدد الطلبات الملغية': data.Cancelled },
         ]
       },
@@ -213,10 +223,10 @@ export class DashboardViewComponent implements OnInit {
       },
 
       series: [
-        { type: 'bar' ,barWidth: '10%', itemStyle: { barBorderRadius: [50, 50, 0, 0]}},
-        { type: 'bar' ,barWidth: '10%', itemStyle: { barBorderRadius: [50, 50, 0, 0]}},
-        { type: 'bar',barWidth: '10%' , itemStyle: { barBorderRadius: [50, 50, 0, 0]}},
-        { type: 'bar',barWidth: '10%' , itemStyle: { barBorderRadius: [50, 50, 0, 0]}},]
+        { type: 'bar', barWidth: '10%', itemStyle: { barBorderRadius: [50, 50, 0, 0] } },
+        { type: 'bar', barWidth: '10%', itemStyle: { barBorderRadius: [50, 50, 0, 0] } },
+        { type: 'bar', barWidth: '10%', itemStyle: { barBorderRadius: [50, 50, 0, 0] } },
+        { type: 'bar', barWidth: '10%', itemStyle: { barBorderRadius: [50, 50, 0, 0] } },]
     };
 
     option2 && myChart2.setOption(option2);
@@ -226,12 +236,12 @@ export class DashboardViewComponent implements OnInit {
 
   getTimelineChartData(): void {
     this.showLoader = true;
-    console.log('showLoader', this.showLoader);
+    // console.log('showLoader', this.showLoader);
     this.impApiService.get(admin_dashboard.timeline).subscribe(data => {
-      console.log(data);
+      // console.log(data);
       this.TimelineChart(data);
       this.showLoader = false;
-      console.log('showLoader', this.showLoader);
+      // console.log('showLoader', this.showLoader);
     }, error => {
       console.log(error.message);
     });
@@ -240,12 +250,12 @@ export class DashboardViewComponent implements OnInit {
   TimelineChart(data): void {
     const chartDom3 = document.getElementById('timeline');
     const myChart3 = echarts.init(chartDom3);
-    console.log(data);
+    // console.log(data);
 
     const lazzaData = data.find(item => item.company_name === 'Lazza').monthly_order_counts;
     const ghadafData = data.find(item => item.company_name === 'Ghadaf').monthly_order_counts;
     const sahelData = data.find(item => item.company_name === 'Sahel').monthly_order_counts;
-    console.log('lazza data ',lazzaData);
+    // console.log('lazza data ', lazzaData);
 
     const option3 = {
       textStyle: {
@@ -256,7 +266,7 @@ export class DashboardViewComponent implements OnInit {
         trigger: 'axis'
       },
       legend: {
-        data: [this.companyNames.Lazza, this.companyNames.Ghadaf, this.companyNames.Sahel ],
+        data: [this.companyNames.Lazza, this.companyNames.Ghadaf, this.companyNames.Sahel],
         bottom: 0,
         icon: 'roundRect',
         itemGap: 50,
@@ -324,6 +334,43 @@ export class DashboardViewComponent implements OnInit {
   }
 
 
+  getAllOrders() {
+    var data = data_order
+    console.log(data)
+
+
+    var city = data.filter((obj, index) => {
+      return index == data.findIndex(o => obj.address.city == o.address.city)
+    }).map(d => d.address)
+
+    var date = data.filter((obj, index) => {
+      return index == data.findIndex(o => obj.created_at == o.created_at)
+    }).map(d => d.created_at)
+
+
+    let arrayListDate = [];
+
+    for (let value of date) {
+      arrayListDate.push(moment(value).format('YYYY-MM-DD'))
+    }
+
+
+
+    // get orders depand on city
+    city.forEach((element: any) => {
+      element.orders = []
+      element.orders = data.filter(d => d.address.city == element.city)
+    });
+
+    console.log(city)
+    console.log(arrayListDate)
+
+    this.impApiService.get(admin_dashboard.getAllOrders).subscribe(d => {
+
+
+    })
+  }
+
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
@@ -331,21 +378,20 @@ export class DashboardViewComponent implements OnInit {
   selectItem(item: string) {
     this.selectedItem = item;
     this.isDropdownOpen = false;
-    console.log(item);
 
-    var city='';
-    if(item=='مكة')
-      city='makkah';
-    else if(item=='جدة')
-      city='jeddah';
+    var city = '';
+    if (item == 'مكة')
+      city = 'makkah';
+    else if (item == 'جدة')
+      city = 'jeddah';
     else
-      city='all';
+      city = 'all';
 
     this.postCityforFilter(city);
   }
 
-  postCityforFilter(item){
-    this.impApiService.post(admin_dashboard.index + "?Address=" + this.selectItem , {})
+  postCityforFilter(item) {
+    this.impApiService.post(admin_dashboard.index + "?Address=" + this.selectItem, {})
   }
 
 

@@ -9,7 +9,7 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { OtpCodeComponent } from './otp-code/otp-code.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SplashScreenComponent } from './splash-screen/splash-screen.component';
 import { NgOtpInputModule } from 'ng-otp-input';
 
@@ -28,8 +28,9 @@ import { NgOtpInputModule } from 'ng-otp-input';
   imports: [
     CommonModule,
     AuthRoutingModule,
-    ReactiveFormsModule, // Import ReactiveFormsModule here
+    ReactiveFormsModule,
     NgOtpInputModule,
+    FormsModule,
   ]
 })
 export class AuthModule { }

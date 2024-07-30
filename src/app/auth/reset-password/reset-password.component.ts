@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { auth } from 'src/app/constant/routes';
 
 @Component({
   selector: 'app-reset-password',
@@ -7,18 +10,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResetPasswordComponent  {
 
-  submitted = false;
+  email: string = '';
+  otp: string = '';
+  password: string = '';
+  confirmPassword: string = '';
+  submitted: boolean = false;
 
-  handleSubmit() {
-    // Handle form submission logic here, e.g., reset password API call
+  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) { }
 
-    // After successful submission, set submitted to true to trigger template change
-    this.submitted = true;
+  ngOnInit(): void {
+    this.email = this.route.snapshot.queryParamMap.get('email')!;
+    this.otp = this.route.snapshot.queryParamMap.get('otp')!;
   }
 
-  resetForm() {
-    // Reset form logic if needed
-    this.submitted = false;
+  resetPassword() {
+    if (this.password !== this.confirmPassword) {
+      alert('كلمات المرور غير متطابقة');
+      return;
+    }
+
+    const body = { email: this.email, password: this.password, otp: this.otp };
+    this.http.post(auth.resetPassword, body).subscribe(response => {
+      this.submitted = true;
+    }, error => {
+      alert('حدث خطأ أثناء إعادة تعيين كلمة المرور.'+ error.message);
+    });
   }
 
 }

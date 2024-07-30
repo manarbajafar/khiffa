@@ -12,8 +12,19 @@
 
     <ul class="nav-list">
       <li class="nav-list-item" *ngFor="let item of sidebar_list">
-        <a [routerLink]="[item.routerLink]" routerLinkActive="active">
-          <div (click)="test(item)">
+        <a
+          *ngIf="item.routerLink"
+          [routerLink]="[item.routerLink]"
+          routerLinkActive="active"
+          (click)="test(item)"
+        >
+          <div>
+            <span class="sidebar-link-icon"><i [class]="item.icon"></i></span>
+            <span class="sidebar-link-text" *ngIf="isExpanded">{{ item.label }}</span>
+          </div>
+        </a>
+        <a *ngIf="!item.routerLink" (click)="test(item)">
+          <div>
             <span class="sidebar-link-icon"><i [class]="item.icon"></i></span>
             <span class="sidebar-link-text" *ngIf="isExpanded">{{ item.label }}</span>
           </div>

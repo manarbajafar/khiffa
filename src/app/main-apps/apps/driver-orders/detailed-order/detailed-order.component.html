@@ -9,8 +9,8 @@
         <img src="assets/images/danublogo.png" class="rounded-circle mb-3" alt="Service Provider Image" style="width: 100px; height: 100px;">
         <h4 class="card-title">مقدم الخدمة</h4>
         <p class="card-text"><i class="bi bi-shop"></i>  {{ orderDetails.service_provider.name }}</p>
-        <p class="card-text"><i class="bi bi-geo-alt"></i> {{ orderDetails.address.district }}</p>
-        <p class="card-text"><i class="bi bi-building"></i> {{ orderDetails.beneficiary.name }}</p>
+        <p class="card-text"><i class="bi bi-geo-alt"></i> </p>
+        <p class="card-text"><i class="bi bi-building"></i> {{ orderDetails.company.company_name}}</p>
       </div>
     </div>
   </div>
@@ -47,13 +47,15 @@
     <div class="card-body d-flex justify-content-between">
       <div>
         <h5>المستلم</h5>
-        <p class="card-text"><i class="bi bi-geo-alt"></i> العوالي</p>
-        <p class="card-text"><i class="bi bi-telephone">04545</i></p>
+        <p class="card-text"><i class="bi bi-geo-alt"></i>{{ orderDetails.address.district }}</p>
+        <p class="card-text"><i class="bi bi-telephone">{{ orderDetails.beneficiary.phone_number}}</i></p>
       </div>
       <div>
         <h5>معلومات التوصيل</h5>
-        <p class="card-text">المسافة: <span class="text-primary">15 كيلو</span></p>
-        <p class="card-text">سعر التوصيل: <span class="text-primary">20 ر س</span></p>
+        <p class="card-text">المسافة: <span class="text-primary">{{ orderDetails.distance }} كيلو</span></p>
+        <p class="card-text">سعر التوصيل: <span class="text-primary">{{ orderDetails.delivery_cost }} ر س</span></p>
+        <p class="card-text">اسم العميل:<span class="text-primary">{{ orderDetails.beneficiary.name }} </span></p>
+
       </div>
     </div>
   </div>

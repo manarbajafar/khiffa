@@ -7,6 +7,7 @@ import { ADMIN_DASHBOARD } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
 import { data_order } from './data';
 import moment from 'moment';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-dashboard-view',
@@ -23,7 +24,7 @@ export class DashboardViewComponent implements OnInit {
 
   companiesCards = [
     { name: 'لذّة', providers_number: 0, icon: 'bx bx-restaurant', key: 'Lazza' },
-    { name: 'غَدَف', providers_number: 0, icon: 'bx bx-leaf', key: 'Ghadaf' },
+    { name: 'غَدَف', providers_number: 0, icon: 'bx bx-leaf', key: 'ghadaf' },
     { name: 'سهّل', providers_number: 0, icon: 'bx bx-store', key: 'Sahel' },
 
   ];
@@ -32,7 +33,7 @@ export class DashboardViewComponent implements OnInit {
 
   companyNames = {
     Lazza: 'شركة لذّة',
-    Ghadaf: 'شركة غَدف',
+    ghadaf: 'شركة غَدف',
     Sahel: 'شركة سهّل'
   };
 
@@ -40,8 +41,9 @@ export class DashboardViewComponent implements OnInit {
   dateRangeForm: FormGroup;
 
 
-  constructor(private impApiService: ImpApiService, private formBuilder: FormBuilder) {
+  constructor(private impApiService: ImpApiService, private formBuilder: FormBuilder, private spinner: NgxSpinnerService) {
 
+    //default value
     const today = new Date();
     const lastYearToday = new Date();
     lastYearToday.setFullYear(today.getFullYear() - 1);
@@ -55,58 +57,65 @@ export class DashboardViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getdliverymanNumbers();
-    this.getCountServiceProvidersByCompany();
+    //when user choose date
+    this.dateRangeForm.valueChanges.subscribe(val => {
+      const start = moment(val.start).format('YYYY-MM-DD');
+      const end = moment(val.end).format('YYYY-MM-DD');
+      //call api
+      this.getDashboardData(start, end);
+    });
 
-    this.getAllOrders();
+    const initialStart = moment(this.dateRangeForm.value.start).format('YYYY-MM-DD');
+    const initialEnd = moment(this.dateRangeForm.value.end).format('YYYY-MM-DD');
 
-    this.getEveryCompanyChartData();
-    this.getAllCompaniesChartData();
-    this.getTimelineChartData();
-
+    //call api with intial dates
+    this.getDashboardData(initialStart, initialEnd);
   }
 
-  //for cards
-  getCountServiceProvidersByCompany(): void {
-    this.impApiService.get(ADMIN_DASHBOARD.countServiceProvidersByCompany).subscribe(data => {
+  getDashboardData(start: string, end: string) : void{
 
-      data.forEach(item => {
+    // this.spinner.show();
+
+    this.impApiService.get(`${ADMIN_DASHBOARD.getDashboardData}start_date=${start} 00:00:00&end_date=${end} 23:59:59`).subscribe(data => {
+
+      //get dliveryman_number numbers
+      this.dliveryman_number = data.delivery_Count;
+
+      //get Service Providers counts By Company
+      data.service_Providers.forEach(item => {
         const company = this.companiesCards.find(c => c.key === item.company_Name);
         if (company) {
           company.providers_number = item.Service_Providers;
         }
       });
-    }, error => {
-    });
-  }
 
-  getdliverymanNumbers() {
-    this.impApiService.get(ADMIN_DASHBOARD.countDelivery).subscribe(data => {
-      this.dliveryman_number = data;
-    }, error => {
-    });
-  }
+      //charts
+      this.EveryCompanyChart(data.order_Counts_By_Company);
+      this.AllCompaniesChart(data.all_Order_Counts);
+      this.TimelineChart(data.Time_line);
 
-  //charts
-  getEveryCompanyChartData(): void {
-    this.impApiService.get(ADMIN_DASHBOARD.countOrderByCompany).subscribe(data => {
-      // console.log(data);
-      this.EveryCompanyChart(data);
+      this.spinner.hide();
+
     }, error => {
       console.log(error.message);
+      this.spinner.hide();
     });
   }
+
+
+
+  //charts
 
   EveryCompanyChart(data): void {
     const chartDom = document.getElementById('every-company');
     const myChart = echarts.init(chartDom);
     const sourceData = data.map(item => {
       return {
-        product: this.companyNames[item['company Name']],
-        'عدد الطلبات المقبولة': item['status counts'].InProgress,
-        'عدد الطلبات المعلقة': item['status counts'].Pending,
-        'عدد الطلبات التامة': item['status counts'].Completed,
-        'عدد الطلبات الملغية': item['status counts'].Cancelled
+        product: this.companyNames[item.company_Name],
+        'عدد الطلبات المقبولة': item.status_counts.InProgress, // in api wrote this "In Progress"
+        'عدد الطلبات المعلقة': item.status_counts.Pending,
+        'عدد الطلبات التامة': item.status_counts.Completed,
+        'عدد الطلبات الملغية': item.status_counts.Cancelled
       };
     });
 
@@ -159,14 +168,6 @@ export class DashboardViewComponent implements OnInit {
   }
 
 
-  getAllCompaniesChartData(): void {
-    this.impApiService.get(ADMIN_DASHBOARD.countAllOrder).subscribe(data => {
-      // console.log(data);
-      this.AllCompaniesChart(data);
-    }, error => {
-      console.log(error.message);
-    });
-  }
 
   AllCompaniesChart(data): void {
     //chart for all companies
@@ -200,7 +201,7 @@ export class DashboardViewComponent implements OnInit {
         dimensions: ['product', 'عدد الطلبات الملغية', 'عدد الطلبات التامة', 'عدد الطلبات المعلقة', 'عدد الطلبات المقبولة'],
         source: [
           //data.Accepted = data['In Progress'] , wait backend to change
-          { product: 'عدد الطلبات', 'عدد الطلبات المقبولة': data.Accepted, 'عدد الطلبات المعلقة': data.Pending, 'عدد الطلبات التامة': data.Completed, 'عدد الطلبات الملغية': data.Cancelled },
+          { product: 'عدد الطلبات', 'عدد الطلبات المقبولة': data.status_counts.in_progress, 'عدد الطلبات المعلقة': data.status_counts.pending, 'عدد الطلبات التامة': data.status_counts.completed, 'عدد الطلبات الملغية': data.status_counts.cancelled },
         ]
       },
       xAxis: {
@@ -234,26 +235,13 @@ export class DashboardViewComponent implements OnInit {
 
 
 
-  getTimelineChartData(): void {
-    this.showLoader = true;
-    // console.log('showLoader', this.showLoader);
-    this.impApiService.get(ADMIN_DASHBOARD.timeline).subscribe(data => {
-      // console.log(data);
-      this.TimelineChart(data);
-      this.showLoader = false;
-      // console.log('showLoader', this.showLoader);
-    }, error => {
-      console.log(error.message);
-    });
-  }
-
   TimelineChart(data): void {
     const chartDom3 = document.getElementById('timeline');
     const myChart3 = echarts.init(chartDom3);
     // console.log(data);
 
     const lazzaData = data.find(item => item.company_name === 'Lazza').monthly_order_counts;
-    const ghadafData = data.find(item => item.company_name === 'Ghadaf').monthly_order_counts;
+    const ghadafData = data.find(item => item.company_name === 'ghadaf').monthly_order_counts;
     const sahelData = data.find(item => item.company_name === 'Sahel').monthly_order_counts;
     // console.log('lazza data ', lazzaData);
 
@@ -266,7 +254,7 @@ export class DashboardViewComponent implements OnInit {
         trigger: 'axis'
       },
       legend: {
-        data: [this.companyNames.Lazza, this.companyNames.Ghadaf, this.companyNames.Sahel],
+        data: [this.companyNames.Lazza, this.companyNames.ghadaf, this.companyNames.Sahel],
         bottom: 0,
         icon: 'roundRect',
         itemGap: 50,
@@ -314,7 +302,7 @@ export class DashboardViewComponent implements OnInit {
           smooth: true,
         },
         {
-          name: this.companyNames.Ghadaf,
+          name: this.companyNames.ghadaf,
           type: 'line',
           stack: 'Total',
           data: ghadafData,

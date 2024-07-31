@@ -12,7 +12,7 @@ import { AUTH } from 'src/app/constant/routes';
 export class OtpCodeComponent implements OnInit {
   @ViewChild("ngOtpInput") ngOtpInput: any;
 
-  otp: string = '';
+  // otp: string = '';
   email: string = '';
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, private spinner: NgxSpinnerService) { }
@@ -35,7 +35,8 @@ export class OtpCodeComponent implements OnInit {
       const form = {email: this.email , otp:this.ngOtpInput.currentVal}
       this.http.post(AUTH.checkOtp, form).subscribe(response => {
         this.spinner.hide();
-      this.router.navigate(['/auth/reset-password'], { queryParams: { email: this.email, otp: this.otp } });
+        console.log('form.otp' + form.otp)
+      this.router.navigate(['/auth/reset-password'], { queryParams: { email: form.email, otp: form.otp } });
     }, error => {
       //toaster
       alert('رمز OTP غير صحيح.'+ error.message);

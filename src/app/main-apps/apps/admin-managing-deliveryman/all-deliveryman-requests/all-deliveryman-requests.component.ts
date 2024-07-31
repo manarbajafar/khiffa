@@ -9,16 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllDeliverymanRequestsComponent implements OnInit {
 
+
+
   allRequests: any[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalItems: number = 0;
   paginatedRequests: any[] = [];
 
-  pagination ={
-      current:1,
-      perPage:10,
-      length:5
+  pagination = {
+    current: 1,
+    perPage: 5,
   }
 
   constructor(private impApiService: ImpApiService) {
@@ -33,42 +34,34 @@ export class AllDeliverymanRequestsComponent implements OnInit {
       {id: 8, name: 'خالد سعيد', requestType: 'تحديث معلومات', requestDate: new Date() },
       {id: 9, name: 'عبدالرحمن احمد', requestType: 'تحديث معلومات', requestDate: new Date() },
       {id: 10, name: 'محمود كرم', requestType: 'تحديث معلومات', requestDate: new Date() },
+      {id: 11, name: 'خالد سعيد', requestType: 'تحديث معلومات', requestDate: new Date() },
+      {id: 12, name: 'خالد سعيد', requestType: 'تحديث معلومات', requestDate: new Date() },
+      {id: 13, name: 'عبدالرحمن احمد', requestType: 'تحديث معلومات', requestDate: new Date() },
+      {id: 14, name: 'محمود كرم', requestType: 'تحديث معلومات', requestDate: new Date() },
     ];
 
-
-
     this.totalItems = this.allRequests.length;
-    this.updatePaginatedRequests();
+
   }
 
   ngOnInit(): void {
-
-    this.getusers(this.pagination.current, this.pagination.length);
+    // this.getaccountRequests(this.pagination.current, this.pagination.perPage);
   }
 
-  getusers(current, length){
-    this.impApiService.get(ADMIN_MANAGING_DELIVERYMANS.getDeliverymanList+`page=${current}&perPage=${length}`).subscribe(data =>{
-      this.pagination ={
-        current:data.meta.current_page,
-        perPage:data.meta.per_page,
-        length:data.meta.last_page
+  getaccountRequests(current: number, perPage: number): void {
+    this.impApiService.get(`${ADMIN_MANAGING_DELIVERYMANS.getAccountRequests}page=${current}&perPage=${perPage}`).subscribe(data => {
+      this.pagination = {
+        current: data.meta.current_page,
+        perPage: data.meta.per_page,
+      };
+      this.totalItems = data.meta.total_items;
 
-    }
-
-    })
-
+      this.allRequests = data.data.user
+      console.log(this.allRequests);
+      //need to modify from backend, request details not found (id, type, date, )
+    });
   }
 
-  updatePaginatedRequests(): void {
-    const startIndex = (this.pagination.current - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.pagination.perPage;
-    this.paginatedRequests = this.allRequests.slice(startIndex, endIndex);
-  }
-
-  onPageChange(page: number): void {
-    this.pagination.current = page;
-    this.updatePaginatedRequests();
-  }
 
   viewRequest(requestId: number): void {
     console.log('عرض التفاصيل للطلب ID:', requestId);

@@ -32,7 +32,12 @@ export class UserService {
 constructor(private http: HttpClient, private impApiService: ImpApiService ) { }
 
 getUsers(): Observable<User[]> {
-  return this.http.get<User[]>(ADMIN_MANAGING_DELIVERYMANS.getDeliverymanList);
+  return this.impApiService.get(`${ADMIN_MANAGING_DELIVERYMANS.getDeliverymanList}?page=${1}&perPage=${2}`);
+}
+
+getUserRequests(): Observable<User[]> {
+  // return this.http.get<User[]>(`${ADMIN_MANAGING_DELIVERYMANS.getAccountRequests}?page=${1}&perPage=${3}`);
+  return this.impApiService.get(`${ADMIN_MANAGING_DELIVERYMANS.getAccountRequests}?page=${1}&perPage=${3}`);
 }
 
 }

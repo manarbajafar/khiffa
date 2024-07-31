@@ -1,3 +1,5 @@
+import { ADMIN_MANAGING_DELIVERYMANS } from 'src/app/constant/routes';
+import { ImpApiService } from './../../../../services/imp-api.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -13,7 +15,13 @@ export class AllDeliverymanRequestsComponent implements OnInit {
   totalItems: number = 0;
   paginatedRequests: any[] = [];
 
-  constructor() {
+  pagination ={
+      current:1,
+      perPage:10,
+      length:5
+  }
+
+  constructor(private impApiService: ImpApiService) {
     this.allRequests = [
       {id: 1, name: 'سعد محمد', requestType: 'إنشاء حساب', requestDate: new Date() },
       {id: 2, name: 'أحمد سعيد', requestType: 'تحديث معلومات', requestDate: new Date() },
@@ -28,20 +36,37 @@ export class AllDeliverymanRequestsComponent implements OnInit {
     ];
 
 
+
     this.totalItems = this.allRequests.length;
     this.updatePaginatedRequests();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+    this.getusers(this.pagination.current, this.pagination.length);
+  }
+
+  getusers(current, length){
+    this.impApiService.get(ADMIN_MANAGING_DELIVERYMANS.getDeliverymanList+`page=${current}&perPage=${length}`).subscribe(data =>{
+      this.pagination ={
+        current:data.meta.current_page,
+        perPage:data.meta.per_page,
+        length:data.meta.last_page
+
+    }
+
+    })
+
+  }
 
   updatePaginatedRequests(): void {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
+    const startIndex = (this.pagination.current - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.pagination.perPage;
     this.paginatedRequests = this.allRequests.slice(startIndex, endIndex);
   }
 
   onPageChange(page: number): void {
-    this.currentPage = page;
+    this.pagination.current = page;
     this.updatePaginatedRequests();
   }
 

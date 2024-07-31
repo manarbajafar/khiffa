@@ -61,8 +61,6 @@ export class LoginComponent {
         }
 
 
-
-
          localStorage.setItem('user',JSON.stringify(data))
          localStorage.setItem('user_token',(data.access_token))
          if (data.user.user_type_id == 2){
@@ -72,6 +70,7 @@ export class LoginComponent {
           this.router.navigate(["apps/admin-dashboard/dashboard-view"])
         }
       }, error => {
+        this.spinner.hide();
         this.errorMessage =error.message;
       })
   }

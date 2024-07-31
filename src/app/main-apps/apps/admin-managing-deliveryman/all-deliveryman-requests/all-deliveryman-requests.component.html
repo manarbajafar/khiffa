@@ -27,9 +27,9 @@
       </tbody>
     </table>
     <app-pagination
-      [total_items]="totalItems"
-      [current_page]="currentPage"
-      [items_per_page]="itemsPerPage"
+      [total_items]="10"
+      [current_page]="pagination.current"
+      [items_per_page]="pagination.perPage"
       (onClick)="onPageChange($event)">
     </app-pagination>
   </div>

@@ -71,9 +71,9 @@ export class DashboardViewComponent implements OnInit {
     this.impApiService.get(ADMIN_DASHBOARD.countServiceProvidersByCompany).subscribe(data => {
 
       data.forEach(item => {
-        const company = this.companiesCards.find(c => c.key === item["company Name"]); //key names need to be modified by backend
+        const company = this.companiesCards.find(c => c.key === item.company_Name);
         if (company) {
-          company.providers_number = item["Service Providers"];
+          company.providers_number = item.Service_Providers;
         }
       });
     }, error => {
@@ -391,7 +391,7 @@ export class DashboardViewComponent implements OnInit {
   }
 
   postCityforFilter(item) {
-    this.impApiService.post(ADMIN_DASHBOARD.index + "?Address=" + this.selectItem, {})
+    // this.impApiService.post(ADMIN_DASHBOARD.index + "?Address=" + this.selectItem, {})
   }
 
 

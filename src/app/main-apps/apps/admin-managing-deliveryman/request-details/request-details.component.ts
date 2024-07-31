@@ -1,4 +1,7 @@
+
+
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-request-details',
@@ -17,15 +20,65 @@ export class RequestDetailsComponent implements OnInit {
       { url: 'assets/images/test3.png' }
     ],
     modificationRequest: { url: 'assets/images/test2.png' },
-    type: 1
+    status: 'Suspended',  // Inactive, in progress, Suspended, Active
+    checkboxes: {
+      name: false,
+      email: false,
+      idNumber: false,
+      phoneNumber: false,
+      license: false,
+      profilePicture: false,
+      carPicture: false
+    }
   };
 
+  showReason = false;
+  rejectionForm: FormGroup;
+  buttonDisabled = true;
 
-  constructor() {}
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.rejectionForm = this.fb.group({
+      rejectionReason: ['', Validators.required]
+    });
+
+    this.rejectionForm.valueChanges.subscribe(() => {
+      this.checkButtonStatus();
+    });
+
+    this.checkButtonStatus();
+  }
+
+  showRejectionReason() {
+    this.showReason = true;
+  }
+
+  checkButtonStatus() {
+    const isReasonValid = this.rejectionForm.get('rejectionReason').value.trim().length > 0;
+    const isAnyCheckboxChecked = Object.values(this.request.checkboxes).some(checkbox => checkbox);
+
+    this.buttonDisabled = !(isReasonValid && isAnyCheckboxChecked);
+  }
+
+  sendRejection() {
+    if (!this.buttonDisabled) {
+      const rejectionData = {
+        rejectionReason: this.rejectionForm.value.rejectionReason,
+        checkboxes: this.request.checkboxes
+      };
+      console.log('Rejection data:', rejectionData);
+      // Send to API
+    }
+  }
+
+  open(index: number): void {
+    // open attachments
 
   }
 
+  get isAnyCheckboxChecked(): boolean {
+    return Object.values(this.request.checkboxes).some(checkbox => checkbox);
+  }
 
 }

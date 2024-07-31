@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminManagingDeliverymanRoutingModule } from './admin-managing-deliveryman-routing.module';
 import { ManagingDeliverymanViewComponent } from './managing-deliveryman-view/managing-deliveryman-view.component';
 import { SharedComponentsModule } from 'src/app/shared-components/shared-components.module';
@@ -29,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     AdminManagingDeliverymanRoutingModule,
     SharedComponentsModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ]
   , providers: [UserService],
 })

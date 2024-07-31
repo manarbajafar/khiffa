@@ -75,7 +75,7 @@ this.impApiService.put(AUTH.update, this.form.value).subscribe(data=>{
         this.spinner.hide()
       },
       (error) => {
-
+        this.spinner.hide()
         console.error('Error fetching profile:', error);
       }
     );

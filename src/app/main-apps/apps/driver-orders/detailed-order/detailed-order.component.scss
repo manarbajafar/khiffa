@@ -1,6 +1,6 @@
-@import "~bootstrap/dist/css/bootstrap.min.css";
-@import "~bootstrap-icons/font/bootstrap-icons.css";
-@import "~bootstrap/scss/bootstrap";
+// @import "~bootstrap/dist/css/bootstrap.min.css";
+// @import "~bootstrap-icons/font/bootstrap-icons.css";
+// @import "~bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
 
 
@@ -50,15 +50,16 @@ $primary-color: #A0153E;
   flex-direction: column;
   align-items: flex-end;
   text-align: left;
+
 }
 
-.service-provider-card,
+// .service-provider-card,
 .timeline-card,
 .map-card,
 .delivery-info-card {
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 20px;
+  padding: 10px;
   margin-bottom: 20px;
 }
 

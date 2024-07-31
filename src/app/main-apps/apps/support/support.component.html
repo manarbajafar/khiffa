@@ -1,16 +1,14 @@
-<div class="out-container">
-  <form>
-    <div class="text-center mb-4">
-      <h4>تحتاج الى مساعدة !</h4>
-    </div>
-    <div class="mb-3 text-end">
-      <label for="issueTitle" class="form-label">عنوان المشكلة *</label>
-      <input type="text" class="form-control text-end" id="issueTitle" required>
-    </div>
-    <div class="mb-3 text-end">
-      <label for="issueDescription" class="form-label">وصف المشكلة *</label>
-      <textarea class="form-control text-end" id="issueDescription" rows="3" required></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">إرسال</button>
-  </form>
-</div>
+<form (ngSubmit)="sendDriverticket()">
+  <div class="text-center mb-4">
+    <h4>تحتاج الى مساعدة !</h4>
+  </div>
+  <div class="mb-3 text-end">
+    <label for="issueTitle" class="form-label">عنوان المشكلة *</label>
+    <input type="text" class="form-control text-end" [(ngModel)]="ticketTitle" name="issueTitle" required>
+  </div>
+  <div class="mb-3 text-end">
+    <label for="issueDescription" class="form-label">وصف المشكلة *</label>
+    <textarea class="form-control text-end" [(ngModel)]="ticketDescription" name="issueDescription" rows="3" required></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">إرسال</button>
+</form>

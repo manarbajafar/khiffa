@@ -1,12 +1,12 @@
 .direction-ltr {
   direction: ltr;
-  unicode-bidi: embed; /* This ensures that the direction is strictly applied */
+  unicode-bidi: embed; 
 }
 
 
 .filter-bar {
   display: flex;
-  justify-content: flex-start; // Align filters to the left
+  justify-content: flex-start;
   margin-bottom: 20px;
 
   .dropdown {
@@ -104,4 +104,23 @@
     border-radius: 100%;
     overflow: hidden;
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

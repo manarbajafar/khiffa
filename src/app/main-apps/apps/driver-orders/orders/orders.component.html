@@ -47,7 +47,7 @@
           <div class="d-flex justify-content-between">
             <a (click)="viewOrderDetail(order.id)" class="btn btn-primary">قبول التوصيل</a>
             <a (click)="viewLocation(order.location_x, order.location_y)" class="btn btn-outline-primary">عرض الموقع</a>
-         
+
 
           </div>
         </div>
@@ -58,29 +58,31 @@
   </div>
 
 
-  <ng-template #regionTemplate let-modal>
-    <div class="modal-header">
-      <h5 class="modal-title">إختيار المنطقة</h5>
-      <button type="button" class="btn-close" (click)="modal.dismiss() "></button>
-    </div>
-    <div class="modal-body">
-      الرجاء إختيار منطقتك
-      <form>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="region" id="makkah" [(ngModel)]="selectedRegion" value="Makkah">
-          <label class="form-check-label" for="makkah">مكة</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="region" id="jeddah" [(ngModel)]="selectedRegion" value="Jeddah">
-          <label class="form-check-label" for="jeddah">جدة</label>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary " (click)="modal.dismiss()">إلغاء</button>
-      <button type="button" class="btn btn-primary" (click)="confirmRegionSelection()">موافق</button>
-    </div>
-  </ng-template>
+
+  <ng-template #regionModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">إختيار المنطقة</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    الرجاء إختيار منطقتك
+    <form>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="region" id="makkah" [(ngModel)]="selectedRegion" value="Makkah">
+        <label class="form-check-label" for="makkah">مكة</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="region" id="jeddah" [(ngModel)]="selectedRegion" value="Jeddah">
+        <label class="form-check-label" for="jeddah">جدة</label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">إلغاء</button>
+    <button type="button" class="btn btn-primary" (click)="confirmRegionSelection(modal)">موافق</button>
+  </div>
+</ng-template>
+
 
 
 

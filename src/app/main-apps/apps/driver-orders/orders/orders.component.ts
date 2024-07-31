@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
 
 import { NgxSpinnerService } from 'ngx-spinner';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -15,7 +16,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class OrdersComponent implements OnInit {
   filteredStatus: string | null = null;
+  @ViewChild('regionModal') regionModal: any;
 
+  selectedRegion: string | null = null;
 
 
   orders = [
@@ -27,18 +30,36 @@ export class OrdersComponent implements OnInit {
     { id: 6, title: 'شركة لذة', price: 25, distance: 25, location: 'العوالي إلى الشرائع'}
   ];
 
-  allorders  ={
-
-  }
   visibleOrders: number = 6;
-  regionSelected: boolean = false;
+
   filteredOrders = [...this.orders];
 
-  constructor(private router: Router ,private impApiService :ImpApiService ,private spinner: NgxSpinnerService) {}
+  constructor(private router: Router ,private impApiService :ImpApiService ,private spinner: NgxSpinnerService,
+    private modalService: NgbModal
+  ) {}
 
 
   ngOnInit(): void {
-    this.loadOrders();
+   //this.loadOrders();
+   this.promptRegionSelection();
+  }
+  promptRegionSelection(): void {
+    const modalRef = this.modalService.open(this.regionModal);
+    modalRef.result.then(
+      (result) => {
+        if (result) {
+          this.loadOrders();
+        }
+      },
+      (error) => {
+
+        console.log('Region selection dismissed');
+      }
+    );
+  }
+
+  confirmRegionSelection(modal): void {
+    modal.close(this.selectedRegion);
   }
 
 
@@ -70,10 +91,7 @@ export class OrdersComponent implements OnInit {
     const searchValue = input.value.toLowerCase();
     this.filteredOrders = this.orders.filter(order => order.title.toLowerCase().includes(searchValue));
   }
-  // viewLocation(location: string): void {
-  //   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${location}`;
-  //   window.open(googleMapsUrl, '_blank');
-  // }
+
 
 
 
@@ -97,5 +115,7 @@ export class OrdersComponent implements OnInit {
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
     window.open(googleMapsUrl, '_blank');
   }
+
+
 
 }

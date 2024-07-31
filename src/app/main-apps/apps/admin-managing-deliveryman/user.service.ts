@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AUTH } from 'src/app/constant/routes';
+import { ADMIN_MANAGING_DELIVERYMANS, AUTH } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
 
 export interface User {
@@ -27,16 +27,12 @@ export class UserService {
     { id: 5, name: 'سارة', email: 'sarah@example.com' },
   ];
 
- //just for test
-// this.impApiService.get(AUTH.users).subscribe(data => {
-// console.log(data)
-// })
 
 
 constructor(private http: HttpClient, private impApiService: ImpApiService ) { }
 
 getUsers(): Observable<User[]> {
-  return this.http.get<User[]>(AUTH.users);
+  return this.http.get<User[]>(ADMIN_MANAGING_DELIVERYMANS.getDeliverymanList);
 }
 
 }

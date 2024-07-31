@@ -39,7 +39,7 @@ export const ADMIN_DASHBOARD = {
   countServiceProvidersByCompany: BASEURL + 'countServiceProvidersByCompany',
   countOrderByCompany: BASEURL + 'countOrderByCompany?',
   countAllOrder: BASEURL + 'countAllOrder',
-  index: BASEURL + 'index', //?
+  // index: BASEURL + 'index', //?
   timeline: BASEURL + 'Timeline',
   countDelivery: BASEURL + 'countDelivery',
   getAllOrders: BASEURL + 'orders',
@@ -49,6 +49,18 @@ export const ADMIN_MANAGING_DELIVERYMANS = {
   changeAccountStatus: BASEURL + 'changeAccountStatus',
   showInfoAccountReq: BASEURL + 'showInfoAccountReq?user_id=',
   accountRequests: BASEURL + 'accountRequests',
-  getDeliverymanList: BASEURL + 'users?page=',
+  getDeliverymanList: BASEURL + 'users?',
 }
 
+
+export const ADMIN_WALLET = {
+  sendTransactions: BASEURL + 'sendTransactions',
+  showTransactions: BASEURL + 'showTransactions',
+}
+
+
+export const ADMIN_TECHNICAL_SUPPORT = {
+  showAllTickets: BASEURL + 'paginatingTicket',
+  showTicket: BASEURL + 'showTicket',
+  changeTicketStatus: BASEURL + 'changeTicketStatus',
+}

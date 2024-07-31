@@ -36,6 +36,7 @@ export class ResetPasswordComponent  {
       this.submitted = true;
       this.spinner.hide();
     }, error => {
+      this.spinner.hide();
       //toaser
       alert('حدث خطأ أثناء إعادة تعيين كلمة المرور.'+ error.message);
     });

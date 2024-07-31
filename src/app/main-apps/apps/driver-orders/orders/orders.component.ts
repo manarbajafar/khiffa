@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
-declare var bootstrap: any;
+
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 
 
@@ -14,13 +15,7 @@ declare var bootstrap: any;
 })
 export class OrdersComponent implements OnInit {
   filteredStatus: string | null = null;
-  address;
-  beneficiary;
- company = {
-  id:0,
-  company_name: ""
- };
-service_provider;
+
 
 
   orders = [
@@ -39,7 +34,7 @@ service_provider;
   regionSelected: boolean = false;
   filteredOrders = [...this.orders];
 
-  constructor(private router: Router ,private impApiService :ImpApiService ) {}
+  constructor(private router: Router ,private impApiService :ImpApiService ,private spinner: NgxSpinnerService) {}
 
 
   ngOnInit(): void {
@@ -75,22 +70,32 @@ service_provider;
     const searchValue = input.value.toLowerCase();
     this.filteredOrders = this.orders.filter(order => order.title.toLowerCase().includes(searchValue));
   }
-  viewLocation(location: string): void {
-    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${location}`;
-    window.open(googleMapsUrl, '_blank');
-  }
+  // viewLocation(location: string): void {
+  //   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${location}`;
+  //   window.open(googleMapsUrl, '_blank');
+  // }
+
+
 
   AllOrder = null
   loadOrders(): void {
+    this.spinner.show()
     this.impApiService.get(Order.getorder).subscribe(
       data => {
 
         this.AllOrder = data.data
+        this.spinner.hide()
 
       },
       error => {
+        this.spinner.hide()
         console.error('Error fetching orders:', error);
       }
     );
   }
+  viewLocation(latitude: number, longitude: number): void {
+    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+    window.open(googleMapsUrl, '_blank');
+  }
+
 }

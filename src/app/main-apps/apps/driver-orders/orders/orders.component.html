@@ -46,19 +46,13 @@
           <p class="card-text"><strong>الموقع:</strong> {{ order.address.district }}</p>
           <div class="d-flex justify-content-between">
             <a (click)="viewOrderDetail(order.id)" class="btn btn-primary">قبول التوصيل</a>
-            <a href="#" (click)="viewLocation(order.location)" class="btn btn-outline-primary">عرض الموقع</a>
+            <a (click)="viewLocation(order.location_x, order.location_y)" class="btn btn-outline-primary">عرض الموقع</a>
+
 
           </div>
         </div>
-<!--
-      </div>
-      <app-pagination
-      [total_items]="totalItems"
-      [current_page]="currentPage"
-      [items_per_page]="itemsPerPage"
-      (onClick)="onPageChange($event)">
-    </app-pagination>
-    </div> -->
+
+
 
 
   </div>

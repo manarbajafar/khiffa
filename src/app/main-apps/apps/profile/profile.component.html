@@ -2,7 +2,7 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="text-center mb-4">
       <img src="assets/images/driver profile.png" class="rounded-circle" alt="User Image" width="150" height="150">
-      <h4>محمد سعيد الحربي</h4>
+      <h4>{{profile.name}}</h4>
 
       <div class="text-center mt-4">
         <button class="btn btn-custom" (click)="navigateToEditProfile()">تحديث المرفقات</button>

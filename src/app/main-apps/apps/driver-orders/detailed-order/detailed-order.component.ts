@@ -90,12 +90,12 @@ export class DetailedOrderComponent implements OnInit {
 
   confirmRegionSelection(): void {
     if (this.selectedRegion) {
-      this.modalService.dismissAll();  // Close the modal
+      this.modalService.dismissAll();
       console.log('Region selected:', this.selectedRegion);
-      // Navigate to the orders page with the selected region as a query parameter
+
       this.router.navigate(['/apps/driver-orders/orders'], { queryParams: { region: this.selectedRegion } });
     } else {
-      // Optionally handle the case where no region has been selected
+ 
       console.log('No region selected');
     }
 

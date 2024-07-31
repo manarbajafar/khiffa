@@ -14,7 +14,7 @@ export class ResetPasswordComponent  {
   email: string = '';
   otp: string = '';
   password: string = '';
-  confirmPassword: string = '';
+  password_confirmation: string = '';
   submitted: boolean = false;
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, private spinner: NgxSpinnerService) { }
@@ -27,11 +27,12 @@ export class ResetPasswordComponent  {
   resetPassword() {
     this.spinner.show();
 
-    if (this.password !== this.confirmPassword) {
+    if (this.password !== this.password_confirmation) {
       alert('كلمات المرور غير متطابقة');
+      this.spinner.hide();
       return;
     }
-    const body = { email: this.email, password: this.password, otp: this.otp };
+    const body = { email: this.email, password: this.password, password_confirmation: this.password_confirmation, otp: this.otp };
     this.http.post(AUTH.resetPassword, body).subscribe(response => {
       this.submitted = true;
       this.spinner.hide();

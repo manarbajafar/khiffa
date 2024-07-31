@@ -38,20 +38,15 @@ export const DRIVERPROFILE ={
 
 
 export const ADMIN_DASHBOARD = {
-  countServiceProvidersByCompany: BASEURL + 'countServiceProvidersByCompany',
-  countOrderByCompany: BASEURL + 'countOrderByCompany?',
-  countAllOrder: BASEURL + 'countAllOrder',
-  // index: BASEURL + 'index', //?
-  timeline: BASEURL + 'Timeline',
-  countDelivery: BASEURL + 'countDelivery',
   getAllOrders: BASEURL + 'orders',
+  getDashboardData: BASEURL + 'dashboard?', //{{url}}/api/dashboard?start_date=2022-02-20 00:00:00&end_date=2024-07-31  23:59:59
 }
 
 export const ADMIN_MANAGING_DELIVERYMANS = {
   changeAccountStatus: BASEURL + 'changeAccountStatus',
   showInfoAccountReq: BASEURL + 'showInfoAccountReq?user_id=',
-  accountRequests: BASEURL + 'accountRequests',
-  getDeliverymanList: BASEURL + 'users?',
+  getAccountRequests: BASEURL + 'accountRequests?',
+  getDeliverymanList: BASEURL + 'users',  //users?page=1&perPage=2
 }
 
 

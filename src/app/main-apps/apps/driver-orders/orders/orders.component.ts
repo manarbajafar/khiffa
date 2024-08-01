@@ -16,40 +16,45 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class OrdersComponent implements OnInit {
   filteredStatus: string | null = null;
-  @ViewChild('regionModal') regionModal: any;
-
+  @ViewChild('regionModal') regionModal;
   selectedRegion: string | null = null;
+
+ 
 
 
   orders = [
-    { id: 1, title: 'شركة لذة', price: 20, distance: 15, location: 'العوالي إلى الشرائع'},
-    { id: 2, title: 'شركة لذة', price: 30, distance: 10, location: 'العوالي إلى الشرائع'},
-    { id: 3, title: 'شركة لذة', price: 25, distance: 20, location: 'العوالي إلى الشرائع'},
-    { id: 4, title: 'شركة لذة', price: 10, distance: 5, location: 'العوالي إلى الشرائع'},
-    { id: 5, title: 'شركة لذة', price: 35, distance: 30, location: 'العوالي إلى الشرائع'},
-    { id: 6, title: 'شركة لذة', price: 25, distance: 25, location: 'العوالي إلى الشرائع'}
+    { id: 1, title: 'شركة لذة', price: 20, distance: 15, location: 'العوالي إلى الشرائع' },
+    { id: 2, title: 'شركة لذة', price: 30, distance: 10, location: 'العوالي إلى الشرائع' },
+    { id: 3, title: 'شركة لذة', price: 25, distance: 20, location: 'العوالي إلى الشرائع' },
+    { id: 4, title: 'شركة لذة', price: 10, distance: 5, location: 'العوالي إلى الشرائع' },
+    { id: 5, title: 'شركة لذة', price: 35, distance: 30, location: 'العوالي إلى الشرائع' },
+    { id: 6, title: 'شركة لذة', price: 25, distance: 25, location: 'العوالي إلى الشرائع' }
   ];
 
   visibleOrders: number = 6;
 
   filteredOrders = [...this.orders];
 
-  constructor(private router: Router ,private impApiService :ImpApiService ,private spinner: NgxSpinnerService,
+  constructor(private router: Router, private impApiService: ImpApiService, private spinner: NgxSpinnerService,
     private modalService: NgbModal
-  ) {}
+  ) { }
 
 
   ngOnInit(): void {
-   //this.loadOrders();
-   this.promptRegionSelection();
+    //this.loadOrders();
+
+    setTimeout(() => {
+      this.promptRegionSelection();
+    }, 500);
+
   }
   promptRegionSelection(): void {
     const modalRef = this.modalService.open(this.regionModal);
     modalRef.result.then(
       (result) => {
-        if (result) {
+        // if (result) {
           this.loadOrders();
-        }
+        // }
       },
       (error) => {
 
@@ -83,7 +88,7 @@ export class OrdersComponent implements OnInit {
 
   viewOrderDetail(orderId: number): void {
     console.log(orderId)
-    this.router.navigate(['apps/driver-orders/detailed-order/',orderId]);
+    this.router.navigate(['apps/driver-orders/detailed-order/', orderId]);
   }
 
   searchCompany(event: Event): void {

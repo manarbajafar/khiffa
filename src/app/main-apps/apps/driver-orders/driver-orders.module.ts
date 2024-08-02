@@ -4,6 +4,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { DriverOrdersRoutingModule } from './driver-orders-routing.module';
 import { OrdersComponent } from './orders/orders.component';
 import { DetailedOrderComponent } from './detailed-order/detailed-order.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -15,7 +16,9 @@ import { DetailedOrderComponent } from './detailed-order/detailed-order.componen
   ],
   imports: [
     CommonModule,
-    DriverOrdersRoutingModule
+    DriverOrdersRoutingModule,
+    NgbModule,
+
   ],
   providers:
   [

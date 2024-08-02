@@ -1,7 +1,8 @@
 <!-- Filter Bar -->
 <div class="filter-bar direction-ltr">
   <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="priceDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="priceDropdown" data-bs-toggle="dropdown"
+      aria-expanded="false">
       سعر التوصيل
     </button>
     <ul class="dropdown-menu" aria-labelledby="priceDropdown">
@@ -10,7 +11,8 @@
     </ul>
   </div>
   <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="distanceDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="distanceDropdown" data-bs-toggle="dropdown"
+      aria-expanded="false">
       المسافة بالكيلو
     </button>
     <ul class="dropdown-menu" aria-labelledby="distanceDropdown">
@@ -19,7 +21,8 @@
     </ul>
   </div>
   <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="companyDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="companyDropdown" data-bs-toggle="dropdown"
+      aria-expanded="false">
       اسم الشركة
     </button>
     <ul class="dropdown-menu" aria-labelledby="companyDropdown">
@@ -55,36 +58,35 @@
 
 
 
+      </div>
+
+    </div>
   </div>
+</div>
 
 
-  <ng-template #regionTemplate let-modal>
-    <div class="modal-header">
-      <h5 class="modal-title">إختيار المنطقة</h5>
-      <button type="button" class="btn-close" (click)="modal.dismiss() "></button>
-    </div>
-    <div class="modal-body">
-      الرجاء إختيار منطقتك
-      <form>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="region" id="makkah" [(ngModel)]="selectedRegion" value="Makkah">
-          <label class="form-check-label" for="makkah">مكة</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="region" id="jeddah" [(ngModel)]="selectedRegion" value="Jeddah">
-          <label class="form-check-label" for="jeddah">جدة</label>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary " (click)="modal.dismiss()">إلغاء</button>
-      <button type="button" class="btn btn-primary" (click)="confirmRegionSelection()">موافق</button>
-    </div>
-  </ng-template>
-
-
-
-
-
-
-
+<ng-template #regionModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">إختيار المنطقة</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    الرجاء إختيار منطقتك
+    <form>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="region" id="makkah" [(ngModel)]="selectedRegion"
+          value="Makkah">
+        <label class="form-check-label" for="makkah">مكة</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="region" id="jeddah" [(ngModel)]="selectedRegion"
+          value="Jeddah">
+        <label class="form-check-label" for="jeddah">جدة</label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">إلغاء</button>
+    <button type="button" class="btn btn-primary" (click)="confirmRegionSelection(modal)">موافق</button>
+  </div>
+</ng-template>

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Order } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
 
 import { NgxSpinnerService } from 'ngx-spinner';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -15,30 +16,55 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class OrdersComponent implements OnInit {
   filteredStatus: string | null = null;
+  @ViewChild('regionModal') regionModal;
+  selectedRegion: string | null = null;
 
+ 
 
 
   orders = [
-    { id: 1, title: 'شركة لذة', price: 20, distance: 15, location: 'العوالي إلى الشرائع'},
-    { id: 2, title: 'شركة لذة', price: 30, distance: 10, location: 'العوالي إلى الشرائع'},
-    { id: 3, title: 'شركة لذة', price: 25, distance: 20, location: 'العوالي إلى الشرائع'},
-    { id: 4, title: 'شركة لذة', price: 10, distance: 5, location: 'العوالي إلى الشرائع'},
-    { id: 5, title: 'شركة لذة', price: 35, distance: 30, location: 'العوالي إلى الشرائع'},
-    { id: 6, title: 'شركة لذة', price: 25, distance: 25, location: 'العوالي إلى الشرائع'}
+    { id: 1, title: 'شركة لذة', price: 20, distance: 15, location: 'العوالي إلى الشرائع' },
+    { id: 2, title: 'شركة لذة', price: 30, distance: 10, location: 'العوالي إلى الشرائع' },
+    { id: 3, title: 'شركة لذة', price: 25, distance: 20, location: 'العوالي إلى الشرائع' },
+    { id: 4, title: 'شركة لذة', price: 10, distance: 5, location: 'العوالي إلى الشرائع' },
+    { id: 5, title: 'شركة لذة', price: 35, distance: 30, location: 'العوالي إلى الشرائع' },
+    { id: 6, title: 'شركة لذة', price: 25, distance: 25, location: 'العوالي إلى الشرائع' }
   ];
 
-  allorders  ={
-
-  }
   visibleOrders: number = 6;
-  regionSelected: boolean = false;
+
   filteredOrders = [...this.orders];
 
-  constructor(private router: Router ,private impApiService :ImpApiService ,private spinner: NgxSpinnerService) {}
+  constructor(private router: Router, private impApiService: ImpApiService, private spinner: NgxSpinnerService,
+    private modalService: NgbModal
+  ) { }
 
 
   ngOnInit(): void {
-    this.loadOrders();
+    //this.loadOrders();
+
+    setTimeout(() => {
+      this.promptRegionSelection();
+    }, 500);
+
+  }
+  promptRegionSelection(): void {
+    const modalRef = this.modalService.open(this.regionModal);
+    modalRef.result.then(
+      (result) => {
+        // if (result) {
+          this.loadOrders();
+        // }
+      },
+      (error) => {
+
+        console.log('Region selection dismissed');
+      }
+    );
+  }
+
+  confirmRegionSelection(modal): void {
+    modal.close(this.selectedRegion);
   }
 
 
@@ -62,7 +88,7 @@ export class OrdersComponent implements OnInit {
 
   viewOrderDetail(orderId: number): void {
     console.log(orderId)
-    this.router.navigate(['apps/driver-orders/detailed-order/',orderId]);
+    this.router.navigate(['apps/driver-orders/detailed-order/', orderId]);
   }
 
   searchCompany(event: Event): void {
@@ -70,10 +96,7 @@ export class OrdersComponent implements OnInit {
     const searchValue = input.value.toLowerCase();
     this.filteredOrders = this.orders.filter(order => order.title.toLowerCase().includes(searchValue));
   }
-  // viewLocation(location: string): void {
-  //   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${location}`;
-  //   window.open(googleMapsUrl, '_blank');
-  // }
+
 
 
 
@@ -97,5 +120,7 @@ export class OrdersComponent implements OnInit {
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
     window.open(googleMapsUrl, '_blank');
   }
+
+
 
 }

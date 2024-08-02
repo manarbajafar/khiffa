@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { User, UserService } from '../user.service';
 
 @Component({
   selector: 'app-all-deliveryman-list',
@@ -8,16 +7,11 @@ import { User, UserService } from '../user.service';
 })
 export class AllDeliverymanListComponent implements OnInit {
 
-  users: User[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe(data => {
-      this.users = data;
-    }, error => {
-      console.error('Error fetching users:', error);
-    });
+
   }
 
 }

@@ -19,7 +19,7 @@ export class DashboardViewComponent implements OnInit {
   isDropdownOpen = false;
   selectedItem: string | null = null;
   items = ['مكة', 'جدة', 'الكل'];
-
+  city = '';
   showLoader = false;
 
   companiesCards = [
@@ -61,8 +61,9 @@ export class DashboardViewComponent implements OnInit {
     this.dateRangeForm.valueChanges.subscribe(val => {
       const start = moment(val.start).format('YYYY-MM-DD');
       const end = moment(val.end).format('YYYY-MM-DD');
-      //call api
-      this.getDashboardData(start, end);
+      if (val.start !== null && val.end !== null) {
+        this.getDashboardData(start, end);
+      }
     });
 
     const initialStart = moment(this.dateRangeForm.value.start).format('YYYY-MM-DD');
@@ -72,11 +73,11 @@ export class DashboardViewComponent implements OnInit {
     this.getDashboardData(initialStart, initialEnd);
   }
 
-  getDashboardData(start: string, end: string) : void{
+  getDashboardData(start: string, end: string): void {
 
-    // this.spinner.show();
+    this.spinner.show();
 
-    this.impApiService.get(`${ADMIN_DASHBOARD.getDashboardData}start_date=${start} 00:00:00&end_date=${end} 23:59:59`).subscribe(data => {
+    this.impApiService.get(`${ADMIN_DASHBOARD.getDashboardData}start_date=${start} 00:00:00&end_date=${end} 23:59:59&city=${this.city}`).subscribe(data => {
 
       //get dliveryman_number numbers
       this.dliveryman_number = data.delivery_Count;
@@ -92,7 +93,7 @@ export class DashboardViewComponent implements OnInit {
       //charts
       this.EveryCompanyChart(data.order_Counts_By_Company);
       this.AllCompaniesChart(data.all_Order_Counts);
-      this.TimelineChart(data.Time_line);
+      this.TimelineChart(data.time_line);
 
       this.spinner.hide();
 
@@ -112,10 +113,10 @@ export class DashboardViewComponent implements OnInit {
     const sourceData = data.map(item => {
       return {
         product: this.companyNames[item.company_Name],
-        'عدد الطلبات المقبولة': item.status_counts.InProgress, // in api wrote this "In Progress"
-        'عدد الطلبات المعلقة': item.status_counts.Pending,
-        'عدد الطلبات التامة': item.status_counts.Completed,
-        'عدد الطلبات الملغية': item.status_counts.Cancelled
+        'عدد الطلبات المقبولة': item.status_counts.in_progress,
+        'عدد الطلبات المعلقة': item.status_counts.pending,
+        'عدد الطلبات التامة': item.status_counts.completed,
+        'عدد الطلبات الملغية': item.status_counts.cancelled
       };
     });
 
@@ -200,8 +201,7 @@ export class DashboardViewComponent implements OnInit {
       dataset: {
         dimensions: ['product', 'عدد الطلبات الملغية', 'عدد الطلبات التامة', 'عدد الطلبات المعلقة', 'عدد الطلبات المقبولة'],
         source: [
-          //data.Accepted = data['In Progress'] , wait backend to change
-          { product: 'عدد الطلبات', 'عدد الطلبات المقبولة': data.status_counts.in_progress, 'عدد الطلبات المعلقة': data.status_counts.pending, 'عدد الطلبات التامة': data.status_counts.completed, 'عدد الطلبات الملغية': data.status_counts.cancelled },
+          { product: 'عدد الطلبات', 'عدد الطلبات المقبولة': data.in_progress, 'عدد الطلبات المعلقة': data.pending, 'عدد الطلبات التامة': data.completed, 'عدد الطلبات الملغية': data.cancelled },
         ]
       },
       xAxis: {
@@ -240,10 +240,11 @@ export class DashboardViewComponent implements OnInit {
     const myChart3 = echarts.init(chartDom3);
     // console.log(data);
 
-    const lazzaData = data.find(item => item.company_name === 'Lazza').monthly_order_counts;
-    const ghadafData = data.find(item => item.company_name === 'ghadaf').monthly_order_counts;
-    const sahelData = data.find(item => item.company_name === 'Sahel').monthly_order_counts;
-    // console.log('lazza data ', lazzaData);
+    const labels = data.labels;
+
+    const lazzaData = data.data.find(item => item.company_name === 'Lazza')?.values;;
+    const ghadafData = data.data.find(item => item.company_name === 'ghadaf')?.values;
+    const sahelData = data.data.find(item => item.company_name === 'Sahel')?.values;
 
     const option3 = {
       textStyle: {
@@ -275,7 +276,8 @@ export class DashboardViewComponent implements OnInit {
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: ['ديسمبر', 'نوفمبر', 'أكتوبر', 'سبتمبر', 'أغسطس', 'يوليو', 'يونيو', 'مايو', 'أبريل', 'مارس', 'فبراير', 'يناير'],
+        data:labels,
+        // data: ['ديسمبر', 'نوفمبر', 'أكتوبر', 'سبتمبر', 'أغسطس', 'يوليو', 'يونيو', 'مايو', 'أبريل', 'مارس', 'فبراير', 'يناير'],
         splitLine: {
           show: true,
           lineStyle: {
@@ -298,21 +300,21 @@ export class DashboardViewComponent implements OnInit {
           name: this.companyNames.Sahel,
           type: 'line',
           stack: 'Total',
-          data: sahelData,
+          data: sahelData ? sahelData : [],
           smooth: true,
         },
         {
           name: this.companyNames.ghadaf,
           type: 'line',
           stack: 'Total',
-          data: ghadafData,
+          data: ghadafData ? ghadafData : [],
           smooth: true,
         },
         {
           name: this.companyNames.Lazza,
           type: 'line',
           stack: 'Total',
-          data: lazzaData,
+          data: lazzaData ? lazzaData : [],
           smooth: true,
         },
       ]
@@ -322,43 +324,6 @@ export class DashboardViewComponent implements OnInit {
   }
 
 
-  getAllOrders() {
-    var data = data_order
-    console.log(data)
-
-
-    var city = data.filter((obj, index) => {
-      return index == data.findIndex(o => obj.address.city == o.address.city)
-    }).map(d => d.address)
-
-    var date = data.filter((obj, index) => {
-      return index == data.findIndex(o => obj.created_at == o.created_at)
-    }).map(d => d.created_at)
-
-
-    let arrayListDate = [];
-
-    for (let value of date) {
-      arrayListDate.push(moment(value).format('YYYY-MM-DD'))
-    }
-
-
-
-    // get orders depand on city
-    city.forEach((element: any) => {
-      element.orders = []
-      element.orders = data.filter(d => d.address.city == element.city)
-    });
-
-    console.log(city)
-    console.log(arrayListDate)
-
-    this.impApiService.get(ADMIN_DASHBOARD.getAllOrders).subscribe(d => {
-
-
-    })
-  }
-
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
@@ -367,20 +332,16 @@ export class DashboardViewComponent implements OnInit {
     this.selectedItem = item;
     this.isDropdownOpen = false;
 
-    var city = '';
     if (item == 'مكة')
-      city = 'makkah';
+      this.city = 'makkah';
     else if (item == 'جدة')
-      city = 'jeddah';
+      this.city = 'jeddah';
     else
-      city = 'all';
+      this.city = '';
 
-    this.postCityforFilter(city);
   }
 
-  postCityforFilter(item) {
-    // this.impApiService.post(ADMIN_DASHBOARD.index + "?Address=" + this.selectItem, {})
-  }
+
 
 
 

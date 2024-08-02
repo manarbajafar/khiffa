@@ -38,7 +38,7 @@
     <label for="">الفترة الزمنية <span>من - إلى</span></label>
     <form [formGroup]="dateRangeForm">
     <mat-form-field class="datepicker-container justify-content-center align-items-center">
-      <mat-date-range-input [rangePicker]="picker1" [formGroup]="dateRangeForm">
+      <mat-date-range-input [rangePicker]="picker1"  >
         <input matStartDate formControlName="start">
         <input matEndDate formControlName="end">
       </mat-date-range-input>

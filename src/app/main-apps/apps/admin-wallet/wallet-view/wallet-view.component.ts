@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ADMIN_WALLET } from 'src/app/constant/routes';
+import { ImpApiService } from 'src/app/services/imp-api.service';
 
 @Component({
   selector: 'app-wallet-view',
@@ -30,11 +33,45 @@ export class WalletViewComponent implements OnInit {
   current_page: number = 1;
   items_per_page: number = 7;
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private impApiService: ImpApiService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.showTransactionsRequests();
+
     this.updateTransactions();
   }
+
+  showTransactionsRequests(): void {
+    this.spinner.show();
+    this.impApiService.get(ADMIN_WALLET.showTransactions).subscribe(data=>{
+      this.requests=data;
+      this.spinner.hide();
+    },
+    error => {
+      this.spinner.hide()
+      console.error('Error:', error);
+    });
+  }
+
+
+  approveRequest(requestId: string): void { //user_id?
+    this.spinner.show();
+    this.impApiService.post(ADMIN_WALLET.sendTransactions, requestId).subscribe(data=>{
+
+      this.spinner.hide();
+    },
+    error => {
+      this.spinner.hide()
+      console.error('Error:', error);
+    });
+  }
+
+  rejectRequest(requestId: string): void {
+    //????
+  }
+
+
+
 
   openModal(template: any): void {
     this.modalService.open(template, { size: 'xl' });
@@ -58,10 +95,5 @@ export class WalletViewComponent implements OnInit {
   viewPreviousInvoices(requestId: string): void {
   }
 
-  approveRequest(requestId: string): void {
-  }
-
-  rejectRequest(requestId: string): void {
-  }
 
 }

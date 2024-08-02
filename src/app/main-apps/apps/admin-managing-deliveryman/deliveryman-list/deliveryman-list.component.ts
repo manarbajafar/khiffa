@@ -1,11 +1,8 @@
+import { NgxSpinnerComponent, NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { Component, Input, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
+import { ImpApiService } from 'src/app/services/imp-api.service';
+import { ADMIN_MANAGING_DELIVERYMANS } from 'src/app/constant/routes';
 
-interface User {
-  id: number;
-  name: string;
-  email: string;
-}
 
 @Component({
   selector: 'app-deliveryman-list',
@@ -16,26 +13,36 @@ export class DeliverymanListComponent implements OnInit {
   @Input() displayCount: number = 0;
   @Input() showAll: boolean = false;
 
-  users: User[] = [];
-  displayUsers: User[] = [];
+  users: any[] = [];
+  displayUsers: any[] = [];
   searchTerm: string = '';
 
-  constructor(private userService: UserService) { }
+  constructor(private impApiService: ImpApiService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe(data => {
-      this.users = data;
-      this.updateDisplayUsers();
-    }, error => {
-      console.error('Error fetching users:', error);
-    });
-    // this.users = this.userService.getUsers();
-    // this.updateDisplayUsers();
+
+    this.getUsers();
   }
 
+  getUsers(): void {
+  this.spinner.show();
+  this.impApiService.get(`${ADMIN_MANAGING_DELIVERYMANS.getDeliverymanList}?page=${1}&perPage=${2}`).subscribe(data=>{
+    this.users=data.data;
+    this.spinner.hide();
+    console.log('this.users', this.users)
+    this.updateDisplayUsers();
+  },
+  error => {
+    this.spinner.hide()
+    console.error('Error get users:', error);
+  });
+
+}
+
   updateDisplayUsers(): void {
+
     let filteredUsers = this.users.filter(user =>
-      user.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      user.info[0]?.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
     if (this.showAll) {
@@ -51,7 +58,7 @@ export class DeliverymanListComponent implements OnInit {
 
 
 
-  editUser(user: User): void {
+  editUser(user): void {
   }
 
 

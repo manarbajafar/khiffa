@@ -11,11 +11,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="align-items-center align-middle m-0 p-0" *ngFor="let request of paginatedRequests">
+        <tr class="align-items-center align-middle m-0 p-0" *ngFor="let request of allRequests">
           <td>{{ request.id }}</td>
-          <td>{{ request.name }}</td>
-          <td>{{ request.requestType }}</td>
-          <td>{{ request.requestDate | date }}</td>
+          <td>{{ request.email }}</td>
+          <td>{{ request.otp }}</td>
+          <td>{{ request.created_at | date }}</td>
           <td>
             <div class="flex-d justify-content-between gap-4">
               <button type="button" class="view btn btn-info btn-sm btn-rounded w-25" routerLink="../request-details">

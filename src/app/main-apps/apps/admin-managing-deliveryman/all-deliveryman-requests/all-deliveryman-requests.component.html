@@ -25,6 +25,11 @@
           </td>
         </tr>
       </tbody>
+      <tr *ngIf="allRequests.length == 0">
+        <td colspan="6" class="text-center mt-2">
+          <p>لا توجد بيانات حاليًا</p>
+        </td>
+      </tr>
     </table>
 
     <app-pagination>

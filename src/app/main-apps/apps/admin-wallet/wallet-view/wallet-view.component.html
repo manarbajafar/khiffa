@@ -26,8 +26,15 @@
               </td>
             </tr>
           </tbody>
+
+          <tr *ngIf="requests.length == 0">
+            <td colspan="6" class="text-center p-4">
+              <p>لا توجد بيانات حاليًا</p>
+            </td>
+          </tr>
+
         </table>
-        <div class="d-flex justify-content-end">
+        <div *ngIf="requests.length !== 0" class="d-flex justify-content-end">
           <button type="button" class="show-more btn btn-primary" routerLink="../money-transfer-requests">
             < عرض الكل
           </button>

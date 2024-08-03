@@ -23,7 +23,6 @@ export const Order = {
 };
 
 export const TRANSACTION ={
-
   requestTransaaction: BASEURL + "transactions",
   sendTransactions: BASEURL + "sendTransactions",
   showTransactions : BASEURL + "showTransactions"
@@ -39,7 +38,7 @@ export const DRIVERPROFILE ={
 
 export const ADMIN_DASHBOARD = {
   getAllOrders: BASEURL + 'orders',
-  getDashboardData: BASEURL + 'dashboard?', //{{url}}/api/dashboard?start_date=2022-02-20 00:00:00&end_date=2024-07-31  23:59:59
+  getDashboardData: BASEURL + 'dashboard?',
 }
 
 export const ADMIN_MANAGING_DELIVERYMANS = {
@@ -58,6 +57,6 @@ export const ADMIN_WALLET = {
 
 export const ADMIN_TECHNICAL_SUPPORT = {
   showAllTickets: BASEURL + 'paginatingTicket',
-  showTicket: BASEURL + 'showTicket',
+  showTicketDetails: BASEURL + 'showTicket',
   changeTicketStatus: BASEURL + 'changeTicketStatus',
 }

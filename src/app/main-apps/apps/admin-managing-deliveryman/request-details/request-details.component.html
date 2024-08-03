@@ -1,5 +1,79 @@
 
 
+<div class="container request-detail-container" *ngIf="request_details">
+  <div class="row mb-4 justify-content-between text-right">
+    <div class="col-auto">
+      <p><strong>الاسم</strong><br>{{ request_details?.account_information?.name }}</p>
+      <p><strong>البريد الإلكتروني</strong><br>{{ request_details?.email }}</p>
+    </div>
+    <div class="col-auto">
+      <p><strong>رقم الهوية</strong><br>{{ request_details?.account_information?.national_id }}</p>
+      <p><strong>رقم الجوال</strong><br>{{ request_details?.account_information?.phone_number }}</p>
+    </div>
+    <div class="col-auto justify-content-end">
+      <p><strong>المرفقات</strong></p>
+      <!-- <div class="d-flex justify-content-center">
+        <div class="attachment-container" *ngFor="let attachment of request_details.attachments; let i = index" (click)="open(i)">
+          <img [src]="attachment.url" alt="attachment" class="img-fluid">
+        </div>
+      </div> -->
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-12">
+      <hr>
+    </div>
+  </div>
+
+  <ng-container [ngSwitch]="request_details.status">
+    <div *ngSwitchCase="'Active'" class="row mb-4 text-center">
+      <div class="col-12 d-flex flex-column align-items-center">
+        <button class="btn btn-outline-secondary w-100">تعطيل الحساب</button>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'Suspended'" class="row mb-4 text-center">
+      <div class="col-12 d-flex flex-column align-items-center">
+        <button class="btn btn-primary w-100 mb-2">قبول</button>
+        <button class="btn btn-outline-secondary w-100" (click)="showRejectionReason()">رفض</button>
+
+      </div>
+    </div>
+
+
+    <div *ngSwitchCase="'Inactive'" class="row mb-4 text-center">
+      <div class="col-12 d-flex flex-column align-items-center">
+        <button class="btn btn-outline-secondary w-100">تفعيل الحساب</button>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="'in progress'" class="row mb-4 text-center">
+      <div class="col-12" style="text-align: right !important;">
+        <p><strong>طلب تعديل</strong></p>
+        <div class="attachment-container mb-4">
+          <img [src]="request_details.modificationRequest.url" alt="amendment attachment" class="img-fluid" (click)="open(0)">
+        </div>
+      </div>
+      <div class="col-12 d-flex flex-column align-items-center">
+        <button class="btn btn-primary w-100 mb-2">قبول</button>
+        <button class="btn btn-outline-secondary w-100" (click)="showRejectionReason()">رفض</button>
+        <div *ngIf="showReason" [formGroup]="rejectionForm" class="w-100 rejection-reason-container">
+          <textarea formControlName="rejectionReason" class="form-control mb-2" placeholder="اكتب سبب الرفض هنا"></textarea>
+          <div *ngIf="rejectionForm.get('rejectionReason').invalid && rejectionForm.get('rejectionReason').touched" class="text-danger">
+            سبب الرفض مطلوب
+          </div>
+          <button class="btn btn-danger w-100" [disabled]="rejectionForm.invalid" (click)="sendRejection()">إرسال</button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+
+
+<!--
+
 <div class="container request-detail-container" *ngIf="request">
   <div class="row mb-4 justify-content-between text-right">
     <div class="col-auto">
@@ -44,10 +118,12 @@
               <input type="checkbox" [(ngModel)]="request.checkboxes.name" id="checkbox-name" class="form-check-input" (change)="checkButtonStatus()">
               <label class="form-check-label" for="checkbox-name">الاسم</label>
             </div>
+
             <div class="form-check">
               <input type="checkbox" [(ngModel)]="request.checkboxes.idNumber" id="checkbox-idNumber" class="form-check-input" (change)="checkButtonStatus()">
               <label class="form-check-label" for="checkbox-idNumber">رقم الهوية</label>
             </div>
+
             <div class="form-check">
               <input type="checkbox" [(ngModel)]="request.checkboxes.license" id="checkbox-license" class="form-check-input" (change)="checkButtonStatus()">
               <label class="form-check-label" for="checkbox-license">صورة الرخصة</label>
@@ -100,4 +176,4 @@
       </div>
     </div>
   </ng-container>
-</div>
+</div> -->

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { NgxSpinnerComponent, NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { Component, Input, OnInit } from '@angular/core';
 import { ImpApiService } from 'src/app/services/imp-api.service';
@@ -17,7 +18,7 @@ export class DeliverymanListComponent implements OnInit {
   displayUsers: any[] = [];
   searchTerm: string = '';
 
-  constructor(private impApiService: ImpApiService, private spinner: NgxSpinnerService) { }
+  constructor(private impApiService: ImpApiService, private spinner: NgxSpinnerService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -37,6 +38,13 @@ export class DeliverymanListComponent implements OnInit {
     console.error('Error get users:', error);
   });
 
+}
+
+
+////
+viewacountDetails(userId: number): void {
+  console.log(userId)
+  this.router.navigate(['apps/driver-orders/detailed-order/', userId]);
 }
 
   updateDisplayUsers(): void {

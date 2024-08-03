@@ -19,7 +19,7 @@ export class TechnicalSupportViewComponent implements OnInit {
   showAllTickets(): void {
     this.spinner.show();
     this.impApiService.get(ADMIN_TECHNICAL_SUPPORT.showAllTickets).subscribe(data=>{
-      this.tableData=data;
+      this.tableData=data[0].data; // :)
       this.spinner.hide();
     },
     error => {
@@ -27,6 +27,19 @@ export class TechnicalSupportViewComponent implements OnInit {
       console.error('Error:', error);
     });
   }
+
+  // missing data to be sent in params
+  showTicketDetails(): void {
+    this.spinner.show();
+    this.impApiService.get(ADMIN_TECHNICAL_SUPPORT.showTicketDetails).subscribe(data=>{
+      this.spinner.hide();
+    },
+    error => {
+      this.spinner.hide()
+      console.error('Error:', error);
+    });
+  }
+
   //filter
   isDropdownOpen = false;
   selectedItem: string | null = null;

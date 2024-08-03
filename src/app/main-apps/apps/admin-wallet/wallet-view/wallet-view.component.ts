@@ -44,7 +44,8 @@ export class WalletViewComponent implements OnInit {
   showTransactionsRequests(): void {
     this.spinner.show();
     this.impApiService.get(ADMIN_WALLET.showTransactions).subscribe(data=>{
-      this.requests=data;
+      this.requests=data[0]; // :)
+      console.log('طلبات تحويل الاموال',this.requests)
       this.spinner.hide();
     },
     error => {

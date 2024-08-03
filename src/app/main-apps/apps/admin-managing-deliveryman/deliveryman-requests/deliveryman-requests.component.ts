@@ -40,8 +40,11 @@ export class DeliverymanRequestsComponent implements OnInit {
     });
 
   }
-  viewRequest(requestId: number): void {
-    console.log('عرض التفاصيل للطلب ID:', requestId);
+
+  viewRequestDetails(id: number): void {
+    console.log(id)
+    this.router.navigate(['apps/admin-managing-deliveryman/request-details', id]);
   }
+
 
 }

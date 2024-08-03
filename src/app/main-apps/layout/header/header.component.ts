@@ -18,8 +18,8 @@ export class HeaderComponent implements OnInit {
 
 setHeader (){
 var user= JSON.parse(localStorage.getItem('user'));
-this.name=user?.info?.name;
-console.log(this.name)
+// this.name=user?.info?.name;
+this.name = user?.info?.name ?? 'Admin';
 this.email=user.user.email;
 }
 }

@@ -15,7 +15,8 @@ const routes: Routes = [
   { path:'deliveryman-list' , component:DeliverymanListComponent},
   { path:'deliveryman-requests' , component:DeliverymanRequestsComponent},
   { path:'all-deliveryman-requests' , component:AllDeliverymanRequestsComponent},
-  { path:'request-details' , component:  RequestDetailsComponent},
+  // { path:'request-details' , component:  RequestDetailsComponent},
+  { path: 'request-details/:id',component: RequestDetailsComponent}
 
 ];
 

@@ -5,7 +5,6 @@ import { right } from '@popperjs/core';
 import * as echarts from 'echarts';
 import { ADMIN_DASHBOARD } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
-import { data_order } from './data';
 import moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -110,14 +109,29 @@ export class DashboardViewComponent implements OnInit {
   EveryCompanyChart(data): void {
     const chartDom = document.getElementById('every-company');
     const myChart = echarts.init(chartDom);
-    const sourceData = data.map(item => {
-      return {
-        product: this.companyNames[item.company_Name],
-        'عدد الطلبات المقبولة': item.status_counts.in_progress,
-        'عدد الطلبات المعلقة': item.status_counts.pending,
-        'عدد الطلبات التامة': item.status_counts.completed,
-        'عدد الطلبات الملغية': item.status_counts.cancelled
-      };
+
+    const defaultStatusCounts = { pending: 0, in_progress: 0, completed: 0, cancelled: 0 };
+
+    const sourceData = Object.keys(this.companyNames).map(companyName => {
+      const companyData = data.find(item => item.company_Name === companyName);
+
+      if (companyData) {
+        return {
+          product: this.companyNames[companyData.company_Name],
+          'عدد الطلبات المقبولة': companyData.status_counts.in_progress,
+          'عدد الطلبات المعلقة': companyData.status_counts.pending,
+          'عدد الطلبات التامة': companyData.status_counts.completed,
+          'عدد الطلبات الملغية': companyData.status_counts.cancelled
+        };
+      } else {
+        return {
+          product: this.companyNames[companyName],
+          'عدد الطلبات المقبولة': defaultStatusCounts.in_progress,
+          'عدد الطلبات المعلقة': defaultStatusCounts.pending,
+          'عدد الطلبات التامة': defaultStatusCounts.completed,
+          'عدد الطلبات الملغية': defaultStatusCounts.cancelled
+        };
+      }
     });
 
     const option = {
@@ -180,10 +194,12 @@ export class DashboardViewComponent implements OnInit {
       textStyle: {
         fontFamily: 'tajawal'
       },
-      color: ["#DB79A9", "#87B6A1", "#F2A735", "#2D9CDB"],
+      color: ["#87B6A1", "#DB79A9", "#2D9CDB", "#F2A735"],
       legend: {
         bottom: 0,
-        align: right,
+        align: 'right',
+        orient: "vertical",
+        height: "10%",
       },
       tooltip: {},
       grid: {
@@ -199,9 +215,9 @@ export class DashboardViewComponent implements OnInit {
         }
       },
       dataset: {
-        dimensions: ['product', 'عدد الطلبات الملغية', 'عدد الطلبات التامة', 'عدد الطلبات المعلقة', 'عدد الطلبات المقبولة'],
+        dimensions: ['product', 'الطلبات التامة', 'الطلبات الملغية', 'الطلبات المقبولة', 'الطلبات المعلقة'],
         source: [
-          { product: 'عدد الطلبات', 'عدد الطلبات المقبولة': data.in_progress, 'عدد الطلبات المعلقة': data.pending, 'عدد الطلبات التامة': data.completed, 'عدد الطلبات الملغية': data.cancelled },
+          { product: 'عدد الطلبات', 'الطلبات المعلقة': data.pending, 'الطلبات المقبولة': data.in_progress, 'الطلبات الملغية': data.cancelled, 'الطلبات التامة': data.completed },
         ]
       },
       xAxis: {
@@ -238,9 +254,23 @@ export class DashboardViewComponent implements OnInit {
   TimelineChart(data): void {
     const chartDom3 = document.getElementById('timeline');
     const myChart3 = echarts.init(chartDom3);
-    // console.log(data);
 
-    const labels = data.labels;
+    const labelTranslations = {
+      'Jan': 'يناير',
+      'Feb': 'فبراير',
+      'Mar': 'مارس',
+      'Apr': 'أبريل',
+      'May': 'مايو',
+      'Jun': 'يونيو',
+      'Jul': 'يوليو',
+      'Aug': 'أغسطس',
+      'Sep': 'سبتمبر',
+      'Oct': 'أكتوبر',
+      'Nov': 'نوفمبر',
+      'Dec': 'ديسمبر'
+    };
+
+    const labels = data.labels.map(label => labelTranslations[label] || label);
 
     const lazzaData = data.data.find(item => item.company_name === 'Lazza')?.values;;
     const ghadafData = data.data.find(item => item.company_name === 'ghadaf')?.values;
@@ -277,13 +307,16 @@ export class DashboardViewComponent implements OnInit {
         type: 'category',
         boundaryGap: false,
         data:labels,
-        // data: ['ديسمبر', 'نوفمبر', 'أكتوبر', 'سبتمبر', 'أغسطس', 'يوليو', 'يونيو', 'مايو', 'أبريل', 'مارس', 'فبراير', 'يناير'],
         splitLine: {
           show: true,
           lineStyle: {
             type: 'dashed'
           }
-        }
+        },
+        // axisLabel: {
+        //   rotate: 45,
+        // },
+        inverse: true
       },
       yAxis: {
         type: 'value',
@@ -330,14 +363,22 @@ export class DashboardViewComponent implements OnInit {
 
   selectItem(item: string) {
     this.selectedItem = item;
-    this.isDropdownOpen = false;
-
     if (item == 'مكة')
       this.city = 'makkah';
     else if (item == 'جدة')
       this.city = 'jeddah';
     else
       this.city = '';
+
+    this.isDropdownOpen = false;
+
+    const start = moment(this.dateRangeForm.value.start).format('YYYY-MM-DD');
+    const end = moment(this.dateRangeForm.value.end).format('YYYY-MM-DD');
+
+    this.getDashboardData(start, end);
+
+    this.toggleDropdown();
+
 
   }
 

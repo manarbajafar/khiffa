@@ -2,6 +2,10 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ADMIN_MANAGING_DELIVERYMANS } from 'src/app/constant/routes';
+import { ImpApiService } from 'src/app/services/imp-api.service';
 
 @Component({
   selector: 'app-request-details',
@@ -9,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./request-details.component.scss']
 })
 export class RequestDetailsComponent implements OnInit {
-  request = {
+  request_details = {
     name: 'خالد عمر محمد',
     email: 'www@gmail.com',
     idNumber: '1111111111',
@@ -33,10 +37,20 @@ export class RequestDetailsComponent implements OnInit {
   showReason = false;
   rejectionForm: FormGroup;
   buttonDisabled = true;
+  userId = this.route.snapshot.paramMap.get('id');
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private impApiService: ImpApiService,
+    private spinner: NgxSpinnerService,
+    private route: ActivatedRoute,) {}
 
   ngOnInit(): void {
+
+    this.showInfoAccountReq(this.userId);
+
+    this.showRejectionReason();
+
     this.rejectionForm = this.fb.group({
       rejectionReason: ['', Validators.required]
     });
@@ -48,13 +62,28 @@ export class RequestDetailsComponent implements OnInit {
     this.checkButtonStatus();
   }
 
+  showInfoAccountReq(userId): void{
+    this.spinner.show();
+    this.impApiService.get(ADMIN_MANAGING_DELIVERYMANS.showInfoAccountReq + userId).subscribe(data => {
+      this.request_details=data[0];
+      this.spinner.hide();
+      console.log('this.users', this.request_details)
+    },
+    error => {
+      this.spinner.hide()
+      console.error('Error get users:', error);
+    });
+  }
+
+
+
   showRejectionReason() {
     this.showReason = true;
   }
 
   checkButtonStatus() {
     const isReasonValid = this.rejectionForm.get('rejectionReason').value.trim().length > 0;
-    const isAnyCheckboxChecked = Object.values(this.request.checkboxes).some(checkbox => checkbox);
+    const isAnyCheckboxChecked = Object.values(this.request_details.checkboxes).some(checkbox => checkbox);
 
     this.buttonDisabled = !(isReasonValid && isAnyCheckboxChecked);
   }
@@ -63,7 +92,7 @@ export class RequestDetailsComponent implements OnInit {
     if (!this.buttonDisabled) {
       const rejectionData = {
         rejectionReason: this.rejectionForm.value.rejectionReason,
-        checkboxes: this.request.checkboxes
+        checkboxes: this.request_details.checkboxes
       };
       console.log('Rejection data:', rejectionData);
       // Send to API
@@ -76,7 +105,7 @@ export class RequestDetailsComponent implements OnInit {
   }
 
   get isAnyCheckboxChecked(): boolean {
-    return Object.values(this.request.checkboxes).some(checkbox => checkbox);
+    return Object.values(this.request_details.checkboxes).some(checkbox => checkbox);
   }
 
 }

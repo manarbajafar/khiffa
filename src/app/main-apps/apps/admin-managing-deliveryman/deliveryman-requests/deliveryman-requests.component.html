@@ -18,15 +18,20 @@
           <td>{{ request.created_at | date }}</td>
           <td>
             <div class="flex-d justify-content-between gap-4">
-              <button type="button" class="view btn btn-info btn-sm btn-rounded w-25" routerLink="../request-details">
+              <a type="button" class="view btn btn-info btn-sm btn-rounded w-25" (click)="viewRequestDetails(request.id)">
                 <i class="bx bx-show"></i>
-              </button>
+              </a>
             </div>
           </td>
         </tr>
       </tbody>
+      <tr *ngIf="displayRequests.length == 0">
+        <td colspan="6" class="text-center mt-2">
+          <p>لا توجد بيانات حاليًا</p>
+        </td>
+      </tr>
     </table>
-    <div class="d-flex justify-content-end mt-2">
+    <div *ngIf="displayRequests.length !== 0" class="d-flex justify-content-end mt-2">
       <a class="show-more btn btn-secondary" routerLink="../all-deliveryman-requests">
       <  عرض الكل
       </a>

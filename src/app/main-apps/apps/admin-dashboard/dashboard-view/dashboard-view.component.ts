@@ -194,10 +194,12 @@ export class DashboardViewComponent implements OnInit {
       textStyle: {
         fontFamily: 'tajawal'
       },
-      color: ["#DB79A9", "#87B6A1", "#F2A735", "#2D9CDB"],
+      color: ["#87B6A1", "#DB79A9", "#2D9CDB", "#F2A735"],
       legend: {
         bottom: 0,
-        align: right,
+        align: 'right',
+        orient: "vertical",
+        height: "10%",
       },
       tooltip: {},
       grid: {
@@ -213,9 +215,9 @@ export class DashboardViewComponent implements OnInit {
         }
       },
       dataset: {
-        dimensions: ['product', 'عدد الطلبات الملغية', 'عدد الطلبات التامة', 'عدد الطلبات المعلقة', 'عدد الطلبات المقبولة'],
+        dimensions: ['product', 'الطلبات التامة', 'الطلبات الملغية', 'الطلبات المقبولة', 'الطلبات المعلقة'],
         source: [
-          { product: 'عدد الطلبات', 'عدد الطلبات المقبولة': data.in_progress, 'عدد الطلبات المعلقة': data.pending, 'عدد الطلبات التامة': data.completed, 'عدد الطلبات الملغية': data.cancelled },
+          { product: 'عدد الطلبات', 'الطلبات المعلقة': data.pending, 'الطلبات المقبولة': data.in_progress, 'الطلبات الملغية': data.cancelled, 'الطلبات التامة': data.completed },
         ]
       },
       xAxis: {

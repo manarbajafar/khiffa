@@ -74,19 +74,16 @@
     الرجاء إختيار منطقتك
     <form>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="region" id="makkah" [(ngModel)]="selectedRegion"
-          value="Makkah">
+        <input class="form-check-input" type="radio" name="region" id="makkah" [(ngModel)]="selectedRegion" value="Makkah" required>
         <label class="form-check-label" for="makkah">مكة</label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="region" id="jeddah" [(ngModel)]="selectedRegion"
-          value="Jeddah">
+        <input class="form-check-input" type="radio" name="region" id="jeddah" [(ngModel)]="selectedRegion" value="Jeddah" required>
         <label class="form-check-label" for="jeddah">جدة</label>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">إلغاء</button>
-    <button type="button" class="btn btn-primary" (click)="confirmRegionSelection(modal)">موافق</button>
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">إلغاء</button><button type="button" class="btn btn-primary" [disabled]="selectedRegion" (click)="updateCityAndLoadOrders(modal)">موافق</button>
   </div>
 </ng-template>

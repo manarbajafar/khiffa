@@ -10,6 +10,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./detailed-order.component.scss']
 })
 export class DetailedOrderComponent implements OnInit {
+  currentTimestamp: number = new Date().getTime();
   @ViewChild('regionTemplate') regionTemplate;
   selectedRegion: string;
   orderId: number | null = null;
@@ -20,8 +21,8 @@ export class DetailedOrderComponent implements OnInit {
   idParam = this.route.snapshot.paramMap.get('id');
 
   ngOnInit(): void {
-    this.fetchOrderDetails(this.idParam);
-    // this.assignOrder(this.idParam);
+    this.fetchOrderDetails(this.idParam),
+    this.assignOrder(this.idParam);
 
   }
 
@@ -30,22 +31,12 @@ export class DetailedOrderComponent implements OnInit {
 
   fetchOrderDetails(orderId): void {
     this.spinner.show()
-    console.log(orderId); // Log the orderId to ensure it's being passed correctly.
+    console.log(orderId);
     this.impApiService.get(Order.details + orderId).subscribe(
       response => {
         this.orderDetails =  response.order;
         console.log('Order details fetched:', this.orderDetails);
         this.spinner.hide()
-
-
-        // this.impApiService.put(Order.updateStatus + orderId, {status: 'newStatus'}).subscribe(
-        //   updateResponse => {
-        //     console.log('Order status updated:', updateResponse);
-        //   },
-        //   updateError => {
-        //     console.error('Error updating order status:', updateError);
-        //   }
-        // );
       },
       error => {
         this.spinner.hide()
@@ -54,36 +45,64 @@ export class DetailedOrderComponent implements OnInit {
     );
   }
 
-// orderDetails=null;
-//   fetchOrderDetails(orderId): void {
-//     console.log(orderId)
-//     this.impApiService.get(Order.details + orderId).subscribe(d => {
-//       data => {
+  assignOrder(orderId): void {
+    const payload = { order_id: orderId };
+    this.impApiService.post(Order.assign, JSON.stringify(payload)).subscribe(
+      response => {
+        console.log('Assign order successfully', response);
+      },
+      error => {
+        console.error('Error in assigning order:', error);
+      }
+    );
+}
 
-//         this.orderDetails = data.data
-
-//       },
-//     //هنا اي بي اي ثاني لحالات الطلب
-//     //this.impApiService.put((Order.updateStatus + orderId),'').subscribe
-//   //  console.log(orderId)
-//     })
-
-//   }
+  // updateOrderState(): void {
+  //   if (this.orderState < 3) {
+  //     this.orderState++;
+  //   }
+  // }
 
 
 
-// assignOrder (orderId) : void {
-//   this.impApiService.put(Order.assign, orderId).subscribe(data=>{
-//     console.log(orderId)
-//   })
-// }
 
 
   updateOrderState(): void {
     if (this.orderState < 3) {
       this.orderState++;
+      const newStatus = {
+        status: this.orderState
+      };
+
+      this.impApiService.put(`${Order.updateStatus + this.orderId}`, JSON.stringify(newStatus)).subscribe(
+        response => {
+          console.log('Order status updated successfully:', response);
+        },
+        error => {
+          console.error('Error updating order status:', error);
+        }
+      );
+    }}
+
+    getGoogleMapsUrl(latitude: number, longitude: number): string {
+      return `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
     }
-  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   openModal(templateRef): void {
     this.modalService.open(templateRef, { size: 'sm' });
   }
@@ -95,7 +114,7 @@ export class DetailedOrderComponent implements OnInit {
 
       this.router.navigate(['/apps/driver-orders/orders'], { queryParams: { region: this.selectedRegion } });
     } else {
- 
+
       console.log('No region selected');
     }
 

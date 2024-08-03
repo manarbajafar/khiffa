@@ -7,57 +7,44 @@ import { ImpApiService } from 'src/app/services/imp-api.service';
   styleUrls: ['./tickets.component.scss']
 })
 export class TicketsComponent implements OnInit {
-  items_per_page: number = 10;
-  current_page: number = 1;
-  filteredData: any[] = [
-    { title: 'مشكلة بنحويل المستحقات', name: 'سعد محمد', date: '5 يناير 2024', time: '3:00 م', id: '1234', status: 'فتح', statusClass: 'badge-open' },
-    { title: 'مشكلة بنحويل المستحقات', name: 'سعد محمد', date: '5 يناير 2024', time: '3:00 م', id: '1235', status: 'مفتوحة', statusClass: 'badge-on-hold' },
-    { title: 'مشكلة بنحويل المستحقات', name: 'سعد محمد', date: '5 يناير 2024', time: '3:00 م', id: '1236', status: 'مغلقة', statusClass: 'badge-closed' },
-    { title: 'مشكلة بنحويل المستحقات', name: 'سعد محمد', date: '5 يناير 2024', time: '3:00 م', id: '1237', status: 'تحت المعالجة', statusClass: 'badge-under-processing' },
-    { title: 'مشكلة بنحويل المستحقات', name: 'سعد محمد', date: '5 يناير 2024', time: '3:00 م', id: '1238', status: 'مفتوحة', statusClass: 'badge-on-hold' },
-    { title: 'مشكلة بنحويل المستحقات', name: 'سعد محمد', date: '5 يناير 2024', time: '3:00 م', id: '1239', status: 'فتح', statusClass: 'badge-open' }
-  ];
-  paginatedData: any[];
+
+  // filteredData: any[] = [
+  //   { title: 'مشكلة بنحويل المستحقات', name: 'سعد محمد', date: '5 يناير 2024', time: '3:00 م', id: '1234', status: 'فتح', statusClass: 'badge-open' },
+  //   { title: 'مشكلة بنحويل المستحقات', name: 'سعد محمد', date: '5 يناير 2024', time: '3:00 م', id: '1235', status: 'مفتوحة', statusClass: 'badge-on-hold' },
+  //   { title: 'مشكلة بنحويل المستحقات', name: 'سعد محمد', date: '5 يناير 2024', time: '3:00 م', id: '1236', status: 'مغلقة', statusClass: 'badge-closed' },
+  //   { title: 'مشكلة بنحويل المستحقات', name: 'سعد محمد', date: '5 يناير 2024', time: '3:00 م', id: '1237', status: 'تحت المعالجة', statusClass: 'badge-under-processing' },
+  //   { title: 'مشكلة بنحويل المستحقات', name: 'سعد محمد', date: '5 يناير 2024', time: '3:00 م', id: '1238', status: 'مفتوحة', statusClass: 'badge-on-hold' },
+  //   { title: 'مشكلة بنحويل المستحقات', name: 'سعد محمد', date: '5 يناير 2024', time: '3:00 م', id: '1239', status: 'فتح', statusClass: 'badge-open' }
+  // ];
+
 
   constructor( private impApiService :ImpApiService ) {
-  //  this.paginatedData = this.getPaginatedData();
+
   }
 
   ngOnInit(): void {
-   // this.loadDriverticket();
+ this.loadDriverTicket();
   }
 
-  changePage(page: number): void {
-    this.current_page = page;
-    this.paginatedData = this.getPaginatedData();
+
+
+  tickets  = null;
+
+  loadDriverTicket(): void {
+    this.impApiService.get(DRIVERPROFILE.tickets).subscribe(
+      (response) => {
+     if (response && response.data) {  //to check the null
+      this.tickets = response.data;
+      console.log("Tickets loaded:", this.tickets);
+        } else {
+          console.warn("Unexpected API response structure:", response);
+          this.tickets = [];
+        }
+      },
+      (error) => {
+        console.error("Error fetching driver tickets:", error);
+        this.tickets = [];
+      }
+    );
   }
-
-  getPaginatedData(): any[] {
-    const start = (this.current_page - 1) * this.items_per_page;
-    const end = start + this.items_per_page;
-    return this.filteredData.slice(start, end);
-  }
-
-  get totalPages(): number[] {
-    const totalPages = Math.ceil(this.filteredData.length / this.items_per_page);
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
-  }
-
-  //tickets  = null;
-
-  // loadDriverticket(): void {
-  //   this.impApiService.get(DRIVERPROFILE.tickets).subscribe(
-  //     (response) => {
-
-  //       this.tickets = response.data;
-  //       console.log(response.user)
-  //     },
-  //     (error) => {
-
-  //       console.error('Error fetching driver tickets :', error);
-  //     }
-  //   );
-  // }
-
-
 }

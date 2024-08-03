@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Order } from 'src/app/constant/routes';
+import { AUTH, Order } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
 
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -19,7 +19,7 @@ export class OrdersComponent implements OnInit {
   @ViewChild('regionModal') regionModal;
   selectedRegion: string | null = null;
 
- 
+
 
 
   orders = [
@@ -31,7 +31,7 @@ export class OrdersComponent implements OnInit {
     { id: 6, title: 'شركة لذة', price: 25, distance: 25, location: 'العوالي إلى الشرائع' }
   ];
 
-  visibleOrders: number = 6;
+
 
   filteredOrders = [...this.orders];
 
@@ -41,31 +41,60 @@ export class OrdersComponent implements OnInit {
 
 
   ngOnInit(): void {
-    //this.loadOrders();
+
 
     setTimeout(() => {
       this.promptRegionSelection();
     }, 500);
 
   }
+
+
   promptRegionSelection(): void {
     const modalRef = this.modalService.open(this.regionModal);
     modalRef.result.then(
       (result) => {
-        // if (result) {
-          this.loadOrders();
-        // }
+        if (this.selectedRegion) {
+          this.updateCityAndLoadOrders(this.selectedRegion);  
+        } else {
+          console.log("No region selected or selection dismissed.");
+        }
       },
       (error) => {
-
-        console.log('Region selection dismissed');
+        console.log('Region selection dismissed due to error:', error);
       }
     );
   }
 
-  confirmRegionSelection(modal): void {
-    modal.close(this.selectedRegion);
+  updateCityAndLoadOrders(selectedCity: string): void {
+    console.log("Updating city to:", selectedCity);
+    this.impApiService.put(AUTH.regeion, { city: selectedCity }).subscribe(
+      response => {
+        console.log('City updated successfully:', response);
+        this.loadOrders();  // Load orders after city update
+      },
+      error => {
+        console.error('Error updating city:', error);
+      }
+    );
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   sortOrders(field: string, order: 'asc' | 'desc'): void {

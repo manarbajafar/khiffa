@@ -2,7 +2,8 @@ import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SidebarService } from './sidebar.service';
-
+import { ImpApiService } from 'src/app/services/imp-api.service';
+import { AUTH } from 'src/app/constant/routes';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -19,7 +20,8 @@ export class SidebarComponent implements OnInit {
   constructor(
     public sidebarService: SidebarService,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private impApiService :ImpApiService
   ) {}
 
 
@@ -74,13 +76,26 @@ export class SidebarComponent implements OnInit {
           this.confirmLogout();
         }
       }, (reason) => {
-        console.log('Dismissed with:', reason); // Implement actual logic as needed
+        console.log('Dismissed with:', reason);
       }
     );
   }
 
   confirmLogout() {
-    console.log('Logged out successfully.');
+    this.impApiService.post(AUTH.logout, {}).subscribe(
+      response => {
+        console.log('Logged out successfully', response);
+        this.finalizeLogout();
+      },
+      error => {
+        console.error('Error during logout', error);
+        this.finalizeLogout();
+      }
+    );
+  }
+
+  finalizeLogout() {
+
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     this.modalService.dismissAll();

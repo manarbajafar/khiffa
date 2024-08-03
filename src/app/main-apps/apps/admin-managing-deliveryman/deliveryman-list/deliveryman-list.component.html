@@ -11,7 +11,7 @@
 </div>
 <div class="row">
   <div class="col-12 col-md-3 mb-2" *ngFor="let user of displayUsers">
-    <app-deliveryman-card [name]="user.name" [email]="user.email"></app-deliveryman-card>
+    <app-deliveryman-card [name]="user.info[0]?.name" [email]="user.email"></app-deliveryman-card>
   </div>
 </div>
 <div class="text-start " *ngIf="!showAll">

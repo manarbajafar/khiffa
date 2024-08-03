@@ -8,7 +8,6 @@ import { DeliverymanListComponent } from './deliveryman-list/deliveryman-list.co
 import { DeliverymanRequestsComponent } from './deliveryman-requests/deliveryman-requests.component';
 import { AllDeliverymanListComponent } from './all-deliveryman-list/all-deliveryman-list.component';
 import { RouterModule } from '@angular/router';
-import { UserService } from './user.service';
 import { AllDeliverymanRequestsComponent } from './all-deliveryman-requests/all-deliveryman-requests.component';
 import { RequestDetailsComponent } from './request-details/request-details.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -31,6 +30,5 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     ReactiveFormsModule,
   ]
-  , providers: [UserService],
 })
 export class AdminManagingDeliverymanModule { }

@@ -23,9 +23,7 @@ export class RequestDetailsComponent implements OnInit {
     status: 'Suspended',  // Inactive, in progress, Suspended, Active
     checkboxes: {
       name: false,
-      email: false,
       idNumber: false,
-      phoneNumber: false,
       license: false,
       profilePicture: false,
       carPicture: false

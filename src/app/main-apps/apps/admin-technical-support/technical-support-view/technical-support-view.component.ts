@@ -1,4 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ADMIN_TECHNICAL_SUPPORT } from 'src/app/constant/routes';
+import { ImpApiService } from 'src/app/services/imp-api.service';
 
 @Component({
   selector: 'app-technical-support-view',
@@ -7,6 +10,23 @@ import { Component, HostListener, OnInit } from '@angular/core';
 })
 export class TechnicalSupportViewComponent implements OnInit {
 
+  constructor(private impApiService: ImpApiService, private spinner: NgxSpinnerService) { }
+
+  ngOnInit(): void {
+    this.showAllTickets();
+  }
+
+  showAllTickets(): void {
+    this.spinner.show();
+    this.impApiService.get(ADMIN_TECHNICAL_SUPPORT.showAllTickets).subscribe(data=>{
+      this.tableData=data;
+      this.spinner.hide();
+    },
+    error => {
+      this.spinner.hide()
+      console.error('Error:', error);
+    });
+  }
   //filter
   isDropdownOpen = false;
   selectedItem: string | null = null;
@@ -239,10 +259,6 @@ export class TechnicalSupportViewComponent implements OnInit {
 
   filteredData=this.tableData;
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 
   get paginatedData(){

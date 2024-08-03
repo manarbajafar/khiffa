@@ -47,20 +47,6 @@ export class AllDeliverymanRequestsComponent implements OnInit {
     });
 
   }
-  // getaccountRequests(current: number, perPage: number): void {
-  //   this.impApiService.get(`${ADMIN_MANAGING_DELIVERYMANS.getAccountRequests}page=${current}&perPage=${perPage}`).subscribe(data => {
-  //     this.pagination = {
-  //       current: data.meta.current_page,
-  //       perPage: data.meta.per_page,
-  //     };
-  //     this.totalItems = data.meta.total_items;
-
-  //     this.allRequests = data.data.user
-  //     console.log(this.allRequests);
-  //     //need to modify from backend, request details not found (id, type, date, )
-  //   });
-  // }
-
 
   viewRequest(requestId: number): void {
     console.log('عرض التفاصيل للطلب ID:', requestId);

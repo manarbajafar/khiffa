@@ -67,6 +67,14 @@
               <td>{{ transaction.amount }} ر.س.</td>
             </tr>
           </tbody>
+
+
+          <tr *ngIf="transactions.length == 0">
+            <td colspan="6" class="text-center p-4">
+              <p>لا توجد بيانات حاليًا</p>
+            </td>
+          </tr>
+
         </table>
       </div>
     </div>

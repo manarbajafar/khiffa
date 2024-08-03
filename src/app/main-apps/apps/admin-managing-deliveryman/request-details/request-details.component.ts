@@ -34,10 +34,12 @@ export class RequestDetailsComponent implements OnInit {
     }
   };
 
-  showReason = false;
+  showRejectionDiv = false;
   rejectionForm: FormGroup;
   buttonDisabled = true;
   userId = this.route.snapshot.paramMap.get('id');
+  requestStatus: string;
+
 
   constructor(
     private fb: FormBuilder,
@@ -49,8 +51,6 @@ export class RequestDetailsComponent implements OnInit {
 
     this.showInfoAccountReq(this.userId);
 
-    this.showRejectionReason();
-
     this.rejectionForm = this.fb.group({
       rejectionReason: ['', Validators.required]
     });
@@ -60,6 +60,10 @@ export class RequestDetailsComponent implements OnInit {
     });
 
     this.checkButtonStatus();
+
+    this.route.queryParams.subscribe(queryParams => {
+      this.requestStatus = queryParams['status'];
+    });
   }
 
   showInfoAccountReq(userId): void{
@@ -78,13 +82,15 @@ export class RequestDetailsComponent implements OnInit {
 
 
   showRejectionReason() {
-    this.showReason = true;
+    this.showRejectionDiv = !this.showRejectionDiv;
   }
 
   checkButtonStatus() {
+    // Check if rejection reason is valid and at least one checkbox is checked
     const isReasonValid = this.rejectionForm.get('rejectionReason').value.trim().length > 0;
     const isAnyCheckboxChecked = Object.values(this.request_details.checkboxes).some(checkbox => checkbox);
 
+    // Enable/disable the button based on the conditions
     this.buttonDisabled = !(isReasonValid && isAnyCheckboxChecked);
   }
 
@@ -92,10 +98,16 @@ export class RequestDetailsComponent implements OnInit {
     if (!this.buttonDisabled) {
       const rejectionData = {
         rejectionReason: this.rejectionForm.value.rejectionReason,
-        checkboxes: this.request_details.checkboxes
+        checkboxes: {
+          name: this.request_details.checkboxes.name ? 1 : 0,
+          idNumber: this.request_details.checkboxes.idNumber ? 1 : 0,
+          license: this.request_details.checkboxes.license ? 1 : 0,
+          profilePicture: this.request_details.checkboxes.profilePicture ? 1 : 0,
+          carPicture: this.request_details.checkboxes.carPicture ? 1 : 0
+        }
       };
       console.log('Rejection data:', rejectionData);
-      // Send to API
+      // Send rejectionData to API
     }
   }
 
@@ -104,7 +116,13 @@ export class RequestDetailsComponent implements OnInit {
 
   }
 
+ // Method to update button status based on checkbox changes
+  updateCheckbox(checkbox: string) {
+    this.checkButtonStatus();
+  }
+
   get isAnyCheckboxChecked(): boolean {
+    // Return true if any checkbox is checked
     return Object.values(this.request_details.checkboxes).some(checkbox => checkbox);
   }
 

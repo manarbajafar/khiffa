@@ -28,8 +28,16 @@ export class DeliverymanRequestsComponent implements OnInit {
     this.spinner.show();
     this.impApiService.get(`${ADMIN_MANAGING_DELIVERYMANS.getAccountRequests}?page=${2}&perPage=${2}`).subscribe(data=>{
       this.allRequests=data.data[0].user;
-      //this.allRequests = data.data[0].user;
-      this.displayRequests = this.allRequests.slice(-6);
+
+      this.displayRequests = this.allRequests.map((user: any) => {
+        return {
+          ...user,
+          requestType: this.getRequestType(user.last_status.status_type_id)
+        };
+      });
+
+      // this.displayRequests = this.allRequests.slice(-6);
+
       this.spinner.hide();
       console.log('users Requests', this.allRequests)
 
@@ -41,9 +49,19 @@ export class DeliverymanRequestsComponent implements OnInit {
 
   }
 
-  viewRequestDetails(id: number): void {
-    console.log(id)
-    this.router.navigate(['apps/admin-managing-deliveryman/request-details', id]);
+  getRequestType(statusTypeId: number): string {
+    switch (statusTypeId) {
+      case 1:
+        return 'إنشاء حساب';
+      case 4:
+        return 'طلب تعديل';
+      default:
+        return 'غير محدد';
+    }
+  }
+
+  viewRequestDetails(request: any): void {
+    this.router.navigate(['apps/admin-managing-deliveryman/request-details', request.id], { queryParams: { status: request.last_status.status_type_id } });
   }
 
 

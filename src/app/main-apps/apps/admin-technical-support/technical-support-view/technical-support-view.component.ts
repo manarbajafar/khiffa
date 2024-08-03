@@ -10,10 +10,53 @@ import { ImpApiService } from 'src/app/services/imp-api.service';
 })
 export class TechnicalSupportViewComponent implements OnInit {
 
+  ticketsCards = [
+    { name: 'قيد الانتظار', tickets_number: 0, icon: 'bx bxs-hourglass-top', key: 'Pending' },
+    { name: 'المغلقة', tickets_number: 0, icon: 'bx bx-check', key: 'Closed' },
+    { name: 'تحت المعالجة', tickets_number: 0, icon: 'bx bx-loader-circle', key: 'In_Progress' },
+    { name: 'المفتوحة', tickets_number: 0, icon: 'bx bx-disc', key: 'Open' },
+
+  ];
+
+  allTicketsNumber=0;
+
   constructor(private impApiService: ImpApiService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.countTicketStatuses();
+    this.countAllTicket();
     this.showAllTickets();
+  }
+
+
+
+  countTicketStatuses(): void {
+    this.spinner.show();
+    this.impApiService.get(ADMIN_TECHNICAL_SUPPORT.countTicketStatuses).subscribe(data => {
+      const statusCounts = data.status_counts;
+      this.ticketsCards.forEach(card => {
+        if (statusCounts.hasOwnProperty(card.key)) {
+          card.tickets_number = statusCounts[card.key];
+        }
+      });
+      this.spinner.hide();
+    },
+    error => {
+      this.spinner.hide();
+      console.error('Error:', error);
+    });
+  }
+
+  countAllTicket(): void {
+    this.spinner.show();
+    this.impApiService.get(ADMIN_TECHNICAL_SUPPORT.countAllTicket).subscribe(data=>{
+      this.allTicketsNumber=data;
+      this.spinner.hide();
+    },
+    error => {
+      this.spinner.hide()
+      console.error('Error:', error);
+    });
   }
 
   showAllTickets(): void {
@@ -28,10 +71,10 @@ export class TechnicalSupportViewComponent implements OnInit {
     });
   }
 
-  // missing data to be sent in params
-  showTicketDetails(): void {
+
+  filterTickets(): void {
     this.spinner.show();
-    this.impApiService.get(ADMIN_TECHNICAL_SUPPORT.showTicketDetails).subscribe(data=>{
+    this.impApiService.get(ADMIN_TECHNICAL_SUPPORT.filterTickets).subscribe(data=>{
       this.spinner.hide();
     },
     error => {

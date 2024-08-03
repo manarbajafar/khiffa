@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { StatsCardComponent } from './stats-card/stats-card.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { DeliverymanCardComponent } from './deliveryman-card/deliveryman-card.component';
-import { LoaderComponent } from './loader/loader.component';
 
 
 
@@ -13,7 +12,6 @@ import { LoaderComponent } from './loader/loader.component';
     StatsCardComponent,
     PaginationComponent,
     DeliverymanCardComponent,
-    LoaderComponent
   ],
   imports: [
     CommonModule,

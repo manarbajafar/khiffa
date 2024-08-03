@@ -53,11 +53,14 @@ export const ADMIN_MANAGING_DELIVERYMANS = {
 export const ADMIN_WALLET = {
   sendTransactions: BASEURL + 'sendTransactions',
   showTransactions: BASEURL + 'showTransactions',
+  getLatestTransaction : BASEURL + 'paginatingLsTrsn',
 }
 
 
 export const ADMIN_TECHNICAL_SUPPORT = {
+  countTicketStatuses : BASEURL + 'ticketStatuses',
+  countAllTicket : BASEURL + 'countAllTicket',
   showAllTickets: BASEURL + 'paginatingTicket',
-  showTicketDetails: BASEURL + 'showTicket',
+  filterTickets: BASEURL + 'showTicket',
   changeTicketStatus: BASEURL + 'changeTicketStatus',
 }

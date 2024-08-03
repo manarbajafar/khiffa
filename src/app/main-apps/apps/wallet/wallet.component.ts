@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TRANSACTION } from 'src/app/constant/routes';
+import { ImpApiService } from 'src/app/services/imp-api.service';
 
 @Component({
   selector: 'app-wallet',
@@ -17,7 +19,24 @@ export class WalletComponent implements OnInit {
     { id: '#12548796', date: '28 يوليو 2024', time: '12:30 ص', provider: 'هاف مليون', company: 'شركة لذة', amount: 25 }
   ];
 
-  constructor() {}
+  constructor(private impApiService :ImpApiService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
+
+  requestTransaction(): void {
+  
+
+
+      this.impApiService.post(TRANSACTION.requestTransaaction, '').subscribe(
+        response => {
+          console.log('Transaction request successfully', response);
+        },
+        error => {
+          console.error('Error in transaction request', error);
+        }
+      );
+    }
+
 }

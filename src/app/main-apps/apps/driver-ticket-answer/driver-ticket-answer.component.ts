@@ -29,7 +29,7 @@ export class DriverTicketAnswerComponent implements OnInit {
   }
 
   loadTicketDetails(): void {
-    // Simulate fetching data
+
     this.ticketForm.patchValue({
       ticketNumber: '1234',
       issueTitle: 'مشكلة في النظام',

@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ADMIN_TECHNICAL_SUPPORT } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
@@ -15,10 +16,18 @@ export class TechnicalSupportViewComponent implements OnInit {
     { name: 'المغلقة', tickets_number: 0, icon: 'bx bx-check', key: 'Closed' },
     { name: 'تحت المعالجة', tickets_number: 0, icon: 'bx bx-loader-circle', key: 'In_Progress' },
     { name: 'المفتوحة', tickets_number: 0, icon: 'bx bx-disc', key: 'Open' },
-
   ];
 
   allTicketsNumber=0;
+
+  tableData: any[] = [];
+  filteredData: any[] = [];
+  items_per_page = 5;
+  current_page = 1;
+  isDropdownOpen = false;
+  selectedItem: string | null = null;
+  items = ['مفتوحة', 'قيد الانتظار', 'تحت المعالجة', 'مغلقة', 'الكل'];
+  filteredStatus: string | null = null;
 
   constructor(private impApiService: ImpApiService, private spinner: NgxSpinnerService) { }
 
@@ -61,33 +70,52 @@ export class TechnicalSupportViewComponent implements OnInit {
 
   showAllTickets(): void {
     this.spinner.show();
-    this.impApiService.get(ADMIN_TECHNICAL_SUPPORT.showAllTickets).subscribe(data=>{
-      this.tableData=data[0].data; // :)
+    this.impApiService.get(ADMIN_TECHNICAL_SUPPORT.showAllTickets).subscribe(data => {
+      this.tableData = data[0].data.map(ticket => {
+        const statusInfo = ticket.ticket_statuses[0];
+        const ticketCard = this.ticketsCards.find(card => card.key === statusInfo.status_type.status);
+        return {
+          title: ticket.title,
+          user_id: ticket.user_id,
+          id: ticket.id,
+          date: moment(ticket.created_at).format('D MMMM YYYY'),
+          time: moment(ticket.created_at).format('h:mm A'),
+          status: ticketCard ? ticketCard.name : statusInfo.status_type.status,
+          statusClass: ticketCard ? this.getStatusClass(ticketCard.key) : 'badge-default'
+        };
+      });
+      this.filteredData = [...this.tableData]; // Initial filtering
       this.spinner.hide();
-    },
-    error => {
-      this.spinner.hide()
+    }, error => {
+      this.spinner.hide();
       console.error('Error:', error);
     });
   }
 
+  getStatusClass(statusKey: string): string {
+    switch (statusKey) {
+      case 'Pending':
+        return 'badge-on-hold';
+      case 'Closed':
+        return 'badge-closed';
+      case 'In_Progress':
+        return 'badge-under-processing';
+      case 'Open':
+        return 'badge-open';
+      default:
+        return 'badge-default';
+    }
+  }
 
   filterTickets(): void {
     this.spinner.show();
-    this.impApiService.get(ADMIN_TECHNICAL_SUPPORT.filterTickets).subscribe(data=>{
+    this.impApiService.get(ADMIN_TECHNICAL_SUPPORT.filterTickets).subscribe(data => {
       this.spinner.hide();
-    },
-    error => {
-      this.spinner.hide()
+    }, error => {
+      this.spinner.hide();
       console.error('Error:', error);
     });
   }
-
-  //filter
-  isDropdownOpen = false;
-  selectedItem: string | null = null;
-  items = ['مفتوحة', 'قيد الانتظار','تحت المعالجة','مغلقة', 'الكل'];
-  filteredStatus: string | null = null;
 
 
   toggleDropdown() {
@@ -108,212 +136,6 @@ export class TechnicalSupportViewComponent implements OnInit {
     }
   }
 
-  //pagination
-  items_per_page=5;
-  current_page=1;
-
-  tableData = [
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "قيد الانتظار",
-      statusClass: "badge-on-hold",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "مغلقة",
-      statusClass: "badge-closed",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "قيد الانتظار",
-      statusClass: "badge-on-hold",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "قيد الانتظار",
-      statusClass: "badge-on-hold",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "مغلقة",
-      statusClass: "badge-closed",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "مفتوحة",
-      statusClass: "badge-open",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "تحت المعالجة",
-      statusClass: "badge-under-processing",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "مغلقة",
-      statusClass: "badge-closed",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "مفتوحة",
-      statusClass: "badge-open",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "تحت المعالجة",
-      statusClass: "badge-under-processing",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "مغلقة",
-      statusClass: "badge-closed",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "مفتوحة",
-      statusClass: "badge-open",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "تحت المعالجة",
-      statusClass: "badge-under-processing",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "مغلقة",
-      statusClass: "badge-closed",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "مفتوحة",
-      statusClass: "badge-open",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "تحت المعالجة",
-      statusClass: "badge-under-processing",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "مغلقة",
-      statusClass: "badge-closed",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "مفتوحة",
-      statusClass: "badge-open",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "تحت المعالجة",
-      statusClass: "badge-under-processing",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "مغلقة",
-      statusClass: "badge-closed",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "مفتوحة",
-      statusClass: "badge-open",
-    },
-    {
-      title: "مشكلة بتحويل المستحقات",
-      name: "سعد محمد",
-      date: "5 يناير 2024",
-      time:"3:00 م",
-      id: "1234",
-      status: "تحت المعالجة",
-      statusClass: "badge-under-processing",
-    },
-  ];
-
-  filteredData=this.tableData;
 
 
 

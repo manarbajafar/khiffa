@@ -50,7 +50,7 @@ viewacountDetails(userId: number): void {
   updateDisplayUsers(): void {
 
     let filteredUsers = this.users.filter(user =>
-      user.account_information[0]?.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      user.account_information?.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
     if (this.showAll) {

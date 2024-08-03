@@ -23,7 +23,8 @@ export const Order = {
 };
 
 export const TRANSACTION ={
-  requestTransaaction: BASEURL + "transactions",
+
+  requestTransaaction: BASEURL + "transactions1",
   sendTransactions: BASEURL + "sendTransactions",
   showTransactions : BASEURL + "showTransactions"
 }

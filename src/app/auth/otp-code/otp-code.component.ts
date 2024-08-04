@@ -14,11 +14,13 @@ export class OtpCodeComponent implements OnInit {
 
   // otp: string = '';
   email: string = '';
+  type_id: string = '';
 
   constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this.email = this.route.snapshot.queryParamMap.get('email')!;
+    this.type_id = this.route.snapshot.queryParamMap.get('type_id')!;
   }
 
 
@@ -36,7 +38,15 @@ export class OtpCodeComponent implements OnInit {
       this.http.post(AUTH.checkOtp, form).subscribe(response => {
         this.spinner.hide();
         console.log('form.otp' + form.otp)
-      this.router.navigate(['/auth/reset-password'], { queryParams: { email: form.email, otp: form.otp } });
+
+        if(this.type_id=='1'){
+          alert('تم انشاء حسابك بنجاح، سيتم تفعيله بعد مراجعة طلبك');
+          this.router.navigate(['/auth/login']);
+        }
+
+
+        if(this.type_id=='2')
+          this.router.navigate(['/auth/reset-password'], { queryParams: { email: form.email, otp: form.otp } });
     }, error => {
       //toaster
       alert('رمز OTP غير صحيح.'+ error.message);

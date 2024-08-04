@@ -27,7 +27,7 @@ export class DeliverymanListComponent implements OnInit {
 
   getUsers(): void {
   this.spinner.show();
-  this.impApiService.get(`${ADMIN_MANAGING_DELIVERYMANS.getDeliverymanList}?page=${1}&perPage=${2}`).subscribe(data=>{
+  this.impApiService.get(`${ADMIN_MANAGING_DELIVERYMANS.getDeliverymanList}?page=${1}&perPage=${8}`).subscribe(data=>{
     this.users=data.data;
     this.spinner.hide();
     console.log('this.users', this.users)
@@ -41,7 +41,7 @@ export class DeliverymanListComponent implements OnInit {
 }
 
 
-////
+
 viewacountDetails(userId: number): void {
   console.log(userId)
   this.router.navigate(['apps/driver-orders/detailed-order/', userId]);
@@ -50,7 +50,7 @@ viewacountDetails(userId: number): void {
   updateDisplayUsers(): void {
 
     let filteredUsers = this.users.filter(user =>
-      user.info[0]?.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      user.account_information?.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
       user.email.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
     if (this.showAll) {

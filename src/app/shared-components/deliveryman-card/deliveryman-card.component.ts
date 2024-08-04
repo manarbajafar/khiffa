@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-deliveryman-card',
@@ -6,12 +7,20 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./deliveryman-card.component.scss']
 })
 export class DeliverymanCardComponent implements OnInit {
-  @Input() name:string='';
-  @Input() email: string='';
+  @Input() name: string = '';
+  @Input() email: string = '';
+  @Input() userId: number | undefined;
+  @Input() status_type_id: number | undefined;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  editUser(): void {
+    if (this.userId) {
+      this.router.navigate([`apps/admin-managing-deliveryman/request-details`, this.userId], { queryParams: { status: this.status_type_id } });
+    }
   }
+
 
 }

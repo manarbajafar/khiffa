@@ -14,11 +14,18 @@
 
   <div class="text-center"> <p *ngIf="displayUsers.length == 0">لا توجد بيانات حاليًا</p></div>
 
-<div class="row">
-  <div class="col-12 col-md-3 mb-2" *ngFor="let user of displayUsers">
-    <app-deliveryman-card [name]="user.info[0]?.name" [email]="user.email"></app-deliveryman-card>
+  <div class="row">
+    <div class="col-12 col-md-3 mb-2" *ngFor="let user of displayUsers">
+      <app-deliveryman-card
+        [name]="user.account_information?.name"
+        [email]="user.email"
+        [userId]="user.id"
+        [status_type_id]="user.last_status.status_type_id">
+
+      </app-deliveryman-card>
+    </div>
   </div>
-</div>
+
 <div class="text-start " *ngIf="!showAll && displayUsers.length !== 0" >
   <a class="btn btn-secondary" routerLink="../all-deliveryman-list">
     < عرض الكل

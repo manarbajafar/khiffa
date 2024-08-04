@@ -37,8 +37,20 @@ export class WalletViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.showTransactionsRequests();
-
+    this.getLatestTransaction();
     this.updateTransactions();
+  }
+
+  getLatestTransaction(): void {
+    this.spinner.show();
+    this.impApiService.get(ADMIN_WALLET.getLatestTransaction).subscribe(data=>{
+      this.transactions=data[0].data; // :) it is empty now, i can't see the data
+      this.spinner.hide();
+    },
+    error => {
+      this.spinner.hide()
+      console.error('Error:', error);
+    });
   }
 
   showTransactionsRequests(): void {

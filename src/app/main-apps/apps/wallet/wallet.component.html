@@ -8,7 +8,7 @@
     <div class="col-md-6 text-center">
       <div class="balance-card">
         <img src="assets\images\driver wallet.png" alt="صيد مندوب خفّة" class="balance-card-image">
-        <div class="balance-text">100 ر.س.</div>
+        <div class="balance-text">ر.س. {{wallet[0].amount}}</div>
       </div>
     </div>
   </div>
@@ -25,7 +25,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let transaction of wallet">
+          <tr *ngFor="let transaction of transactions">
             <td>{{ transaction.amount }} ر.س.</td>
             <td>{{ transaction.company }}</td>
             <td>{{ transaction.provider }}</td>
@@ -33,6 +33,11 @@
             <td>{{ transaction.id }}</td>
           </tr>
         </tbody>
+        <tr *ngIf="transactions.length == 0">
+          <td colspan="6" class="text-center mt-2">
+            <p>لا توجد بيانات حاليًا</p>
+          </td>
+        </tr>
       </table>
     </div>
   </div>

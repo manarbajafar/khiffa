@@ -1,40 +1,23 @@
-<div class="container-fluid">
-  <div class="logo-container text-center mt-4 mb-2">
-
+<ng-template #regionModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">إختيار المنطقة</h5>
+    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
   </div>
-  <form class="mx-auto mb-4">
-    <div class="mb-3">
-      <label for="inputPhone" class="form-label">إرفاق صورة رخصة القيادة</label>
-      <div id="file-drop-area">
-        <div class="icon">📁</div>
-        <span class="drop-text">أرفق ملف أو أسحب ملف</span>
-        <input type="file" id="file-input" >
+  <div class="modal-body">
+    الرجاء إختيار منطقتك
+    <form>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="region" id="makkah" [(ngModel)]="selectedRegion" value="Makkah" required>
+        <label class="form-check-label" for="makkah">مكة</label>
       </div>
-    </div>
-    <div class="mb-3">
-      <label for="inputPhone" class="form-label">إرفاق صورة للسيارة</label>
-
-
-    <div id="file-drop-area">
-      <div class="icon">📁</div>
-      <span class="drop-text">أرفق ملف أو أسحب ملف</span>
-      <input type="file" id="file-input" >
-    </div>
-
-    </div>
-    <div class="mb-3">
-      <label for="inputPhone" class="form-label">إرفاق صورة شخصية</label>
-      <div id="file-drop-area">
-
-        <span class="drop-text">أرفق ملف أو أسحب ملف</span>
-        <input type="file" id="file-input" >
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="region" id="jeddah" [(ngModel)]="selectedRegion" value="Jeddah" required>
+        <label class="form-check-label" for="jeddah">جدة</label>
       </div>
-    </div>
-
-
-    <button type="submit" class="btn btn-primary mt-3" routerLink="/apps/driver-orders/orders">إرسال التحديثات</button>
-
-  </form>
-</div>
-
-
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">إلغاء</button>
+    <button type="button" class="btn btn-primary" [disabled]="!selectedRegion" (click)="modal.close(selectedRegion)">موافق</button>
+  </div>
+</ng-template>

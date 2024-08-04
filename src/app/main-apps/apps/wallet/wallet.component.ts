@@ -40,22 +40,20 @@ export class WalletComponent implements OnInit {
         }
       );
     }
-    wallet   = null;
-
+    wallet  =null;
+transactions= null;
     loadDriverWallet(): void {
       this.impApiService.get(DRIVERPROFILE.wallet).subscribe(
         (response) => {
-       if (response && response.data) {  //to check the null
-        this.wallet = response.data;
+        this.wallet = response.wallet;
         console.log("wallet loaded:", this.wallet);
-          } else {
-            console.warn("Unexpected API response structure:", response);
-            this.wallet = [];
-          }
+        this.transactions = response.tranactin;
+        console.log("transaction loaded:", this.transactions.data);
         },
         (error) => {
           console.error("Error fetching driver wallet:", error);
-          this.wallet= [];
+          // this.wallet= [];
+          this.transactions=[];
         }
       );
     }

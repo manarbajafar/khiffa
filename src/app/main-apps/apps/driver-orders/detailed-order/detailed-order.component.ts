@@ -46,8 +46,8 @@ export class DetailedOrderComponent implements OnInit {
   }
 
   assignOrder(orderId): void {
-    const payload = { order_id: orderId };
-    this.impApiService.post(Order.assign, JSON.stringify(payload)).subscribe(
+   const payload = { order_id: orderId };
+    this.impApiService.post(Order.assign+orderId,payload).subscribe(
       response => {
         console.log('Assign order successfully', response);
       },
@@ -70,11 +70,8 @@ export class DetailedOrderComponent implements OnInit {
   updateOrderState(): void {
     if (this.orderState < 3) {
       this.orderState++;
-      const newStatus = {
-        status: this.orderState
-      };
 
-      this.impApiService.put(`${Order.updateStatus + this.orderId}`, JSON.stringify(newStatus)).subscribe(
+      this.impApiService.put(`${Order.updateStatus +this.idParam}`,null).subscribe(
         response => {
           console.log('Order status updated successfully:', response);
         },

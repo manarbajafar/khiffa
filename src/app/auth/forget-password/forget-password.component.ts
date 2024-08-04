@@ -22,7 +22,7 @@ export class ForgetPasswordComponent implements OnInit {
     const body = { email: this.email };
     this.impApiService.post(AUTH.sendOtp, body).subscribe(response => {
       this.spinner.hide();
-      this.router.navigate(['/auth/otp-code'], { queryParams: { email: this.email } });
+      this.router.navigate(['/auth/otp-code'], { queryParams: { email: this.email , type_id: '2' } });
     }, error => {
       this.spinner.hide();
       alert('حدث خطأ أثناء إرسال البريد الإلكتروني.'+ error.message);

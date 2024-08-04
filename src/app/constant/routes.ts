@@ -47,6 +47,8 @@ export const ADMIN_MANAGING_DELIVERYMANS = {
   showInfoAccountReq: BASEURL + 'showInfoAccountReq?user_id=',
   getAccountRequests: BASEURL + 'accountRequests?',
   getDeliverymanList: BASEURL + 'users',  //users?page=1&perPage=2
+  rejectAccount: BASEURL + 'users/reject',
+
 }
 
 

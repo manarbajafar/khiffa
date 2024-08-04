@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AUTH } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class CreateAccountComponent {
 
 
 
-  constructor(private fb: FormBuilder, private impApiService: ImpApiService, private router: Router) {
+  constructor(private fb: FormBuilder, private impApiService: ImpApiService, private router: Router, private spinner: NgxSpinnerService) {
 
     this.signupForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern(/^\S+\s+\S+\s+\S+$/)]], // Three-part name
@@ -34,25 +35,47 @@ export class CreateAccountComponent {
   }
 
 
+
   onSubmit(): void {
-    // if (this.signupForm.invalid) {
-    //   return;
-    // }
-    // const { name, national_id, email, phone_number, password, password_confirmation} = this.signupForm.value;
+    if (this.signupForm.invalid) {
+      return;
+    }
+    const { name, national_id, email, phone_number, password, password_confirmation} = this.signupForm.value;
+    this.spinner.show();
+    this.impApiService.post(AUTH.register, this.signupForm.value).subscribe(data => {
+      console.log(data);
+      //toaster to show sucess create account
+      // this.router.navigate(['auth/login']);
+      this.sendOTP();
 
-    // this.impApiService.post(auth.register, this.signupForm.value).subscribe(data => {
-    //   console.log(data);
-    //   //toaster to show sucess create account
-    //   this.router.navigate(['auth/login']);
-    // }, error =>{
-    //   console.log( 'error form backend ',error.message);
-    //   this.errorMessage =error.message;
-    // })
+    }, error =>{
+      this.spinner.hide();
+      this.errorMessage=this.errorMessage;
 
-    this.router.navigate(['auth/attach-file']);
+    })
+
+    // this.router.navigate(['auth/attach-file']);
+
+
   }
 
+
+
+//move to attach file
+sendOTP() {
+  this.spinner.show();
+  const body = { email: this.signupForm.value.email };
+  this.impApiService.post(AUTH.sendOtp, body).subscribe(response => {
+    this.spinner.hide();
+    this.router.navigate(['/auth/otp-code'], { queryParams: { email: this.signupForm.value.email , type_id: '1'} });
+  }, error => {
+    this.spinner.hide();
+    alert('حدث خطأ .'+ error.message);
+  });
 }
+
+}
+
 
 
 // Validator function to check password match

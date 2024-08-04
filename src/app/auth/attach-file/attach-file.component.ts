@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AUTH } from 'src/app/constant/routes';
+import { ImpApiService } from 'src/app/services/imp-api.service';
 
 @Component({
   selector: 'app-attach-file',
@@ -15,7 +18,7 @@ export class AttachFileComponent implements OnInit {
   ];
   fileNames: { [key: string]: string } = {};
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private impApiService: ImpApiService, private router: Router) {
     this.uploadForm = this.fb.group({
       license: [null, Validators.required],
       car: [null, Validators.required],
@@ -64,6 +67,23 @@ export class AttachFileComponent implements OnInit {
     if (this.uploadForm.valid) {
       // Submit form
       console.log("Form Submitted!", this.uploadForm.value);
+
+
+
+        // const { name, national_id, email, phone_number, password, password_confirmation} = this.signupForm.value;
+
+        this.impApiService.post(AUTH.register, '').subscribe(data => {
+          console.log(data);
+          //toaster to show sucess create account
+          this.router.navigate(['auth/login']);
+        }, error =>{
+          console.log( 'error form backend ',error.message);
+
+        })
+
+
+
+
       alert('تم بنجاح.');
     } else {
       this.uploadForm.markAllAsTouched();

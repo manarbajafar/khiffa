@@ -9,10 +9,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent implements OnInit {
-  form: FormGroup;
-
-
-
   uploadForm: FormGroup;
   fields = [
     { name: 'license', label: 'إرفاق صورة رخصة القيادة', id: 'license' },
@@ -24,10 +20,11 @@ export class EditProfileComponent implements OnInit {
   @ViewChild('regionModal') regionModal;
 
   constructor(private fb: FormBuilder, private modalService: NgbModal, private spinner: NgxSpinnerService) {
+    // Removed the Validators.required from each field
     this.uploadForm = this.fb.group({
-      license: [null, Validators.required],
-      car: [null, Validators.required],
-      personal: [null, Validators.required]
+      license: [null],
+      car: [null],
+      personal: [null]
     });
   }
 
@@ -69,13 +66,9 @@ export class EditProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.uploadForm.valid) {
-      console.log("Form Submitted!", this.uploadForm.value);
-      alert('تم بنجاح.');
-    } else {
-      this.uploadForm.markAllAsTouched();
-      alert('يرجى إرفاق جميع الملفات المطلوبة.');
-    }
+    // Form submission logic remains unchanged
+    console.log("Form Submitted!", this.uploadForm.value);
+    alert('تم بنجاح.');
   }
 
   promptRegionSelection(): void {

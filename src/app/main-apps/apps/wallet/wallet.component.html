@@ -25,20 +25,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let transaction of transactions">
+          <tr *ngFor="let transaction of transactions_fake">
             <td>{{ transaction.amount }} ر.س.</td>
             <td>{{ transaction.company }}</td>
             <td>{{ transaction.provider }}</td>
             <td>{{ transaction.date }} {{ transaction.time }}</td>
             <td>{{ transaction.id }}</td>
           </tr>
+          <tr *ngIf="transactions_fake.length == 0">
+            <td colspan="5" class="text-center mt-2">
+              <p>لا توجد بيانات حاليًا</p>
+            </td>
+          </tr>
         </tbody>
-        <tr *ngIf="transactions.length == 0">
-          <td colspan="6" class="text-center mt-2">
-            <p>لا توجد بيانات حاليًا</p>
-          </td>
-        </tr>
       </table>
     </div>
   </div>
-</div>

@@ -1,23 +1,26 @@
-<ng-template #regionModal let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title">إختيار المنطقة</h5>
-    <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
-  </div>
-  <div class="modal-body">
-    الرجاء إختيار منطقتك
-    <form>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="region" id="makkah" [(ngModel)]="selectedRegion" value="Makkah" required>
-        <label class="form-check-label" for="makkah">مكة</label>
+<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="mx-auto mb-4">
+  <div class="mb-3" *ngFor="let field of fields">
+    <label [for]="field.id" class="form-label">{{ field.label }}</label>
+    <div id="file-drop-area" (drop)="onFileDrop($event, field.name)" (dragover)="onDragOver($event)">
+      <div class="icon"><i class='bx bx-upload'></i></div>
+      <span class="drop-text">أرفق ملف أو أسحب ملف</span>
+      <input type="file" [id]="field.id" (change)="onFileSelect($event, field.name)" hidden>
+      <div class="file-info">
+        <button type="button" class="btn btn-upload" (click)="triggerFileInput(field.id)">
+          رفع ملف
+        </button>
+        <div *ngIf="fileNames[field.name]" class="file-name">
+          {{ fileNames[field.name] }}
+        </div>
       </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="region" id="jeddah" [(ngModel)]="selectedRegion" value="Jeddah" required>
-        <label class="form-check-label" for="jeddah">جدة</label>
+      <div *ngIf="uploadForm.get(field.name)?.errors?.required && uploadForm.get(field.name)?.touched" class="text-danger">
+        هذا الحقل مطلوب.
       </div>
-    </form>
+      <div *ngIf="uploadForm.get(field.name)?.errors?.invalidFile && uploadForm.get(field.name)?.touched" class="text-danger">
+        الملف غير صالح. يرجى تحميل ملف بصيغة JPEG, PNG, أو PDF وألا يتجاوز حجمه 5MB.
+      </div>
+    </div>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">إلغاء</button>
-    <button type="button" class="btn btn-primary" [disabled]="!selectedRegion" (click)="modal.close(selectedRegion)">موافق</button>
-  </div>
-</ng-template>
+  <button type="submit" class="btn btn-primary mt-3">إرسال التحديثات </button>
+</form>
+

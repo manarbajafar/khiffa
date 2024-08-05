@@ -14,6 +14,9 @@ import { WalletComponent } from './apps/wallet/wallet.component';
 import { DriverTicketAnswerComponent } from './apps/driver-ticket-answer/driver-ticket-answer.component';
 import { DriverActivateComponent } from './apps/driver-activate/driver-activate.component';
 import { EditProfileComponent } from './apps/edit-profile/edit-profile.component';
+import {MatTableModule} from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -34,8 +37,12 @@ import { EditProfileComponent } from './apps/edit-profile/edit-profile.component
   imports: [
     CommonModule,
     MainAppsRoutingModule,
-    ReactiveFormsModule, // Add this
-    FormsModule, // Add this
+    ReactiveFormsModule,
+    FormsModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule
+
   ],
   exports: [
     SidebarComponent,

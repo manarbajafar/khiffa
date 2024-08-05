@@ -16,7 +16,7 @@ export const AUTH = {
 
 export const Order = {
   getorder: BASEURL + 'orders',
-  assign: BASEURL + 'orders/assign',
+  assign: BASEURL + 'orders/assign?order_id=',
   //filter: BASEURL + 'orders/filter',
   updateStatus: BASEURL + "orders/status?order_id=",
   details:  BASEURL + "orders/order?order_id="

@@ -9,15 +9,15 @@ import { DRIVERPROFILE } from 'src/app/constant/routes';
 })
 export class WalletComponent implements OnInit {
   // balance: number = 100;
-  // transactions = [
-  //   { id: '#12548796', date: '28 يوليو 2024', time: '12:30 ص', provider: 'البيك', company: 'شركة لذة', amount: 30 },
-  //   { id: '#12548796', date: '28 يوليو 2024', time: '12:30 ص', provider: 'وينستر', company: 'شركة لذة', amount: 20 },
-  //   { id: '#12548796', date: '28 يوليو 2024', time: '12:30 ص', provider: 'بندة', company: 'شركة سهل', amount: 60 },
-  //   { id: '#12548796', date: '28 يوليو 2024', time: '12:30 ص', provider: 'البيك', company: 'شركة غدف', amount: 50 },
-  //   { id: '#12548796', date: '28 يوليو 2024', time: '12:30 ص', provider: 'الدانوب', company: 'شركة سهل', amount: 70 },
-  //   { id: '#12548796', date: '28 يوليو 2024', time: '12:30 ص', provider: 'سابن', company: 'شركة غدف', amount: 50 },
-  //   { id: '#12548796', date: '28 يوليو 2024', time: '12:30 ص', provider: 'هاف مليون', company: 'شركة لذة', amount: 25 }
-  // ];
+  transactions_fake= [
+    // { id: '#12548796', date: '28 يوليو 2024', time: '12:30 ص', provider: 'البيك', company: 'شركة لذة', amount: 30 },
+    // { id: '#12548796', date: '28 يوليو 2024', time: '12:30 ص', provider: 'وينستر', company: 'شركة لذة', amount: 20 },
+    // { id: '#12548796', date: '28 يوليو 2024', time: '12:30 ص', provider: 'بندة', company: 'شركة سهل', amount: 60 },
+    // { id: '#12548796', date: '28 يوليو 2024', time: '12:30 ص', provider: 'البيك', company: 'شركة غدف', amount: 50 },
+    // { id: '#12548796', date: '28 يوليو 2024', time: '12:30 ص', provider: 'الدانوب', company: 'شركة سهل', amount: 70 },
+    // { id: '#12548796', date: '28 يوليو 2024', time: '12:30 ص', provider: 'سابن', company: 'شركة غدف', amount: 50 },
+    // { id: '#12548796', date: '28 يوليو 2024', time: '12:30 ص', provider: 'هاف مليون', company: 'شركة لذة', amount: 25 }
+  ];
 
   constructor(private impApiService :ImpApiService) {}
 
@@ -40,22 +40,20 @@ export class WalletComponent implements OnInit {
         }
       );
     }
-    wallet   = null;
-
+    wallet  =null;
+transactions= null;
     loadDriverWallet(): void {
       this.impApiService.get(DRIVERPROFILE.wallet).subscribe(
         (response) => {
-       if (response && response.data) {  //to check the null
-        this.wallet = response.data;
+        this.wallet = response.wallet;
         console.log("wallet loaded:", this.wallet);
-          } else {
-            console.warn("Unexpected API response structure:", response);
-            this.wallet = [];
-          }
+        this.transactions = response.tranactin;
+        console.log("transaction loaded:", this.transactions.data);
         },
         (error) => {
           console.error("Error fetching driver wallet:", error);
-          this.wallet= [];
+          // this.wallet= [];
+          this.transactions=[];
         }
       );
     }

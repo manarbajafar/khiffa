@@ -11,9 +11,9 @@ import { ProfileComponent } from './apps/profile/profile.component';
 import { SupportComponent } from './apps/support/support.component';
 import { TicketsComponent } from './apps/tickets/tickets.component';
 import { WalletComponent } from './apps/wallet/wallet.component';
-import { EditProfileComponent } from './apps/edit-profile/edit-profile.component';
 import { DriverTicketAnswerComponent } from './apps/driver-ticket-answer/driver-ticket-answer.component';
 import { DriverActivateComponent } from './apps/driver-activate/driver-activate.component';
+import { EditProfileComponent } from './apps/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [

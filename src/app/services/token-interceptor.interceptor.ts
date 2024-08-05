@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class TokenInterceptorInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor() { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const accessToken = localStorage.getItem('token')
@@ -19,7 +19,15 @@ export class TokenInterceptorInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           'authorization': `Bearer ${localStorage.getItem('token')}`,
-          'Accept': 'application/json'
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      });
+    } else {
+      request = request.clone({
+        setHeaders: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
         }
       });
     }

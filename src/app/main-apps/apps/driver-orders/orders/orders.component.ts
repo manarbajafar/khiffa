@@ -17,23 +17,23 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class OrdersComponent implements OnInit {
   filteredStatus: string | null = null;
   @ViewChild('regionModal') regionModal;
-  selectedRegion: string | null = null;
+  selectedRegion = null;
 
 
 
 
-  orders = [
-    { id: 1, title: 'شركة لذة', price: 20, distance: 15, location: 'العوالي إلى الشرائع' },
-    { id: 2, title: 'شركة لذة', price: 30, distance: 10, location: 'العوالي إلى الشرائع' },
-    { id: 3, title: 'شركة لذة', price: 25, distance: 20, location: 'العوالي إلى الشرائع' },
-    { id: 4, title: 'شركة لذة', price: 10, distance: 5, location: 'العوالي إلى الشرائع' },
-    { id: 5, title: 'شركة لذة', price: 35, distance: 30, location: 'العوالي إلى الشرائع' },
-    { id: 6, title: 'شركة لذة', price: 25, distance: 25, location: 'العوالي إلى الشرائع' }
+ AllOrder = [
+    // { id: 1, title: 'شركة لذة', price: 20, distance: 15, location: 'العوالي إلى الشرائع' },
+    // { id: 2, title: 'شركة لذة', price: 30, distance: 10, location: 'العوالي إلى الشرائع' },
+    // { id: 3, title: 'شركة لذة', price: 25, distance: 20, location: 'العوالي إلى الشرائع' },
+    // { id: 4, title: 'شركة لذة', price: 10, distance: 5, location: 'العوالي إلى الشرائع' },
+    // { id: 5, title: 'شركة لذة', price: 35, distance: 30, location: 'العوالي إلى الشرائع' },
+    // { id: 6, title: 'شركة لذة', price: 25, distance: 25, location: 'العوالي إلى الشرائع' }
   ];
 
 
 
-  filteredOrders = [...this.orders];
+ filteredOrders = [];
 
   constructor(private router: Router, private impApiService: ImpApiService, private spinner: NgxSpinnerService,
     private modalService: NgbModal
@@ -52,23 +52,29 @@ export class OrdersComponent implements OnInit {
 
   promptRegionSelection(): void {
     const modalRef = this.modalService.open(this.regionModal);
-    modalRef.result.then(
-      (result) => {
-        if (this.selectedRegion) {
-          this.updateCityAndLoadOrders(this.selectedRegion);  
-        } else {
-          console.log("No region selected or selection dismissed.");
-        }
-      },
-      (error) => {
-        console.log('Region selection dismissed due to error:', error);
-      }
-    );
+    // modalRef.result.then(
+    //   (result) => {
+    //     if (this.selectedRegion) {
+    //       console.log(this.selectedRegion)
+    //       // this.updateCityAndLoadOrders(this.selectedRegion);
+    //     } else {
+    //       console.log("No region selected or selection dismissed.");
+    //     }
+    //   },
+    //   (error) => {
+    //     console.log('Region selection dismissed due to error:', error);
+    //   }
+    // );
   }
 
-  updateCityAndLoadOrders(selectedCity: string): void {
-    console.log("Updating city to:", selectedCity);
-    this.impApiService.put(AUTH.regeion, { city: selectedCity }).subscribe(
+  selectCity(city) {
+    this.selectedRegion = city;
+    console.log("Updating city to:", this.selectedRegion);
+  }
+
+  updateCityAndLoadOrders(): void {
+
+    this.impApiService.put(AUTH.regeion, { city: this.selectedRegion }).subscribe(
       response => {
         console.log('City updated successfully:', response);
         this.loadOrders();  // Load orders after city update
@@ -110,7 +116,7 @@ export class OrdersComponent implements OnInit {
   }
 
   filterByCompany(company: string): void {
-    this.filteredOrders = this.orders.filter(order => order.title.includes(company));
+    this.filteredOrders = this.AllOrder.filter(order => order.title.includes(company));
   }
 
 
@@ -123,19 +129,21 @@ export class OrdersComponent implements OnInit {
   searchCompany(event: Event): void {
     const input = event.target as HTMLInputElement;
     const searchValue = input.value.toLowerCase();
-    this.filteredOrders = this.orders.filter(order => order.title.toLowerCase().includes(searchValue));
+    this.filteredOrders = this.AllOrder.filter(order => order.title.toLowerCase().includes(searchValue));
   }
 
 
 
 
-  AllOrder = null
+  Orders= null
   loadOrders(): void {
     this.spinner.show()
-    this.impApiService.get(Order.getorder).subscribe(
+    this.impApiService.get(`${Order.getorder}?page=${1}&perPage=${8}` ).subscribe(
       data => {
 
-        this.AllOrder = data.data
+        // this.AllOrder = data.data
+        this.Orders = data;
+        this.modalService.dismissAll();
         this.spinner.hide()
 
       },

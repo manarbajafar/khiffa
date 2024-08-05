@@ -33,8 +33,11 @@ export class TicketsComponent implements OnInit {
   loadDriverTicket(): void {
     this.impApiService.get(DRIVERPROFILE.tickets).subscribe(
       (response) => {
+
+        this.tickets = response[0];
+        console.log('this.tickets', this.tickets)
      if (response && response.data) {  //to check the null
-      this.tickets = response.data;
+
       console.log("Tickets loaded:", this.tickets);
         } else {
           console.warn("Unexpected API response structure:", response);

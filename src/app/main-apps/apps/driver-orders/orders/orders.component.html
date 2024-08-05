@@ -1,4 +1,4 @@
-<!-- Filter Bar -->
+
 <div class="filter-bar direction-ltr">
   <div class="dropdown">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="priceDropdown" data-bs-toggle="dropdown"
@@ -43,25 +43,26 @@
           <img src="assets/images/danublogo.png" class="card-img-top mx-auto d-block" alt="Danube">
         </div>
         <div class="card-body text-center">
-          <h5 class="card-title">{{ order.company.company_name }}</h5>
-          <p class="card-text"><strong>سعر التوصيل:</strong> {{ order.delivery_cost }}</p>
-          <p class="card-text"><strong>المسافة بالكيلو:</strong> {{ order.distance }}</p>
-          <p class="card-text"><strong>الموقع:</strong> {{ order.address.district }}</p>
+          <h5 class="card-title">{{ order?.company.company_name }}</h5>
+          <p class="card-text"><strong>سعر التوصيل:</strong> {{ order?.delivery_cost }}</p>
+          <p class="card-text"><strong>المسافة بالكيلو:</strong> {{ order?.distance }}</p>
+          <p class="card-text"><strong>الموقع:</strong> {{ order?.address.district }}</p>
           <div class="d-flex justify-content-between">
-            <a (click)="viewOrderDetail(order.id)" class="btn btn-primary">قبول التوصيل</a>
-            <a (click)="viewLocation(order.location_x, order.location_y)" class="btn btn-outline-primary">عرض الموقع</a>
+            <a (click)="viewOrderDetail(order?.id)" class="btn btn-primary">قبول التوصيل</a>
+            <a (click)="viewLocation(order?.location_x, order?.location_y)" class="btn btn-outline-primary">عرض الموقع</a>
 
 
           </div>
         </div>
-
-
-
-
       </div>
-
     </div>
   </div>
+
+  <div *ngIf="AllOrder.length == 0" class="align-items-center text-center mt-5">
+      <p>لا توجد بيانات حاليًا</p>
+  </div>
+
+
 </div>
 
 
@@ -72,18 +73,20 @@
   </div>
   <div class="modal-body">
     الرجاء إختيار منطقتك
-    <form>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="region" id="makkah" [(ngModel)]="selectedRegion" value="Makkah" required>
-        <label class="form-check-label" for="makkah">مكة</label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" name="region" id="jeddah" [(ngModel)]="selectedRegion" value="Jeddah" required>
-        <label class="form-check-label" for="jeddah">جدة</label>
-      </div>
-    </form>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="region" id="makkah" (change)="selectCity('makkah')" value="makkah"
+        required>
+      <label class="form-check-label" for="makkah">مكة</label>
+    </div>
+    <div class="form-check">
+      <input class="form-check-input" type="radio" name="region" id="jeddah" (change)="selectCity('jeddah')" value="jeddah"
+        required>
+      <label class="form-check-label" for="jeddah">جدة</label>
+    </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">إلغاء</button><button type="button" class="btn btn-primary" [disabled]="selectedRegion" (click)="updateCityAndLoadOrders(modal)">موافق</button>
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">إلغاء</button>
+    <button type="button" class="btn btn-primary" [disabled]="!selectedRegion"
+      (click)="updateCityAndLoadOrders()">موافق</button>
   </div>
 </ng-template>

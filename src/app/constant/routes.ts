@@ -40,6 +40,7 @@ export const DRIVERPROFILE ={
 export const ADMIN_DASHBOARD = {
   getAllOrders: BASEURL + 'orders',
   getDashboardData: BASEURL + 'dashboard?',
+   getOldestOrderDate: BASEURL + 'minDate',
 }
 
 export const ADMIN_MANAGING_DELIVERYMANS = {
@@ -56,6 +57,7 @@ export const ADMIN_WALLET = {
   sendTransactions: BASEURL + 'sendTransactions',
   showTransactions: BASEURL + 'showTransactions',
   getLatestTransaction : BASEURL + 'paginatingLsTrsn',
+  walletAmount: BASEURL + 'wallet',
 }
 
 
@@ -63,6 +65,6 @@ export const ADMIN_TECHNICAL_SUPPORT = {
   countTicketStatuses : BASEURL + 'ticketStatuses',
   countAllTicket : BASEURL + 'countAllTicket',
   showAllTickets: BASEURL + 'paginatingTicket',
-  filterTickets: BASEURL + 'showTicket',
+  showTicket: BASEURL + 'showTicket?id=',
   changeTicketStatus: BASEURL + 'changeTicketStatus',
 }

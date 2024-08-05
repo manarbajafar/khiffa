@@ -30,6 +30,7 @@ export class WalletViewComponent implements OnInit {
   ];
 
 
+  walletAmount=0;
   current_page: number = 1;
   items_per_page: number = 7;
 
@@ -39,6 +40,19 @@ export class WalletViewComponent implements OnInit {
     this.showTransactionsRequests();
     this.getLatestTransaction();
     this.updateTransactions();
+    this.getWalletAmount();
+  }
+
+  getWalletAmount(): void {
+    this.spinner.show();
+    this.impApiService.get(ADMIN_WALLET.walletAmount).subscribe(data=>{
+      this.walletAmount=data.wallet[0].amount;
+      this.spinner.hide();
+    },
+    error => {
+      this.spinner.hide()
+      console.error('Error:', error);
+    });
   }
 
   getLatestTransaction(): void {

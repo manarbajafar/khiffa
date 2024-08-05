@@ -4,10 +4,10 @@
   </div>
   <form class="mx-auto mb-3" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
     <h4 class="text-center mb-2">إنشاء حساب</h4>
-
     <div *ngIf="errorMessage" id="error-message" class="error-message mt-3">{{ errorMessage }}</div>
-
-    <div class="mb-3" style="width: 670.48px; text-align: right; color: var(--gray-color); font-size: 12px; line-height: 20px; word-wrap: break-word">الرجاء إرفاق جميع المتطلبات مع أحدث نسخة</div>
+    <div class="mb-3" style="width: 670.48px; text-align: right; color: var(--gray-color); font-size: 12px; line-height: 20px; word-wrap: break-word">
+      الرجاء إرفاق جميع المتطلبات مع أحدث نسخة
+    </div>
     <div class="row g-3">
       <div class="col-md-6 mb-3">
         <label for="inputname" class="form-label">الاسم الثلاثي</label>
@@ -50,13 +50,34 @@
         <div *ngIf="signupForm.get('password')?.errors?.['pattern']">كلمة المرور يجب أن تكون على الأقل 8 خانات مكونة من أرقام وحروف صغيرة وكبيرة وحروف خاصة</div>
       </div>
     </div>
-
     <div class="mb-3">
       <label for="inputPassword" class="form-label">تأكيد كلمة المرور</label>
       <input type="password" formControlName="password_confirmation" class="form-control" id="inputpassword_confirmation" placeholder="35k#Lj223u">
       <div *ngIf="signupForm.get('password_confirmation')?.touched && signupForm.get('password_confirmation')?.invalid" class="validation-error">
         <div *ngIf="signupForm.get('password_confirmation')?.errors?.['required']">تأكيد كلمة المرور مطلوب</div>
         <div *ngIf="signupForm.get('password').valid && signupForm.get('password_confirmation').dirty && signupForm.get('password_confirmation')?.errors?.['confirmPasswordValidator']">كلمة المرور غير متطابقة</div>
+      </div>
+    </div>
+    <div class="mb-3" *ngFor="let field of fields">
+      <label [for]="field.id" class="form-label">{{ field.label }}</label>
+      <div id="file-drop-area" (drop)="onFileDrop($event, field.name)" (dragover)="onDragOver($event)">
+        <div class="icon"><i class='bx bx-upload'></i></div>
+        <span class="drop-text">أرفق ملف أو أسحب ملف</span>
+        <input type="file" [id]="field.id" (change)="onFileSelect($event, field.name)" hidden>
+        <div class="file-info">
+          <button type="button" class="btn-upload" (click)="triggerFileInput(field.id)">
+            رفع ملف
+          </button>
+          <div *ngIf="fileNames[field.name]" class="file-name">
+            {{ fileNames[field.name] }}
+          </div>
+        </div>
+        <div *ngIf="signupForm.get(field.name)?.errors?.required && signupForm.get(field.name)?.touched" class="text-danger">
+          هذا الحقل مطلوب.
+        </div>
+        <div *ngIf="signupForm.get(field.name)?.errors?.invalidFile && signupForm.get(field.name)?.touched" class="text-danger">
+          الملف غير صالح. يرجى تحميل ملف بصيغة JPEG, PNG, أو PDF وألا يتجاوز حجمه 5MB.
+        </div>
       </div>
     </div>
 

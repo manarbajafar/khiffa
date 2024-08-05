@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ADMIN_TECHNICAL_SUPPORT } from 'src/app/constant/routes';
 import { ImpApiService } from 'src/app/services/imp-api.service';
@@ -11,28 +11,39 @@ import { ImpApiService } from 'src/app/services/imp-api.service';
   styleUrls: ['./ticket-info.component.scss']
 })
 export class TicketInfoComponent implements OnInit {
-  title = 'العنوان';
-  subtitle = 'مشكلة بخصوص تحويل المستحقات';
-  date = new Date();
-  time = new Date();
-  description = 'XXXXXXXxxxxxxxxxxxxxxxxxxxXXxxxxxxxxxxxxxxxxxxxxxxxXXXXXXXXxxxxxxxxxxxxxxxxxxxxxXXXXXXXXXXXXX';
-  ticketNumber = '123456';
-  name = 'سعد محمد';
+
   status = 'مفتوحة';
   statusOptions = ['تحت الإجراء', 'مغلقة'];
   selectedStatus = this.status;
   comment = '';
 
-  constructor(private impApiService: ImpApiService, private spinner: NgxSpinnerService, private router: Router) { }
+  ticketDetails;
+
+  id = this.route.snapshot.paramMap.get('id');
+
+  constructor(private impApiService: ImpApiService, private spinner: NgxSpinnerService, private router: Router, private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
+    this.showTicketDetails(this.id);
+  }
+
+  showTicketDetails(id): void {
+    this.spinner.show();
+    this.impApiService.get(ADMIN_TECHNICAL_SUPPORT.showTicket + id).subscribe(data => {
+      this.ticketDetails=data[0];
+      this.spinner.hide();
+    }, error => {
+      this.spinner.hide();
+      console.error('Error:', error);
+    });
   }
 
   onSubmit(form: NgForm): void {
     if (form.valid) {
       console.log('Form Submitted!', form.value);
       this.spinner.show();
-      this.impApiService.post(ADMIN_TECHNICAL_SUPPORT.changeTicketStatus, form.value).subscribe(response => {
+      this.impApiService.post(ADMIN_TECHNICAL_SUPPORT.changeTicketStatus, form.value).subscribe(data => {
+
         this.spinner.hide();
         this.router.navigate(['/technical-support-view']);
 

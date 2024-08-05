@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import moment from 'moment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ADMIN_TECHNICAL_SUPPORT } from 'src/app/constant/routes';
@@ -29,7 +30,7 @@ export class TechnicalSupportViewComponent implements OnInit {
   items = ['مفتوحة', 'قيد الانتظار', 'تحت المعالجة', 'مغلقة', 'الكل'];
   filteredStatus: string | null = null;
 
-  constructor(private impApiService: ImpApiService, private spinner: NgxSpinnerService) { }
+  constructor(private impApiService: ImpApiService, private spinner: NgxSpinnerService, private router: Router) { }
 
   ngOnInit(): void {
     this.countTicketStatuses();
@@ -107,15 +108,13 @@ export class TechnicalSupportViewComponent implements OnInit {
     }
   }
 
-  filterTickets(): void {
-    this.spinner.show();
-    this.impApiService.get(ADMIN_TECHNICAL_SUPPORT.filterTickets).subscribe(data => {
-      this.spinner.hide();
-    }, error => {
-      this.spinner.hide();
-      console.error('Error:', error);
-    });
+
+  viewTicketDetails(id: number): void {
+    console.log(id)
+    this.router.navigate(['apps/admin-technical-support/ticket-info/', id]);
   }
+
+
 
 
   toggleDropdown() {

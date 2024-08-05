@@ -26,7 +26,7 @@ export class DeliverymanRequestsComponent implements OnInit {
 
   getUsersRequests(): void {
     this.spinner.show();
-    this.impApiService.get(`${ADMIN_MANAGING_DELIVERYMANS.getAccountRequests}?page=${2}&perPage=${2}`).subscribe(data=>{
+    this.impApiService.get(`${ADMIN_MANAGING_DELIVERYMANS.getAccountRequests}?page=${2}&perPage=${10}`).subscribe(data=>{
       this.allRequests=data.data[0].user;
 
       this.displayRequests = this.allRequests.map((user: any) => {

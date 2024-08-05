@@ -39,6 +39,11 @@ export class DashboardViewComponent implements OnInit {
 
   dateRangeForm: FormGroup;
 
+  //for datapicker
+  maxDate = new Date(); //today date
+  minDate = new Date();
+
+
 
   constructor(private impApiService: ImpApiService, private formBuilder: FormBuilder, private spinner: NgxSpinnerService) {
 
@@ -70,6 +75,10 @@ export class DashboardViewComponent implements OnInit {
 
     //call api with intial dates
     this.getDashboardData(initialStart, initialEnd);
+
+
+    //assign min date to datepicker
+    this.getOldestOrderDate();
   }
 
   getDashboardData(start: string, end: string): void {
@@ -356,6 +365,18 @@ export class DashboardViewComponent implements OnInit {
     option3 && myChart3.setOption(option3);
   }
 
+
+  getOldestOrderDate(){
+    this.spinner.show();
+    this.impApiService.get(ADMIN_DASHBOARD.getOldestOrderDate).subscribe(data=>{
+      this.minDate=data; // when i wrote this, there is no orders in db
+      this.spinner.hide();
+    },
+    error => {
+      this.spinner.hide()
+      console.error('Error get users:', error);
+    });
+  }
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;

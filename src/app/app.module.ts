@@ -14,6 +14,10 @@ import { TokenInterceptorInterceptor } from './services/token-interceptor.interc
 import { DatePipe } from '@angular/common';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {MatTableModule} from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 
 
@@ -33,7 +37,10 @@ import {NgxPaginationModule} from 'ngx-pagination';
     BrowserAnimationsModule,
     HttpClientModule,
     NgxSpinnerModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
 ],
   providers:
   [

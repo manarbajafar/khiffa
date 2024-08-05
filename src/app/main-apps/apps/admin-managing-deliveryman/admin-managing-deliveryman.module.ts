@@ -11,7 +11,9 @@ import { RouterModule } from '@angular/router';
 import { AllDeliverymanRequestsComponent } from './all-deliveryman-requests/all-deliveryman-requests.component';
 import { RequestDetailsComponent } from './request-details/request-details.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import {MatTableModule} from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,9 @@ import { HttpClientModule } from '@angular/common/http';
     SharedComponentsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ]
 })
 export class AdminManagingDeliverymanModule { }

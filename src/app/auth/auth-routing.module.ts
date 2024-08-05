@@ -2,7 +2,6 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { AttachFileComponent } from './attach-file/attach-file.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { OtpCodeComponent } from './otp-code/otp-code.component';
@@ -13,7 +12,6 @@ import { CheckTokenGuard } from '../guard/check-token.guard';
 
 const routes: Routes = [
 
-  { path: 'attach-file', component : AttachFileComponent , canActivate:[CheckTokenGuard]},
   { path: 'create-account', component : CreateAccountComponent , canActivate:[CheckTokenGuard]},
   { path: 'login', component : LoginComponent , canActivate:[CheckTokenGuard] },
   { path: 'not-found', component : NotFoundComponent },

@@ -68,9 +68,9 @@
           <span class="badge" [ngClass]="row.statusClass">{{ row.status }}</span>
         </td>
         <td>
-          <button type="button" class="btn btn-link btn-sm btn-rounded" routerLink="../ticket-info">
+          <a type="button" class="btn btn-link btn-sm btn-rounded" (click)="viewTicketDetails(row.id)">
             {{ row.status === 'قيد الانتظار' ? 'فتح' : 'عرض' }}
-          </button>
+          </a>
         </td>
       </tr>
     </tbody>

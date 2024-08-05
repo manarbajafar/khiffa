@@ -5,7 +5,7 @@ import { TicketInfoComponent } from './ticket-info/ticket-info.component';
 
 const routes: Routes = [
   { path:'technical-support-view' , component:TechnicalSupportViewComponent},
-  { path:'ticket-info' , component:TicketInfoComponent},
+  { path:'ticket-info/:id' , component:TicketInfoComponent},
 ];
 
 @NgModule({

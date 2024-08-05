@@ -22,23 +22,23 @@ export class DeliverymanListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getUsers();
+    // this.getUsers();
   }
 
-  getUsers(): void {
-  this.spinner.show();
-  this.impApiService.get(`${ADMIN_MANAGING_DELIVERYMANS.getDeliverymanList}?page=${1}&perPage=${8}`).subscribe(data=>{
-    this.users=data.data;
-    this.spinner.hide();
-    console.log('this.users', this.users)
-    this.updateDisplayUsers();
-  },
-  error => {
-    this.spinner.hide()
-    console.error('Error get users:', error);
-  });
+//   getUsers(): void {
+//   this.spinner.show();
+//   this.impApiService.get(`${ADMIN_MANAGING_DELIVERYMANS.getDeliverymanList}?page=${1}&perPage=${8}`).subscribe(data=>{
+//     this.users=data.data;
+//     this.spinner.hide();
+//     console.log('this.users', this.users)
+//     this.updateDisplayUsers();
+//   },
+//   error => {
+//     this.spinner.hide()
+//     console.error('Error get users:', error);
+//   });
 
-}
+// }
 
 
 

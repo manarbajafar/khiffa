@@ -1,88 +1,55 @@
-<!--
-<div class="container mt-3 direction-ltr" >
-  <div class="row justify-content-between align-items-center">
-    <div class="col-md-6 text-center">
-      <p class="request-info">يمكن طلب تحويل المبلغ عندما يكون فوق 200 ريال</p>
-      <button class="btn btn-primary request-button" (click)="requestTransaction()">طلب تحويل المبلغ</button>
-    </div>
-    <div class="col-md-6 text-center">
-      <div class="balance-card">
-        <img src="assets\images\driver wallet.png" alt="صيد مندوب خفّة" class="balance-card-image">
-        <div class="balance-text">ر.س. {{wallet[0].amount}}</div>
+
+
+    <div class="container mt-3 direction-ltr">
+      <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+          <p class="request-info">يمكن طلب تحويل المبلغ عندما يكون فوق 200 ريال</p>
+          <div class="balance-card">
+            <img src="assets\images\driver wallet.png" alt="صيد مندوب خفّة" class="balance-card-image">
+            <div class="balance-text">{{ wallet[0].amount }} ر.س.</div>
+          </div>
+          <button class="btn btn-primary request-button mt-3"
+                  [class.disabled]="!canRequestTransaction"
+                  [disabled]="!canRequestTransaction"
+                  (click)="requestTransaction()">
+            طلب تحويل المبلغ
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-3">
-    <div class="col-12"> -->
-      <!-- <table class="table table-hover text-end direction-ltr">
-        <thead>
-          <tr>
-            <th scope="col">المبلغ</th>
-            <th scope="col">مزود الخدمة</th>
-            <th scope="col">الشركة</th>
-            <th scope="col">التاريخ</th>
-            <th scope="col">معرّف الطلب</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let transaction of transactions_fake">
-            <td>{{ transaction.amount }} ر.س.</td>
-            <td>{{ transaction.company }}</td>
-            <td>{{ transaction.provider }}</td>
-            <td>{{ transaction.date }} {{ transaction.time }}</td>
-            <td>{{ transaction.id }}</td>
-          </tr>
-          <tr *ngIf="transactions_fake.length == 0">
-            <td colspan="5" class="text-center mt-2">
-              <p>لا توجد بيانات حاليًا</p>
-            </td>
-          </tr>
-        </tbody>
-      </table> -->
-    <!-- </div>
-  </div> -->
 
 
 
 
+<br>
 
 
+  <!-- <input type="text" matInput (keyup)="applyFilter($event)" placeholder="بحث"> -->
 
-  <div class="container  " style="display: flex;flex-direction: column;">
-    <input type="text" class="form-control bg-white" placeholder="بحث" aria-label="Username"
-      (keyup)="applyFilter(applyFilterInput)" aria-describedby="basic-addon1" [(ngModel)]="applyFilterInput">
-    <br>
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 full-width">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>معرّف الطلب</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.id }}</td>
+    </ng-container>
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>التاريخ</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.date }}</td>
+    </ng-container>
+    <ng-container matColumnDef="company">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>الشركة</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.company }}</td>
+    </ng-container>
+    <ng-container matColumnDef="provider">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>مزود الخدمة</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.provider }}</td>
+    </ng-container>
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>المبلغ</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.amount }} ر.س.</td>
+    </ng-container>
 
-    <div class="row">
-      <!-- <ng-select [items]="cars" bindLabel="name" bindValue="id" [(ngModel)]="selectedCar">
-      </ng-select> -->
-    </div>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 
-    <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8">
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>id</th>
-        <td mat-cell *matCellDef="let emp">{{ emp.id }}</td>
-      </ng-container>
-      <ng-container matColumnDef="first_name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>first_name</th>
-        <td mat-cell *matCellDef="let emp">{{ emp.first_name }}</td>
-      </ng-container>
-      <ng-container matColumnDef="last_name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>last_name</th>
-        <td mat-cell *matCellDef="let emp">{{ emp.last_name }}</td>
-      </ng-container>
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>email</th>
-        <td mat-cell *matCellDef="let emp">{{ emp.email }}</td>
-      </ng-container>
-      <ng-container matColumnDef="avatar">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>avatar</th>
-        <td mat-cell *matCellDef="let emp">{{ emp.avatar }}</td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let emprow; columns: displayedColumns"></tr>
-    </table>
-    <mat-paginator (page)="changePage($event)" [length]="totalData" [pageSizeOptions]="pageSizes"
-      showFirstLastButtons></mat-paginator>
-  </div>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

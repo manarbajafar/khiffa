@@ -1,17 +1,17 @@
-.request-info {
-  color: #170F49;
-  text-align: center;
-}
+// .request-info {
+//   color: #170F49;
+//   text-align: center;
+// }
 
-.request-button {
-  background-color: rgba(160, 21, 62, 0.5);
-  border-radius: 8px;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  display: block;
-  margin: 0 auto;
-}
+// .request-button {
+//   background-color: rgba(160, 21, 62, 0.5);
+//   border-radius: 8px;
+//   color: white;
+//   border: none;
+//   padding: 10px 20px;
+//   display: block;
+//   margin: 0 auto;
+// }
 
 .balance-card {
   position: relative;
@@ -42,14 +42,93 @@
   font-size: 16px;
 }
 
-.table th {
-  color: #646464;
+
+
+
+
+
+
+
+.full-width {
+  width: 100%; /* Ensures the table is full width */
 }
 
-.table td {
-  color: black;
+.table-responsive {
+  margin: auto; /* Center the table horizontally */
 }
-.direction-ltr {
-  direction: ltr;
-  unicode-bidi: embed; /* This ensures that the direction is strictly applied */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.container {
+  width: 100%; /* Adjust width as needed */
+  padding: 20px; /* Optional padding for visual spacing */
 }
+
+.request-button {
+  background-color: rgba(160, 21, 62, 0.5); /* Adjust color as needed */
+  border-radius: 8px;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  display: inline-block; /* Align button inline with text */
+  margin: 0; /* Adjust margin to control spacing */
+}
+
+.balance-card {
+  display: inline-block;
+  position: relative;
+}
+
+.balance-card-image {
+  width: 100%;
+  height: auto; /* Adjust based on your design */
+}
+
+
+
+
+ .align-items-center {
+  align-items: center;
+ }
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

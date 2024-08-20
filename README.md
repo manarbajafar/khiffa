@@ -1,4 +1,20 @@
 # Khiffa
+platform that provides delivery services to ordering companies through its integration with their own platforms.
+
+# Credits
+This project was developed by front-end developers:
+1. Manar Bajafar 
+2. Sara Kamal
+
+The API is developed by back-end developers.
+1. Renad Alsaedi
+2. Aseel Kaeeb
+
+As a requirement for training at "First City" company.
+
+Enjoy! hopefully this project will help you to make more creative projects :)
+
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.0.
 
